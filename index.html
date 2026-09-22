@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Axiom 应用数学社</title>
-<meta name="description" content="Axiom 应用数学社：从现实里提炼规则，用数学回应真实世界的难题。Axiom Applied Mathematics Club.">
+<meta name="description" content="Axiom 应用数学社：把现实问题写成可计算的形式，再用数学方法求解并检验。Axiom Applied Mathematics Club.">
 <meta name="theme-color" content="#000000">
 <meta property="og:title" content="Axiom 应用数学社">
-<meta property="og:description" content="公理，一切推演开始的地方。Every deduction begins with an axiom.">
+<meta property="og:description" content="公理是推演的起点。An axiom is where deduction begins.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -65,11 +65,11 @@
   <canvas aria-hidden="true"></canvas>
   <div class="wrap hero-copy">
     <h1 class="wordmark" lang="en" data-in style="--i:0">Axiom</h1>
-    <p class="tagline" data-in style="--i:1"><span data-l="zh">公理，一切推演开始的地方。</span><span data-l="en" lang="en">Every deduction begins with an axiom.</span></p>
-    <p class="lead" data-in style="--i:2"><span data-l="zh">Axiom 应用数学社现有 45 名成员。我们从现实里提炼规则，用数学回应真实世界的难题。</span><span data-l="en" lang="en">Axiom Applied Mathematics Club has 45 members. We draw rules out of the real world and answer its hard problems with mathematics.</span></p>
+    <p class="tagline" data-in style="--i:1"><span data-l="zh">公理是推演的起点。</span><span data-l="en" lang="en">An axiom is where deduction begins.</span></p>
+    <p class="lead" data-in style="--i:2"><span data-l="zh">Axiom 应用数学社现有 45 名成员。我们把现实问题写成可以计算的形式，用数学方法求解，再把结论放回现实里检验。</span><span data-l="en" lang="en">Axiom Applied Mathematics Club has 45 members. We put real problems into a form that can be computed, solve them with mathematics, and take the conclusions back to reality for testing.</span></p>
     <div class="hero-actions" data-in style="--i:3">
       <a class="btn btn-light" href="#join"><span data-l="zh">加入我们</span><span data-l="en" lang="en">Join us</span></a>
-      <a class="btn btn-line" href="#axiom"><span data-l="zh">看看我们在做什么</span><span data-l="en" lang="en">See what we do</span></a>
+      <a class="btn btn-line" href="#axiom"><span data-l="zh">我们怎么做</span><span data-l="en" lang="en">How we work</span></a>
     </div>
   </div>
   <div class="wrap hero-foot" data-in style="--i:4">
@@ -79,9 +79,9 @@
         <span class="cm">d</span><span class="var">y</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span>(<span class="var">ρ</span> − <span class="var">z</span>) − <span class="var">y</span><br>
         <span class="cm">d</span><span class="var">z</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span><span class="var">y</span> − <span class="var">β</span><span class="var">z</span>
       </p>
-      <p class="eq-note"><span data-l="zh">洛伦茨吸引子，取 σ = 10，ρ = 28，β = 8/3。所有粒子几乎从同一个点出发，几秒后便各走各的路。</span><span data-l="en" lang="en">The Lorenz attractor with σ = 10, ρ = 28, β = 8/3. The particles start from almost the same point and, within seconds, each goes its own way.</span></p>
+      <p class="eq-note"><span data-l="zh">洛伦茨方程，取 σ = 10，ρ = 28，β = 8/3。此参数下轨道落在混沌吸引子上，最大李雅普诺夫指数约 0.9，初值的微小差别按指数放大。</span><span data-l="en" lang="en">The Lorenz equations with σ = 10, ρ = 28, β = 8/3. At these values the trajectories settle on a chaotic attractor whose largest Lyapunov exponent is about 0.9, so small differences in the initial state grow exponentially.</span></p>
     </div>
-    <button class="hint" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="off"><span data-l="zh">按住画面，给混沌一个锚点</span><span data-l="en" lang="en">Press and hold to anchor the chaos</span></span><span class="on"><span data-l="zh">再点一次，放开锚点</span><span data-l="en" lang="en">Click again to let go</span></span></button>
+    <button class="hint" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="off"><span data-l="zh">按住画面，粒子收拢成螺旋</span><span data-l="en" lang="en">Press and hold: the particles gather into a spiral</span></span><span class="on"><span data-l="zh">再点一次，恢复自由演化</span><span data-l="en" lang="en">Click again to resume free evolution</span></span></button>
   </div>
 </section>
 
@@ -90,8 +90,8 @@
     <div class="stick">
       <h2 class="h2"><span data-l="zh">建模，<br>从立公理开始。</span><span data-l="en" lang="en">Modeling begins with axioms.</span></h2>
       <p class="thm definition">
-        <span data-l="zh"><span class="thm-head">定义 <span class="cm">1</span>（公理）</span>无需证明，却撑起整套体系的前提。一切逻辑推演都从它出发。</span>
-        <span data-l="en" lang="en"><span class="thm-head">Definition <span class="cm">1</span> (Axiom).</span>A premise that needs no proof, yet holds up an entire system. Every chain of reasoning starts from one.</span>
+        <span data-l="zh"><span class="thm-head">定义 <span class="cm">1</span>（公理）</span>在一个系统内不加证明而接受的命题，其余结论都由它推出。</span>
+        <span data-l="en" lang="en"><span class="thm-head">Definition <span class="cm">1</span> (Axiom).</span>A proposition accepted without proof inside a system, from which the remaining results are derived.</span>
       </p>
       <figure class="emblem">
         <svg viewBox="-10 -20 84 84" aria-hidden="true">
@@ -99,22 +99,23 @@
           <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g>
           <circle cx="32" cy="10" r="4.4" fill="#6b5cff"/>
         </svg>
-        <figcaption><span data-l="zh">图 <span class="cm">1</span>　Axiom 的徽标：一个顶点，两条射线，一段角弧。顶点就是公理，一切从这里出发。</span><span data-l="en" lang="en">Figure <span class="cm">1</span>. The Axiom mark: one vertex, two rays, one arc. The vertex is the axiom, and everything starts there.</span></figcaption>
+        <figcaption><span data-l="zh">图 <span class="cm">1</span>　徽标的构造：两条射线自同一顶点引出，一段角弧截于其间，合为字母 A。顶点处的实心点代表公理。</span><span data-l="en" lang="en">Figure <span class="cm">1</span>. Construction of the mark: two rays from a common vertex, an arc cutting across them, together reading as the letter A. The filled point at the vertex stands for the axiom.</span></figcaption>
       </figure>
     </div>
     <div>
       <p class="thm proof-claim">
-        <span data-l="zh"><span class="thm-head">命题</span>一个杂乱的现实问题，可以从几条公理出发，推出一个能解释它的模型。</span>
-        <span data-l="en" lang="en"><span class="thm-head">Proposition.</span>Starting from a few axioms, a messy real-world problem can be turned into a model that explains it.</span>
+        <span data-l="zh"><span class="thm-head">命题</span>给定一组写明的前提，可以由它们推出一个模型；模型的结论，在前提成立的范围内有效。</span>
+        <span data-l="en" lang="en"><span class="thm-head">Proposition.</span>From a set of stated premises a model can be derived, and its conclusions hold as far as those premises do.</span>
       </p>
       <p class="proof-label"><span data-l="zh">证明</span><span data-l="en" lang="en"><i>Proof.</i></span></p>
       <ol class="proof">
-        <li><span class="ln">1</span><span><span data-l="zh">现实里的现象纷繁复杂，满是变量。</span><span data-l="en" lang="en">Real phenomena are tangled and full of variables.</span></span><span class="why"><span data-l="zh">观察</span><span data-l="en" lang="en">Observation</span></span></li>
-        <li><span class="ln">2</span><span><span data-l="zh">挑出真正起作用的条件，确立前提。这些前提，就是这个问题自己的公理。</span><span data-l="en" lang="en">Pick out the conditions that matter and fix the premises. These premises are the problem’s own axioms.</span></span><span class="why"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span></span></li>
-        <li><span class="ln">3</span><span><span data-l="zh">从公理出发，推导、演算、仿真。</span><span data-l="en" lang="en">From there, derive, calculate and simulate.</span></span><span class="why"><span data-l="zh">由 <span class="cm">2</span></span><span data-l="en" lang="en">By <span class="cm">2</span></span></span></li>
-        <li><span class="ln">4</span><span><span data-l="zh">杂乱的现象，变成一个严谨、可以解释的模型。</span><span data-l="en" lang="en">The mess becomes a rigorous model that can be explained.</span></span><span class="why"><span data-l="zh">由 <span class="cm">1</span>、<span class="cm">3</span></span><span data-l="en" lang="en">By <span class="cm">1</span>, <span class="cm">3</span></span></span></li>
+        <li><span class="ln">1</span><span><span data-l="zh">一个现实现象牵涉大量变量，彼此耦合。</span><span data-l="en" lang="en">A real phenomenon involves many variables, coupled to one another.</span></span><span class="why"><span data-l="zh">观察</span><span data-l="en" lang="en">Observation</span></span></li>
+        <li><span class="ln">2</span><span><span data-l="zh">选出起主要作用的量，写下假设，并说明忽略了什么。这些假设就是该问题的公理。</span><span data-l="en" lang="en">Select the quantities that dominate, write down the assumptions, and state what is being neglected. Those assumptions are the problem’s axioms.</span></span><span class="why"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span></span></li>
+        <li><span class="ln">3</span><span><span data-l="zh">在假设之下推导、计算或仿真，得到结论。</span><span data-l="en" lang="en">Under those assumptions, derive, compute or simulate, and obtain conclusions.</span></span><span class="why"><span data-l="zh">由 <span class="cm">2</span></span><span data-l="en" lang="en">By <span class="cm">2</span></span></span></li>
+        <li><span class="ln">4</span><span><span data-l="zh">结论回到原现象接受检验。对不上，就修改假设，再算一遍。</span><span data-l="en" lang="en">The conclusions go back to the phenomenon to be tested. Where they fail, the assumptions are revised and the work is repeated.</span></span><span class="why"><span data-l="zh">由 <span class="cm">1</span>、<span class="cm">3</span></span><span data-l="en" lang="en">By <span class="cm">1</span>, <span class="cm">3</span></span></span></li>
       </ol>
       <div class="qed" data-aria-zh="证毕" data-aria-en="End of proof" role="img" aria-label="证毕">∎</div>
+      <p class="note"><span data-l="zh"><span class="thm-head">注</span>以上是一段类比。数学证明只对它的形式系统负责；一个模型成立与否，最后由数据判定。</span><span data-l="en" lang="en"><span class="thm-head">Remark.</span>The argument above is an analogy. A mathematical proof answers only to its own formal system, while a model is settled by data.</span></p>
     </div>
   </div>
 
@@ -124,22 +125,22 @@
       <article class="axiom">
         <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">1</span></span>
         <h4><span data-l="zh">数学就在日常里。</span><span data-l="en" lang="en">Mathematics lives in everyday life.</span></h4>
-        <p><span data-l="zh">校园生活和社会生活里，有很多有意思的现象。换成数学的眼光，常常能看出别的东西。</span><span data-l="en" lang="en">Campus life and city life are full of curious things. Seen through mathematics, they often turn out to be something else.</span></p>
+        <p><span data-l="zh">校园与城市里的许多现象都可以量化：排队、作息、路线、消耗。写成变量和它们之间的关系，就能拿来分析。</span><span data-l="en" lang="en">Much of campus and city life can be quantified: queues, schedules, routes, consumption. Written as variables and the relations between them, they can be analysed.</span></p>
       </article>
       <article class="axiom">
         <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">2</span></span>
         <h4><span data-l="zh">先弄清问题，再动手算。</span><span data-l="en" lang="en">Understand the problem before you calculate.</span></h4>
-        <p><span data-l="zh">建模的第一步，是从现实里提取条件、确立前提。公式在这之后才出场。</span><span data-l="en" lang="en">Modeling begins by pulling conditions out of reality and fixing the premises. Formulas come later.</span></p>
+        <p><span data-l="zh">建模的第一步是界定问题：已知什么，求什么，假设什么。公式在这之后才出场。</span><span data-l="en" lang="en">Modeling starts by stating the problem: what is known, what is asked, what is assumed. Formulas come after that.</span></p>
       </article>
       <article class="axiom">
         <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">3</span></span>
         <h4><span data-l="zh">对数学好奇，就够了。</span><span data-l="en" lang="en">Curiosity is enough.</span></h4>
-        <p><span data-l="zh">基础好不好，关系没有想象中那么大。在这里，每个对数学感兴趣的人都能找到自己的位置。</span><span data-l="en" lang="en">Where you start matters less than you might think. Anyone who is interested in mathematics can find a place here.</span></p>
+        <p><span data-l="zh">入门需要的基础比多数人以为的少，欠缺的方法可以在训练里补上。对数学有兴趣的人，这里都有位置。</span><span data-l="en" lang="en">Less background is needed than most people assume, and the missing methods can be picked up in training. Anyone interested in mathematics has a place here.</span></p>
       </article>
       <article class="axiom">
         <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">4</span></span>
         <h4><span data-l="zh">有趣和有用，可以兼得。</span><span data-l="en" lang="en">Fun and useful can go together.</span></h4>
-        <p><span data-l="zh">我们尽量让数学保持好玩，也教实用、高效的方法，给以后的学习打个底子。</span><span data-l="en" lang="en">We keep mathematics playful and teach practical, efficient methods that will support your later studies.</span></p>
+        <p><span data-l="zh">我们讲的方法，都是比赛和研究里真在用的，也尽量讲清它们为什么成立。</span><span data-l="en" lang="en">The methods we teach are the ones actually used in contests and in research, and we try to show why they hold.</span></p>
       </article>
     </div>
   </div>
@@ -148,18 +149,18 @@
 <section class="section mist" id="noon">
   <div class="wrap">
     <h2 class="h2"><span data-l="zh">中午的两件事</span><span data-l="en" lang="en">Two things at noon</span></h2>
-    <p class="intro"><span data-l="zh">半小时的午休，足以讲清一个想法，也足以把一道真题拆开。</span><span data-l="en" lang="en">Half a lunch break is enough to land one idea, and enough to take a contest problem apart.</span></p>
+    <p class="intro"><span data-l="zh">午休的时间不长，足以讲清一个想法，也足以把一道真题拆开。</span><span data-l="en" lang="en">A lunch break is short, long enough to land one idea, or to take one contest problem apart.</span></p>
     <div class="noon">
       <article class="slot">
         <p class="when"><span data-l="zh">周三中午</span><span data-l="en" lang="en">Wednesday, noon</span></p>
         <h3><span class="cm" lang="en">Incubator</span></h3>
         <p class="topic"><span data-l="zh">主题暂定「透过生活发现数学之美」</span><span data-l="en" lang="en">Working title: “Finding the beauty of mathematics in daily life”</span></p>
-        <p><span data-l="zh">讲一些很基础、也很实用的小技巧：怎样用数学思维观察生活。社团以外的同学也可以来。</span><span data-l="en" lang="en">Simple, practical tricks for looking at daily life the way a mathematician would. Students outside the club are welcome too.</span></p>
+        <p><span data-l="zh">内容偏基础，讲怎样用数学的方式观察日常现象。社团以外的同学也可以参加。</span><span data-l="en" lang="en">An introductory session on looking at everyday phenomena mathematically. Students outside the club are welcome.</span></p>
       </article>
       <article class="slot">
         <p class="when"><span data-l="zh">中午 <span class="cm">1:00</span> 至 <span class="cm">1:30</span></span><span data-l="en" lang="en"><span class="cm">1:00</span> to <span class="cm">1:30</span> pm</span></p>
         <h3><span data-l="zh">系统学习</span><span data-l="en" lang="en">Structured study</span></h3>
-        <p><span data-l="zh">拿往年的 IMMC、HiMCM 真题和生活里的问题做材料，找出其中的数学知识，再往深里学。</span><span data-l="en" lang="en">We work through past IMMC and HiMCM problems and questions from daily life, find the mathematics inside them, and study it in depth.</span></p>
+        <p><span data-l="zh">以往年 IMMC、HiMCM 真题和日常问题为材料，先认出其中用到的数学，再把它系统地补齐。</span><span data-l="en" lang="en">Past IMMC and HiMCM problems, together with questions from daily life, serve as the material: identify the mathematics they rely on, then study it systematically.</span></p>
       </article>
     </div>
     <p class="note"><span data-l="zh">地点和具体安排，以社团通知为准。</span><span data-l="en" lang="en">Rooms and schedules follow club announcements.</span></p>
@@ -170,11 +171,11 @@
   <div class="wrap camp-head">
     <div>
       <h2 class="h2"><span data-l="zh">数学建模训练营</span><span data-l="en" lang="en">Modeling training camp</span></h2>
-      <p class="intro"><span data-l="zh">23 周，从读懂第一道题开始，一直走到正式比赛。每周一节 40 分钟的正课，外加一节 10 分钟的线上小课。</span><span data-l="en" lang="en">Twenty-three weeks, from reading a first problem to real competitions. Each week brings one 40-minute lesson and a 10-minute online session.</span></p>
+      <p class="intro"><span data-l="zh">23 周的课程，从读懂第一道题开始，到正式比赛结束。每周一节 40 分钟正课，另有一节 10 分钟的线上小课。</span><span data-l="en" lang="en">A twenty-three week course, from reading a first problem to the contests themselves. One 40-minute lesson a week, plus a 10-minute online session.</span></p>
     </div>
     <div>
-      <p class="muted"><span data-l="zh">所有人都可以参加训练、自由组队。平时的训练重在培养能力，不做单纯的淘汰。</span><span data-l="en" lang="en">Everyone can train and form their own teams. Everyday training is for building skills, and we don’t run it as an elimination.</span></p>
-      <p class="roles-label"><span data-l="zh">四个角色，每人主攻一到两样：</span><span data-l="en" lang="en">Four roles. Each member focuses on one or two:</span></p>
+      <p class="muted"><span data-l="zh">训练对所有成员开放，可以自由组队。日常训练以能力培养为目标，不以淘汰排序为目的。</span><span data-l="en" lang="en">Training is open to every member and teams form freely. The everyday sessions aim at building skills rather than ranking people out.</span></p>
+      <p class="roles-label"><span data-l="zh">四种分工，每人主攻一到两项：</span><span data-l="en" lang="en">Four roles; each member takes one or two:</span></p>
       <ul class="roles">
         <li><span data-l="zh">模型</span><span data-l="en" lang="en">Modeling</span></li>
         <li><span data-l="zh">代码</span><span data-l="en" lang="en">Code</span></li>
@@ -184,7 +185,7 @@
     </div>
   </div>
   <div class="wrap rail-bar">
-    <p class="muted rail-note"><span data-l="zh">作业和复习，在我们自己做的学习平台 nes modeling 上完成。</span><span data-l="en" lang="en">Homework and review happen on nes modeling, a learning platform we built ourselves.</span></p>
+    <p class="muted rail-note"><span data-l="zh">作业与复习在 nes modeling 上完成，这个学习平台是我们自己做的。</span><span data-l="en" lang="en">Homework and review are done on nes modeling, a learning platform we built ourselves.</span></p>
     <div class="rail-ctl">
       <button class="round-btn" type="button" data-rail="prev" data-aria-zh="上一个阶段" data-aria-en="Previous phase" aria-label="上一个阶段"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="round-btn" type="button" data-rail="next" data-aria-zh="下一个阶段" data-aria-en="Next phase" aria-label="下一个阶段"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -193,25 +194,25 @@
   <ol class="rail" tabindex="0" data-aria-zh="训练营的七个阶段" data-aria-en="Seven phases of the camp" aria-label="训练营的七个阶段">
     <li class="phase"><span class="idx">1</span><span class="weeks"><span data-l="zh">第 1 至 4 周</span><span data-l="en" lang="en">Weeks 1–4</span></span>
       <h3><span data-l="zh">入门与第一次模拟赛</span><span data-l="en" lang="en">Foundations and a first mock contest</span></h3>
-      <p><span data-l="zh">建模的完整流程，论文结构，评价类模型，一次按 IMMC 时长进行的五天模拟赛。</span><span data-l="en" lang="en">The full modeling workflow, paper structure, evaluation models, and a five-day mock contest on IMMC timing.</span></p></li>
+      <p><span data-l="zh">建模的完整流程，论文结构，评价类模型，以及一次按 IMMC 时长进行的五天模拟赛。</span><span data-l="en" lang="en">The full modeling workflow, the structure of a paper, evaluation models, and a five-day mock contest run on IMMC timing.</span></p></li>
     <li class="phase"><span class="idx">2</span><span class="weeks"><span data-l="zh">第 5 至 9 周</span><span data-l="en" lang="en">Weeks 5–9</span></span>
       <h3><span data-l="zh">代码、文献与论文工具</span><span data-l="en" lang="en">Code, literature and writing tools</span></h3>
       <p><span data-l="zh">Python 数据处理与可视化，文献检索，模型设计，LaTeX 与模型检验，再来一次 mini 模拟赛。</span><span data-l="en" lang="en">Python for data and plots, literature search, model design, LaTeX and model validation, then a mini mock contest.</span></p></li>
     <li class="phase"><span class="idx">3</span><span class="weeks"><span data-l="zh">第 10 至 12 周</span><span data-l="en" lang="en">Weeks 10–12</span></span>
       <h3>HiMCM</h3>
-      <p><span data-l="zh">正式比赛。讲师只提醒规则、时间和提交，不碰具体解法。</span><span data-l="en" lang="en">The real contest. Instructors only remind teams about rules, timing and submission, and stay out of the solutions.</span></p></li>
+      <p><span data-l="zh">正式比赛。讲师只说明规则、时间与提交要求，不参与解题。</span><span data-l="en" lang="en">The contest itself. Instructors cover rules, timing and submission requirements, and take no part in the solutions.</span></p></li>
     <li class="phase"><span class="idx">4</span><span class="weeks"><span data-l="zh">第 13 周</span><span data-l="en" lang="en">Week 13</span></span>
       <h3><span data-l="zh">IMMC 秋季赛</span><span data-l="en" lang="en">IMMC autumn round</span></h3>
-      <p><span data-l="zh">96 小时的高强度协作。</span><span data-l="en" lang="en">Ninety-six hours of intense teamwork.</span></p></li>
+      <p><span data-l="zh">连续 96 小时内完成建模、计算与论文。</span><span data-l="en" lang="en">Ninety-six continuous hours to model, compute and write the paper.</span></p></li>
     <li class="phase"><span class="idx">5</span><span class="weeks"><span data-l="zh">第 14 至 18 周</span><span data-l="en" lang="en">Weeks 14–18</span></span>
       <h3><span data-l="zh">冬季专项</span><span data-l="en" lang="en">Winter topics</span></h3>
       <p><span data-l="zh">预测与统计，优化，仿真与随机模型，文献驱动建模与图论。</span><span data-l="en" lang="en">Prediction and statistics, optimization, simulation and random models, literature-driven modeling and graph theory.</span></p></li>
     <li class="phase"><span class="idx">6</span><span class="weeks"><span data-l="zh">第 19 至 21 周</span><span data-l="en" lang="en">Weeks 19–21</span></span>
       <h3><span data-l="zh">往届题分析与定队</span><span data-l="en" lang="en">Past problems and final teams</span></h3>
-      <p><span data-l="zh">一起拆往届真题，确定代表队，赛前冲刺。</span><span data-l="en" lang="en">We take past problems apart together, settle the teams and get ready for the winter round.</span></p></li>
+      <p><span data-l="zh">逐题分析往届真题，确定代表队，赛前集中训练。</span><span data-l="en" lang="en">Past problems are analysed one by one, the teams are settled, and training concentrates before the round.</span></p></li>
     <li class="phase"><span class="idx">7</span><span class="weeks"><span data-l="zh">第 22 至 23 周</span><span data-l="en" lang="en">Weeks 22–23</span></span>
       <h3><span data-l="zh">IMMC 冬季赛</span><span data-l="en" lang="en">IMMC winter round</span></h3>
-      <p><span data-l="zh">正式比赛，赛后归档与复盘。</span><span data-l="en" lang="en">The contest itself, followed by archiving and a review.</span></p></li>
+      <p><span data-l="zh">正式比赛，赛后归档论文并复盘。</span><span data-l="en" lang="en">The contest itself, then the papers are archived and reviewed.</span></p></li>
   </ol>
   <div class="wrap"><p class="note"><span data-l="zh">比赛时间以官方公布为准。</span><span data-l="en" lang="en">Contest dates follow the official announcements.</span></p></div>
 </section>
@@ -323,8 +324,8 @@
 <section class="section join" id="join">
   <div class="wrap">
     <h2 class="h2"><span data-l="zh">加入 Axiom</span><span data-l="en" lang="en">Join Axiom</span></h2>
-    <p class="intro"><span data-l="zh">我们现在有 45 名成员，也是 IMMC Finalist 奖得主。数学基础好不好，关系不大；对数学好奇，就够了。</span><span data-l="en" lang="en">We have 45 members and an IMMC Finalist award. How good you are at math matters less than whether you are curious about it.</span></p>
-    <p class="intro muted"><span data-l="zh">想先看看？周三中午的 Incubator，社团以外的同学也可以来。招新和报名方式，请留意校内通知。</span><span data-l="en" lang="en">Want a look first? Drop by the Incubator at Wednesday noon; students outside the club are welcome. Watch school announcements for how to join.</span></p>
+    <p class="intro"><span data-l="zh">社团现有 45 名成员，获得过 IMMC Finalist 奖。入门需要的基础不多，对数学有兴趣就可以来。</span><span data-l="en" lang="en">The club has 45 members and holds an IMMC Finalist award. Little background is needed; an interest in mathematics is enough.</span></p>
+    <p class="intro muted"><span data-l="zh">想先了解，可以来周三中午的 Incubator，社团以外的同学也可以参加。招新与报名方式，请留意校内通知。</span><span data-l="en" lang="en">To see it first, come to the Incubator at Wednesday noon; students outside the club are welcome. Watch school announcements for recruitment and sign-up.</span></p>
     <div class="actions"><a class="btn btn-ink" href="#noon"><span data-l="zh">看看午间活动</span><span data-l="en" lang="en">See the noon sessions</span></a></div>
     <p class="motto"><span data-l="zh">以公理为序，以逻辑为刃，去找事物背后藏着的秩序。</span><span data-l="en" lang="en">With axioms for order and logic for a blade, we go looking for the order hidden behind things.</span></p>
     <span class="qed-mark" aria-hidden="true">∎</span>
