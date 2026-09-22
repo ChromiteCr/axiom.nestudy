@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh" data-title-zh="用 AI 筛选抗 HBsAg 抗体 · Axiom 应用数学社" data-title-en="Screening anti-HBsAg antibodies with AI · Axiom Applied Mathematics Club">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>用 AI 筛选抗 HBsAg 抗体 · Axiom 应用数学社</title>
+<meta name="description" content="把抗体序列映到一个分数，再排序取前几名：高维离散空间上的回归、迁移学习与贝叶斯优化。">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="用 AI 筛选抗 HBsAg 抗体 · Axiom 应用数学社">
+<meta property="og:description" content="把抗体序列映到一个分数，再排序取前几名：高维离散空间上的回归、迁移学习与贝叶斯优化。">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../../assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, saved = null;
+    d.classList.add("js");
+    try { saved = localStorage.getItem("axiom-lang"); } catch (e) {}
+    var lang = saved === "zh" || saved === "en" ? saved : ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+    d.setAttribute("data-lang", lang);
+    d.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.title = d.getAttribute("data-title-" + lang);
+  })();
+</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+<script src="../../assets/js/figures.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en" lang="en">Skip to content</span></a>
+
+<header class="nav" data-tone="light">
+  <div class="wrap">
+    <a class="brand" href="../../">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <b lang="en">Axiom</b>
+      <span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Math Club</span>
+    </a>
+    <nav data-aria-zh="页面导航" data-aria-en="Page navigation" aria-label="页面导航">
+      <ul class="nav-links">
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-tools">
+      <button class="lang-btn" type="button" data-lang-toggle data-aria-zh="切换到英文" data-aria-en="Switch to Chinese" aria-label="切换到英文"><span class="pill"><span data-l="zh" lang="en">EN</span><span data-l="en">中文</span></span></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-aria-zh="菜单" data-aria-en="Menu" aria-label="菜单"><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ul>
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+  </ul>
+</div>
+
+<main id="main" class="page">
+  <article class="article">
+    <a class="back" href="../../#research"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 8H4M7.5 4.5 4 8l3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a>
+
+    <p class="eyebrow"><span data-l="zh">研究 <span class="cm">02</span> · 表示学习与贝叶斯优化</span><span data-l="en" lang="en">Research <span class="cm">02</span> · Representation learning</span></p>
+    <h1 class="h1"><span data-l="zh">用 AI 筛选抗 HBsAg 抗体</span><span data-l="en" lang="en">Screening anti-HBsAg antibodies with AI</span></h1>
+    <p class="dek"><span data-l="zh">抗体库里有上亿条序列，能送去做实验的只有几十条。把问题写成数学，它是高维空间里的函数逼近加排序。</span><span data-l="en" lang="en">An antibody library holds hundreds of millions of sequences; only a few dozen can be tested at the bench. Written as mathematics, the task is function approximation in a high-dimensional space, followed by ranking.</span></p>
+    <ul class="tags">
+      <li><span data-l="zh">序列建模</span><span data-l="en" lang="en">Sequence modeling</span></li>
+      <li><span data-l="zh">迁移学习</span><span data-l="en" lang="en">Transfer learning</span></li>
+      <li><span data-l="zh">贝叶斯优化</span><span data-l="en" lang="en">Bayesian optimization</span></li>
+      <li><span data-l="zh">不确定性量化</span><span data-l="en" lang="en">Uncertainty quantification</span></li>
+    </ul>
+
+    <h2><span data-l="zh">问题的数学形式</span><span data-l="en" lang="en">The problem in mathematical form</span></h2>
+    <p><span data-l="zh">一条抗体序列是一串离散符号，每个位置从 20 种氨基酸里取一个。</span><span data-l="en" lang="en">An antibody sequence is a string of discrete symbols, each position drawn from the 20 amino acids.</span></p>
+    <div class="eq"><span class="var">x</span> = (<span class="var">x</span><sub>1</sub>, <span class="var">x</span><sub>2</sub>, …, <span class="var">x</span><sub class="var">L</sub>),<span style="padding-left:1em"></span><span class="var">x</span><sub class="var">i</sub> ∈ <span class="var">A</span></div>
+    <p><span data-l="zh"><span class="var">A</span> 是 20 种氨基酸的字母表，<span class="var">L</span> 是序列长度。单链抗体（scFv）约 250 个氨基酸，纳米抗体（VHH）约 120 个。要找的是一个打分函数 <span class="var">f</span>，它给每条序列一个实数，分数越高，与 HBsAg 的结合亲和力越强。</span><span data-l="en" lang="en">Here <span class="var">A</span> is the alphabet of 20 amino acids and <span class="var">L</span> the length of the sequence: about 250 residues for an scFv, about 120 for a VHH. What we want is a scoring function <span class="var">f</span> that assigns each sequence a real number, higher meaning stronger binding affinity to HBsAg.</span></p>
+    <p><span data-l="zh">所谓「AI 筛选」，在数学上就是在一个巨大的离散序列空间上用 <span class="var">f</span> 排序，取前 <span class="var">k</span> 名。</span><span data-l="en" lang="en">"AI screening" then means ranking a very large discrete sequence space by <span class="var">f</span> and taking the top <span class="var">k</span>.</span></p>
+
+    <h2><span data-l="zh">从字母到向量</span><span data-l="en" lang="en">From letters to vectors</span></h2>
+    <p><span data-l="zh">模型无法直接处理字母，序列须先嵌入连续空间：<span class="var">φ</span> 把每条序列变成一个 <span class="var">d</span> 维实向量，<span class="var">d</span> 常取 256、768 或 1024。这一步由蛋白语言模型完成，ESM-2、AbLang2、AntiBERTy 都属于这类。它们内部是一层层注意力。</span><span data-l="en" lang="en">A model cannot read letters, so the sequence is embedded in a continuous space: <span class="var">φ</span> turns each sequence into a real vector of dimension <span class="var">d</span>, commonly 256, 768 or 1024. Protein language models do this step, among them ESM-2, AbLang2 and AntiBERTy. Inside, they are stacks of attention.</span></p>
+    <div class="eq">Attention(<span class="var">Q</span>, <span class="var">K</span>, <span class="var">V</span>) = softmax<span class="op">(</span><span class="frac"><span><span class="var">Q</span><span class="var">K</span><sup>⊤</sup></span><span>√<span class="rad"><span class="var">d</span><sub class="var">k</sub></span></span></span><span class="op">)</span><span class="var">V</span></div>
+    <p><span data-l="zh">注意力捕捉的是残基之间的长程依赖：哪些位置的氨基酸在空间上相互影响。序列上离得远，折叠之后可能贴在一起。</span><span data-l="en" lang="en">Attention captures long-range dependence between residues, which positions influence each other in space. Two residues far apart along the chain can end up touching once the protein folds.</span></p>
+
+    <h2><span data-l="zh">亲和力预测是一个回归</span><span data-l="en" lang="en">Affinity prediction is a regression</span></h2>
+    <p><span data-l="zh">有了嵌入，打分函数接在它后面，通常是一个小的多层感知机。</span><span data-l="en" lang="en">With the embedding in hand, the scoring function sits on top of it, usually a small multilayer perceptron.</span></p>
+    <div class="eq"><span class="var">f</span><sub class="var">θ</sub>(<span class="var">x</span>) = <span class="var">g</span><sub class="var">θ</sub>(<span class="var">φ</span>(<span class="var">x</span>))<span style="padding-left:1.6em"></span>min<sub class="var">θ</sub> <span class="op">Σ</span><sub class="var">i</sub> (<span class="var">f</span><sub class="var">θ</sub>(<span class="var">x</span><sub class="var">i</sub>) − <span class="var">y</span><sub class="var">i</sub>)<sup>2</sup></div>
+    <p><span data-l="zh">标签 <span class="var">y</span><sub class="var">i</sub> 是实验测得的亲和力，例如 −log <span class="var">K</span><sub class="var">d</sub>。到此为止都是标准的监督回归，困难在数据：带亲和力标签的 HBsAg 抗体很少，公共数据库里可能只有几十条。直接训练会过拟合。</span><span data-l="en" lang="en">The label <span class="var">y</span><sub class="var">i</sub> is a measured affinity, for instance −log <span class="var">K</span><sub class="var">d</sub>. So far this is standard supervised regression, and the difficulty is the data: labelled anti-HBsAg antibodies are few, perhaps a few dozen in public databases. Training on them directly overfits.</span></p>
+
+    <h2><span data-l="zh">标签稀缺时的做法</span><span data-l="en" lang="en">Working around scarce labels</span></h2>
+    <p><span data-l="zh">先在无标签序列上做自监督预训练。OAS 里有十亿量级的抗体序列，常用目标是掩码语言建模：随机遮住一些位置，让模型把它们猜回来。</span><span data-l="en" lang="en">Pretrain on unlabelled sequences first. OAS holds antibody sequences on the order of a billion, and the usual objective is masked language modeling: hide some positions at random and have the model guess them back.</span></p>
+    <div class="eq"><span class="var">L</span><sub>MLM</sub> = − <span class="op">Σ</span><sub><span class="var">i</span> ∈ mask</sub> log <span class="var">p</span><sub class="var">θ</sub>(<span class="var">x</span><sub class="var">i</sub> | <span class="var">x</span><sub>∖<span class="var">i</span></sub>)</div>
+    <p><span data-l="zh">这一步让 <span class="var">φ</span> 学到「什么样的抗体序列是合理的」。再拿少量带标签的数据微调，同时加一项正则，把参数拴在预训练值附近，以免少量样本把参数带偏。</span><span data-l="en" lang="en">This teaches <span class="var">φ</span> what a plausible antibody sequence looks like. Fine-tuning then uses the small labelled set, with a penalty tying the parameters near their pretrained values so that a few dozen examples cannot drag the model away.</span></p>
+    <div class="eq"><span class="var">θ</span>* = argmin<sub class="var">θ</sub> <span class="op">Σ</span><sub class="var">i</sub> (<span class="var">f</span><sub class="var">θ</sub>(<span class="var">x</span><sub class="var">i</sub>) − <span class="var">y</span><sub class="var">i</sub>)<sup>2</sup> + <span class="var">λ</span> ‖<span class="var">θ</span> − <span class="var">θ</span><sub>pre</sub>‖<sup>2</sup></div>
+    <p><span data-l="zh">另一条路是对比学习：让结合同一表位的抗体在嵌入空间里靠近，不结合的推远。学出来的空间可以直接用最近邻搜索找候选，不必先有回归模型。</span><span data-l="en" lang="en">A second route is contrastive learning: pull antibodies that bind the same epitope together in embedding space and push non-binders apart. The resulting space can be searched by nearest neighbours directly, with no regression model needed first.</span></p>
+
+    <h2><span data-l="zh">从打分到决策</span><span data-l="en" lang="en">From scores to decisions</span></h2>
+    <p><span data-l="zh">序列库可能有 10<sup>8</sup> 条，逐条精算的代价太高。通常分两阶段：先用嵌入向量做近似最近邻粗筛，再用 <span class="var">f</span><sub class="var">θ</sub> 精排。</span><span data-l="en" lang="en">A library may hold 10<sup>8</sup> sequences, too many to score carefully one by one. The usual arrangement has two stages: a coarse pass by approximate nearest neighbour search over embeddings, then a fine ranking with <span class="var">f</span><sub class="var">θ</sub>.</span></p>
+    <p><span data-l="zh">湿实验那一步可以看成对一个黑箱函数的查询，很贵，次数有限。用高斯过程给它建模，每次选采集函数最大的点去做实验，这就是贝叶斯优化。</span><span data-l="en" lang="en">The wet-lab step can be seen as querying an expensive black-box function a limited number of times. Model it with a Gaussian process and test whichever point maximizes an acquisition function: this is Bayesian optimization.</span></p>
+    <p><span data-l="zh">只给一个分数并不够，还需知道模型有多确定。深度集成或贝叶斯神经网络给出预测均值 <span class="var">μ</span> 与方差 <span class="var">σ</span><sup>2</sup>，筛选策略于是变成：</span><span data-l="en" lang="en">A score alone is not enough; we also need to know how sure the model is. A deep ensemble or a Bayesian neural network gives a predictive mean <span class="var">μ</span> and variance <span class="var">σ</span><sup>2</sup>, and the selection rule becomes:</span></p>
+    <div class="eq"><span class="var">x</span><sub>next</sub> = argmax<sub class="var">x</sub> [ <span class="var">μ</span>(<span class="var">x</span>) + <span class="var">β</span> <span class="var">σ</span>(<span class="var">x</span>) ]</div>
+    <p><span data-l="zh">既选预测高的，也选模型把握不大的。后者或许带来意外，也可能白费一次实验，<span class="var">β</span> 正是在两者之间定价。</span><span data-l="en" lang="en">It picks both the promising candidates and the ones the model is unsure about. The second kind may hide a surprise or may waste an experiment, and <span class="var">β</span> is where that trade is priced.</span></p>
+
+    <figure class="ifig" data-fig="acq">
+      <div class="ifig-stage">
+        <svg viewBox="0 0 640 300" role="img" data-aria-zh="候选抗体的预测亲和力与不确定度，按 μ + βσ 选出八条" data-aria-en="Candidate antibodies by predicted affinity and uncertainty, eight picked by μ + βσ" aria-label="候选抗体的预测亲和力与不确定度"></svg>
+      </div>
+      <div class="ifig-ctl">
+        <label>
+          <span data-l="zh">探索权重 <span class="var">β</span></span><span data-l="en" lang="en">Exploration weight <span class="var">β</span></span>
+          <input type="range" min="0" max="250" value="60" step="5" data-ctl="beta" data-aria-zh="探索权重 β" data-aria-en="Exploration weight β" aria-label="探索权重 β">
+          <output data-out="beta" class="cm"></output>
+        </label>
+      </div>
+      <p class="readout" aria-live="polite"></p>
+      <figcaption><span data-l="zh">八十六条候选，各有一个预测亲和力与一段不确定度。拖动 <span class="var">β</span>，观察入选的八条如何更替。图中数值为演示所设，并非实测。</span><span data-l="en" lang="en">Eighty-six candidates, each with a predicted affinity and a band of uncertainty. Drag <span class="var">β</span> to see which eight are selected. The values are set for the demonstration, not measured.</span></figcaption>
+    </figure>
+
+    <h2><span data-l="zh">整条流程</span><span data-l="en" lang="en">The pipeline</span></h2>
+    <table class="tbl">
+      <thead><tr>
+        <th><span data-l="zh">步骤</span><span data-l="en" lang="en">Step</span></th>
+        <th><span data-l="zh">数学操作</span><span data-l="en" lang="en">Mathematical operation</span></th>
+        <th><span data-l="zh">实际动作</span><span data-l="en" lang="en">What it means in practice</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="cm">1</td><td><span data-l="zh">序列嵌入 <span class="var">φ</span>(<span class="var">x</span>)</span><span data-l="en" lang="en">Embed the sequence, <span class="var">φ</span>(<span class="var">x</span>)</span></td><td><span data-l="zh">用蛋白语言模型把序列变向量</span><span data-l="en" lang="en">Turn sequences into vectors with a protein language model</span></td></tr>
+        <tr><td class="cm">2</td><td><span data-l="zh">自监督预训练</span><span data-l="en" lang="en">Self-supervised pretraining</span></td><td><span data-l="zh">在无标签抗体序列上做掩码语言建模</span><span data-l="en" lang="en">Masked language modeling on unlabelled antibody sequences</span></td></tr>
+        <tr><td class="cm">3</td><td><span data-l="zh">回归微调</span><span data-l="en" lang="en">Fine-tune the regression</span></td><td><span data-l="zh">用少量已测亲和力的 HBsAg 抗体校准</span><span data-l="en" lang="en">Calibrate on the few HBsAg antibodies with measured affinity</span></td></tr>
+        <tr><td class="cm">4</td><td><span data-l="zh">排序取前 <span class="var">k</span></span><span data-l="en" lang="en">Rank and take the top <span class="var">k</span></span></td><td><span data-l="zh">粗筛加精排，从库里挑候选</span><span data-l="en" lang="en">Coarse pass then fine ranking over the library</span></td></tr>
+        <tr><td class="cm">5</td><td><span data-l="zh">不确定性 <span class="var">μ</span> + <span class="var">β</span><span class="var">σ</span></span><span data-l="en" lang="en">Uncertainty, <span class="var">μ</span> + <span class="var">β</span><span class="var">σ</span></span></td><td><span data-l="zh">决定哪几条送去做噬菌体展示</span><span data-l="en" lang="en">Decide which few go to phage display</span></td></tr>
+        <tr><td class="cm">6</td><td><span data-l="zh">贝叶斯更新</span><span data-l="en" lang="en">Bayesian update</span></td><td><span data-l="zh">实验结果回灌，模型再算一轮</span><span data-l="en" lang="en">Feed results back and let the model run again</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><span data-l="zh">整件事的数学内核，是在抗体序列的高维离散空间上学一个从序列到亲和力的回归函数，再用它排序和决策。标签稀缺，所以依赖预训练嵌入和半监督；实验昂贵，所以要用贝叶斯优化在探索与利用之间反复取舍。</span><span data-l="en" lang="en">At its mathematical core the work learns a regression from sequence to affinity over a high-dimensional discrete space, then ranks and decides with it. Labels are scarce, hence the pretrained embeddings and semi-supervised training; experiments are expensive, hence Bayesian optimization weighing exploration against exploitation round after round.</span></p>
+    </div>
+
+    <span class="qed-mark" aria-hidden="true">∎</span>
+
+    <nav class="also" data-aria-zh="其他研究" data-aria-en="Other studies" aria-label="其他研究">
+      <h2><span data-l="zh">其他研究</span><span data-l="en" lang="en">Other studies</span></h2>
+      <ul>
+      <li><a href="../metro-report-card/"><span class="n">01</span><span class="t"><span data-l="zh">地铁成绩单</span><span data-l="en" lang="en">The Metro Report Card</span></span></a></li>
+      <li><a href="../inharmonic-strings/"><span class="n">03</span><span class="t"><span data-l="zh">同基频非理想弦的谱辨识与参数重建</span><span data-l="en" lang="en">Spectral identification of inharmonic strings</span></span></a></li>
+      <li><a href="../energy-transition/"><span class="n">04</span><span class="t"><span data-l="zh">气候能源转型模拟器</span><span data-l="en" lang="en">Climate energy transition simulator</span></span></a></li>
+      </ul>
+    </nav>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg><b lang="en">Axiom</b><span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Mathematics Club</span></span>
+  </div>
+</footer>
+</body>
+</html>

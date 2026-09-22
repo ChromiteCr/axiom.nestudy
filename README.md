@@ -1,6 +1,6 @@
 # Axiom 应用数学社官网
 
-![version](https://img.shields.io/badge/version-A1-blue)
+![version](https://img.shields.io/badge/version-A1a-blue)
 ![last commit](https://img.shields.io/github/last-commit/ChromiteCr/axiom.nestudy)
 ![commit activity](https://img.shields.io/github/commit-activity/m/ChromiteCr/axiom.nestudy)
 ![stars](https://img.shields.io/github/stars/ChromiteCr/axiom.nestudy)
@@ -18,13 +18,17 @@ python3 -m http.server 5199
 ## 结构
 
 ```
-index.html              全部内容，中英两份文案并排写在一起
+index.html              主页，中英两份文案并排写在一起
+research/<slug>/index.html   四项研究各一页，链接形如 /research/metro-report-card/
 assets/css/site.css     样式
 assets/js/attractor.js  首屏：洛伦茨吸引子，按住放下锚点
 assets/js/site.js       语言切换、导航、证明逐行点亮、训练营滑轨、线路图
+assets/js/figures.js    研究分页里的三张可交互插图
 assets/img/             徽标与网站图标
 assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICENSE.txt）
 ```
+
+分页靠目录取得干净的网址：`research/metro-report-card/index.html` 对应 `站点/research/metro-report-card/`，GitHub Pages 不需要额外配置。四页共用同一套导航和页脚，改导航要四页一起改。
 
 ## 改文案
 
@@ -48,4 +52,5 @@ assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICEN
 
 | 版本 | 日期 | 变更内容 | 类型 |
 |------|------|----------|------|
+| A1a | 2026-09-22 | 「我们出的题」改为「我们的研究 / Our observation」，四项研究在主页只留索引卡片，正文各自分页（`/research/<slug>/`，GitHub Pages 直接可用）。新增三项研究：AI 筛选抗 HBsAg 抗体、同基频非理想弦的谱辨识与参数重建、气候能源转型模拟器。可交互的北京线路图移到地铁那一页，另给三项研究各做一张可交互插图：拖 β 看入选的候选如何更替、拖非谐性参数看泛音偏离整数倍、调补贴年限与能效看三种供暖方案的年度支出。索引卡片指上去有各自的小动作。午间活动与图注等处的文案改写，去掉过白的表述 | feat |
 | A1 | 2026-09-22 | 官网第一版。整站按一篇数学文本来排：首屏是洛伦茨吸引子，粒子从几乎同一点出发，几秒后散成混沌；按住画面放下锚点，粒子按黄金角螺旋收拢，松手回到混沌，混合量由临界阻尼弹簧驱动，随时可以打断。之后依次是定义与两栏证明（滚到哪行亮哪行）、四条公理、午间活动、23 周训练营（横向滑轨）、我们出的题「地铁成绩单」（可交互的北京线路图）和加入，以 ∎ 收尾。中英文一键切换，不刷新页面。徽标是一个角：顶点、两条射线、一段角弧。字体用系统字和 KaTeX 的 Computer Modern，零依赖。照顾减弱动效、减弱透明度和高对比度三种系统偏好 | milestone |

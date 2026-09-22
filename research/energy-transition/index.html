@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh" data-title-zh="气候能源转型模拟器 · Axiom 应用数学社" data-title-en="Climate energy transition simulator · Axiom Applied Mathematics Club">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>气候能源转型模拟器 · Axiom 应用数学社</title>
+<meta name="description" content="家庭层面的清洁供暖决策：状态转移、分段函数、能源负担率，以及四个维度的加权排序。">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="气候能源转型模拟器 · Axiom 应用数学社">
+<meta property="og:description" content="家庭层面的清洁供暖决策：状态转移、分段函数、能源负担率，以及四个维度的加权排序。">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../../assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, saved = null;
+    d.classList.add("js");
+    try { saved = localStorage.getItem("axiom-lang"); } catch (e) {}
+    var lang = saved === "zh" || saved === "en" ? saved : ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+    d.setAttribute("data-lang", lang);
+    d.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.title = d.getAttribute("data-title-" + lang);
+  })();
+</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+<script src="../../assets/js/figures.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en" lang="en">Skip to content</span></a>
+
+<header class="nav" data-tone="light">
+  <div class="wrap">
+    <a class="brand" href="../../">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <b lang="en">Axiom</b>
+      <span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Math Club</span>
+    </a>
+    <nav data-aria-zh="页面导航" data-aria-en="Page navigation" aria-label="页面导航">
+      <ul class="nav-links">
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-tools">
+      <button class="lang-btn" type="button" data-lang-toggle data-aria-zh="切换到英文" data-aria-en="Switch to Chinese" aria-label="切换到英文"><span class="pill"><span data-l="zh" lang="en">EN</span><span data-l="en">中文</span></span></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-aria-zh="菜单" data-aria-en="Menu" aria-label="菜单"><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ul>
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+  </ul>
+</div>
+
+<main id="main" class="page">
+  <article class="article">
+    <a class="back" href="../../#research"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 8H4M7.5 4.5 4 8l3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a>
+
+    <p class="eyebrow"><span data-l="zh">研究 <span class="cm">04</span> · 情境模拟</span><span data-l="en" lang="en">Research <span class="cm">04</span> · Scenario simulation</span></p>
+    <h1 class="h1"><span data-l="zh">气候能源转型模拟器</span><span data-l="en" lang="en">Climate energy transition simulator</span></h1>
+    <p class="dek"><span data-l="zh">一户人家该不该把燃煤炉换掉？换成天然气，还是电，还是热泵？这是个应用数学建模项目，做成了可以交互的网站，分中国政策情境模拟和全球家庭能源顾问两个版本。</span><span data-l="en" lang="en">Should a household give up its coal stove, and for gas, for electricity, or for a heat pump? This applied modeling project answers that as an interactive site, in two versions: a policy scenario simulator for China and a household energy adviser for anywhere.</span></p>
+    <ul class="tags">
+      <li><span data-l="zh">状态转移</span><span data-l="en" lang="en">State transition</span></li>
+      <li><span data-l="zh">分段函数</span><span data-l="en" lang="en">Piecewise functions</span></li>
+      <li><span data-l="zh">概率模型</span><span data-l="en" lang="en">Probabilistic model</span></li>
+      <li><span data-l="zh">多准则决策</span><span data-l="en" lang="en">Multi-criteria decisions</span></li>
+    </ul>
+
+    <h2><span data-l="zh">中国版：把政策放进一户人家的账里</span><span data-l="en" lang="en">China version: policy, as one household's account</span></h2>
+    <p><span data-l="zh">变量取家庭收入、储蓄、住房面积、供暖支出和当前的技术选择。模型逐年推进，每一年的状态由上一年的状态与当年的选择决定。</span><span data-l="en" lang="en">The variables are household income, savings, floor area, heating expenditure and the technology currently in use. The model steps forward year by year, each year's state following from the previous one and from the choice made.</span></p>
+    <div class="eq"><span class="var">s</span><sub class="var">t</sub><sub>+1</sub> = <span class="var">T</span>(<span class="var">s</span><sub class="var">t</sub>, <span class="var">a</span><sub class="var">t</sub>)</div>
+    <p><span data-l="zh">煤改气、煤改电和热泵各走一条路径。改造成本、运行费用、碳排放、政策合规度都按分段函数算，补贴按档位跳变，收入和气温则带随机成分。模型最后给出的，是能源负担率随年份的变化，以及补贴退出之后这户人家会不会撑不住。</span><span data-l="en" lang="en">Coal-to-gas, coal-to-electricity and heat pumps each follow their own path. Retrofit cost, running cost, carbon emissions and policy compliance are computed with piecewise functions, subsidies jump between tiers, and income and temperature carry a random component. What comes out is the energy burden over time, and whether the household can still carry it once the subsidy ends.</span></p>
+    <div class="eq"><span class="var">b</span><sub class="var">t</sub> = <span class="frac"><span><span data-l="zh">供暖支出</span><span data-l="en" lang="en">heating spend</span></span><span><span data-l="zh">可支配收入</span><span data-l="en" lang="en">disposable income</span></span></span></div>
+    <p><span data-l="zh">能源负担率是其中最要紧的一个数。设备装好而电费难以承担，改造便等于没有完成。补贴退出的那一年，这个比率往往跳一下，模型把这一跳明确算出来。</span><span data-l="en" lang="en">The energy burden is the number that matters most. A household that installs the equipment and then cannot pay the electricity bill has not really made the switch. In the year a subsidy ends the ratio tends to jump, and the model reports that jump explicitly.</span></p>
+
+    <figure class="ifig" data-fig="heat">
+      <div class="ifig-stage">
+        <svg viewBox="0 0 640 280" role="img" data-aria-zh="三种供暖方案十二年的年度支出曲线" data-aria-en="Yearly spend of three heating options over twelve years" aria-label="三种供暖方案十二年的年度支出"></svg>
+      </div>
+      <div class="ifig-ctl">
+        <div class="seg" role="group" data-aria-zh="选择方案" data-aria-en="Choose an option" aria-label="选择方案">
+          <button type="button" data-k="gas" aria-pressed="false"><span data-l="zh">煤改气</span><span data-l="en" lang="en">To gas</span></button>
+          <button type="button" data-k="ele" aria-pressed="false"><span data-l="zh">煤改电</span><span data-l="en" lang="en">To electricity</span></button>
+          <button type="button" data-k="hp" aria-pressed="true"><span data-l="zh">热泵</span><span data-l="en" lang="en">Heat pump</span></button>
+        </div>
+        <label>
+          <span data-l="zh">补贴退出</span><span data-l="en" lang="en">Subsidy ends</span>
+          <input type="range" min="0" max="10" value="5" step="1" data-ctl="exit" data-aria-zh="补贴退出年份" data-aria-en="Year the subsidy ends" aria-label="补贴退出年份">
+          <output data-out="exit"></output>
+        </label>
+        <label>
+          <span data-l="zh">热泵能效</span><span data-l="en" lang="en">Heat pump efficiency</span>
+          <input type="range" min="20" max="45" value="30" step="1" data-ctl="cop" data-aria-zh="热泵能效 COP" data-aria-en="Heat pump COP" aria-label="热泵能效 COP">
+          <output data-out="cop" class="cm"></output>
+        </label>
+      </div>
+      <p class="readout" aria-live="polite"></p>
+      <figcaption><span data-l="zh">示意模型。年度支出以「继续烧煤」为 1，第一年计入改造投入，补贴期内运行费用按折扣计。系数为呈现趋势所取，不代表真实支出。</span><span data-l="en" lang="en">An illustrative model. Yearly spend is scaled so that staying on coal equals 1; year one carries the retrofit, and running costs are discounted while the subsidy lasts. The coefficients were chosen to make the shape legible, not to match a real bill.</span></figcaption>
+    </figure>
+
+    <h2><span data-l="zh">全球版：先估需求，再排方案</span><span data-l="en" lang="en">Global version: estimate demand, then rank the options</span></h2>
+    <p><span data-l="zh">国别一换，补贴政策随之不同，可依凭的只剩更基础的量。全球版从采暖度日和制冷度日入手，配上能源账单、设备效率和当地能源价格，估算一户人家的冷热需求。</span><span data-l="en" lang="en">Move to another country and the subsidy rules change, so only the more basic quantities survive. The global version starts from heating and cooling degree days, adds the energy bill, equipment efficiency and local energy prices, and estimates the household's heating and cooling demand.</span></p>
+    <div class="eq">HDD = <span class="op">Σ</span><sub class="var">d</sub> max(<span class="var">T</span><sub>base</sub> − <span class="var">T</span><sub class="var">d</sub>, 0)</div>
+    <p><span data-l="zh">可行的方案先筛一遍，剩下的按四个维度打分加权，再排序：可负担性、气候适应性、环境表现、实施便利性。</span><span data-l="en" lang="en">Infeasible options are filtered out first; the rest are scored on four dimensions, weighted and ranked: affordability, climate suitability, environmental performance and ease of implementation.</span></p>
+    <div class="eq"><span class="var">S</span>(<span class="var">a</span>) = <span class="op">Σ</span><sub class="var">k</sub> <span class="var">w</span><sub class="var">k</sub> <span class="var">u</span><sub class="var">k</sub>(<span class="var">a</span>)</div>
+    <p><span data-l="zh">热泵在温和气候里通常排在前面，到了极冷地区，效率掉下来，排序就可能翻过来。这类翻转正是模型要抓的地方。</span><span data-l="en" lang="en">Heat pumps usually come out on top in mild climates. Where winters are severe their efficiency falls and the ranking may reverse, and reversals of that kind are exactly what the model is built to catch.</span></p>
+
+    <h2><span data-l="zh">规则写在明面上</span><span data-l="en" lang="en">The rules are written down</span></h2>
+    <p><span data-l="zh">数据缺失、极端气候、基础设施限制，模型对每种情形都设了明确规则，不靠临时判断。由此每一项结果都能追溯，也能复算：换一组输入，结果为何改变，看得出来。</span><span data-l="en" lang="en">Missing data, extreme climates and infrastructure limits are each handled by an explicit rule rather than a judgement call made on the spot. The result is that every output can be traced and recomputed: change an input and you can see why the answer moved.</span></p>
+    <p><span data-l="zh">做成网站，是因为这类问题的答案与具体那户人家绑得很紧。参数一改，结论就可能反过来；与其给一条平均意义上的建议，不如让人把自己的数字填进去。</span><span data-l="en" lang="en">It became a website because the answer is bound tightly to the particular household. Change the parameters and the conclusion can flip, so it is better to let people enter their own numbers than to hand out advice that holds only on average.</span></p>
+
+    <span class="qed-mark" aria-hidden="true">∎</span>
+
+    <nav class="also" data-aria-zh="其他研究" data-aria-en="Other studies" aria-label="其他研究">
+      <h2><span data-l="zh">其他研究</span><span data-l="en" lang="en">Other studies</span></h2>
+      <ul>
+      <li><a href="../metro-report-card/"><span class="n">01</span><span class="t"><span data-l="zh">地铁成绩单</span><span data-l="en" lang="en">The Metro Report Card</span></span></a></li>
+      <li><a href="../antibody-screening/"><span class="n">02</span><span class="t"><span data-l="zh">用 AI 筛选抗 HBsAg 抗体</span><span data-l="en" lang="en">Screening anti-HBsAg antibodies with AI</span></span></a></li>
+      <li><a href="../inharmonic-strings/"><span class="n">03</span><span class="t"><span data-l="zh">同基频非理想弦的谱辨识与参数重建</span><span data-l="en" lang="en">Spectral identification of inharmonic strings</span></span></a></li>
+      </ul>
+    </nav>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg><b lang="en">Axiom</b><span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Mathematics Club</span></span>
+  </div>
+</footer>
+</body>
+</html>

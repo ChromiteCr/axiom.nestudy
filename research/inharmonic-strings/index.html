@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh" data-title-zh="同基频非理想弦的谱辨识与参数重建 · Axiom 应用数学社" data-title-en="Spectral identification of inharmonic strings · Axiom Applied Mathematics Club">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>同基频非理想弦的谱辨识与参数重建 · Axiom 应用数学社</title>
+<meta name="description" content="劲度弦的谱可辨识性与参数反演：有限差分前向解、O(n²) 与 O(n³) 的谱偏差、两阶段反演与 Lipschitz 稳定性。">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="同基频非理想弦的谱辨识与参数重建 · Axiom 应用数学社">
+<meta property="og:description" content="劲度弦的谱可辨识性与参数反演：有限差分前向解、O(n²) 与 O(n³) 的谱偏差、两阶段反演与 Lipschitz 稳定性。">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../../assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, saved = null;
+    d.classList.add("js");
+    try { saved = localStorage.getItem("axiom-lang"); } catch (e) {}
+    var lang = saved === "zh" || saved === "en" ? saved : ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+    d.setAttribute("data-lang", lang);
+    d.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.title = d.getAttribute("data-title-" + lang);
+  })();
+</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+<script src="../../assets/js/figures.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en" lang="en">Skip to content</span></a>
+
+<header class="nav" data-tone="light">
+  <div class="wrap">
+    <a class="brand" href="../../">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <b lang="en">Axiom</b>
+      <span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Math Club</span>
+    </a>
+    <nav data-aria-zh="页面导航" data-aria-en="Page navigation" aria-label="页面导航">
+      <ul class="nav-links">
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-tools">
+      <button class="lang-btn" type="button" data-lang-toggle data-aria-zh="切换到英文" data-aria-en="Switch to Chinese" aria-label="切换到英文"><span class="pill"><span data-l="zh" lang="en">EN</span><span data-l="en">中文</span></span></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-aria-zh="菜单" data-aria-en="Menu" aria-label="菜单"><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ul>
+        <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+  </ul>
+</div>
+
+<main id="main" class="page">
+  <article class="article">
+    <a class="back" href="../../#research"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 8H4M7.5 4.5 4 8l3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a>
+
+    <p class="eyebrow"><span data-l="zh">研究 <span class="cm">03</span> · 逆问题</span><span data-l="en" lang="en">Research <span class="cm">03</span> · Inverse problems</span></p>
+    <h1 class="h1"><span data-l="zh">同基频非理想弦的谱辨识与参数重建</span><span data-l="en" lang="en">Spectral identification and parameter reconstruction of inharmonic strings</span></h1>
+    <p class="dek"><span data-l="zh">两根弦调到同一个基频，听起来仍然不一样。差别藏在高次泛音的位置上。能不能只凭一段频谱，把张力和有效长度算回来？</span><span data-l="en" lang="en">Two strings tuned to the same fundamental still do not sound alike. The difference hides in where the upper partials fall. Can tension and effective length be recovered from a spectrum alone?</span></p>
+    <ul class="tags">
+      <li><span data-l="zh">劲度弦振动</span><span data-l="en" lang="en">Stiff string vibration</span></li>
+      <li><span data-l="zh">偏微分方程</span><span data-l="en" lang="en">Partial differential equation</span></li>
+      <li><span data-l="zh">有限差分</span><span data-l="en" lang="en">Finite difference method</span></li>
+      <li><span data-l="zh">谱可辨识性</span><span data-l="en" lang="en">Spectral identifiability</span></li>
+      <li><span data-l="zh">Lipschitz 稳定性</span><span data-l="en" lang="en">Lipschitz stability</span></li>
+    </ul>
+
+    <h2><span data-l="zh">问的是什么</span><span data-l="en" lang="en">The question</span></h2>
+    <p><span data-l="zh">依赖参数的振动系统，反过来问参数，是一类常见问题。谱可辨识性问得更基本：把物理参数映到一组频率，这个映射是单射吗？测量带噪声时，它稳定吗？两个问题都答不好，任何反演算法算出的数字都不值得信。</span><span data-l="en" lang="en">Asking for the parameters of a parameter-dependent vibrating system is a familiar kind of inverse problem. Spectral identifiability asks something more basic: is the map from physical parameters to a set of frequencies injective, and is it stable when the measurement carries noise? Without answers to both, the numbers an inversion algorithm returns are not worth much.</span></p>
+
+    <h2><span data-l="zh">模型</span><span data-l="en" lang="en">The model</span></h2>
+    <p><span data-l="zh">理想弦只有张力，实际的弦还有抗弯劲度。加上这一项，标准的劲度弦方程写成：</span><span data-l="en" lang="en">An ideal string carries only tension; a real one also resists bending. With that term added, the standard stiff-string equation reads:</span></p>
+    <div class="eq"><span class="var">u</span><sub class="var">tt</sub> = <span class="var">c</span><sup>2</sup> <span class="var">u</span><sub class="var">xx</sub> − <span class="var">κ</span><sup>2</sup> <span class="var">u</span><sub class="var">xxxx</sub></div>
+    <p><span data-l="zh">劲度把泛音推高，越高的次数推得越多，于是泛音不再是基频的整数倍。这就是非谐性，用一个参数 <span class="var">B</span> 概括，标准的频率修正式为：</span><span data-l="en" lang="en">Stiffness pushes the partials upward, and the higher the partial the more it moves, so they are no longer integer multiples of the fundamental. That is inharmonicity, summarized by a single parameter <span class="var">B</span> in the standard frequency correction:</span></p>
+    <div class="eq"><span class="var">f</span><sub class="var">n</sub> = <span class="var">n</span> <span class="var">f</span><sub>0</sub> √<span class="rad">1 + <span class="var">B</span> <span class="var">n</span><sup>2</sup></span></div>
+    <p><span data-l="zh">前向问题由此确定：给定物理参数，算出前若干个频率。研究里用显式有限差分离散方程，边界条件用虚拟点处理，并验证了格式的稳定性和空间二阶收敛。这套数值解算器就是谱映射的实现。</span><span data-l="en" lang="en">That fixes the forward problem: given the physical parameters, compute the first several frequencies. The work discretizes the equation with an explicit finite difference scheme, treats the boundary with fictitious points, and verifies that the scheme is stable and second-order accurate in space. This solver is the spectral map in computable form.</span></p>
+
+    <h2><span data-l="zh">高次泛音带着信息</span><span data-l="en" lang="en">The information sits in the high partials</span></h2>
+    <p><span data-l="zh">取两根弦，实际基频完全相同，非谐性参数不同。研究证明，归一化的谱偏差随谐波次数按 <span class="var">O</span>(<span class="var">n</span><sup>2</sup>) 增长，绝对频率偏差按 <span class="var">O</span>(<span class="var">n</span><sup>3</sup>) 增长。</span><span data-l="en" lang="en">Take two strings with exactly the same actual fundamental and different inharmonicity. The study proves that their normalized spectral deviation grows as <span class="var">O</span>(<span class="var">n</span><sup>2</sup>) with harmonic order, while the absolute frequency deviation grows as <span class="var">O</span>(<span class="var">n</span><sup>3</sup>).</span></p>
+    <p><span data-l="zh">低次泛音几乎重合，难以分辨，差异要到高次才显现。频率分辨率有限时，可以推出从第几次谐波起两者才真正可分。这个次数决定了测量要做多长。</span><span data-l="en" lang="en">The consequence is practical. Low partials nearly coincide and tell the two strings apart poorly; the gap only becomes visible higher up. Under finite frequency resolution one can derive the lowest harmonic order at which they become distinguishable, and that order sets how long the measurement has to be.</span></p>
+
+    <figure class="ifig" data-fig="spec">
+      <div class="ifig-stage">
+        <svg viewBox="0 0 640 250" role="img" data-aria-zh="前十六个泛音的位置，随非谐性参数变化" data-aria-en="Positions of the first sixteen partials as the inharmonicity parameter changes" aria-label="前十六个泛音的位置"></svg>
+      </div>
+      <div class="ifig-ctl">
+        <label>
+          <span data-l="zh">非谐性参数 <span class="var">B</span></span><span data-l="en" lang="en">Inharmonicity <span class="var">B</span></span>
+          <input type="range" min="0" max="2000" value="700" step="20" data-ctl="binh" data-aria-zh="非谐性参数 B" data-aria-en="Inharmonicity parameter B" aria-label="非谐性参数 B">
+          <output data-out="binh" class="cm"></output>
+        </label>
+      </div>
+      <p class="readout" aria-live="polite"></p>
+      <figcaption><span data-l="zh">基频固定，前十六个泛音随 <span class="var">B</span> 移动。指向任一泛音，可读出它偏离了多少音分。</span><span data-l="en" lang="en">The fundamental is held fixed while the first sixteen partials move with <span class="var">B</span>. Point at a partial to read how far, in cents, it has drifted.</span></figcaption>
+    </figure>
+
+    <h2><span data-l="zh">一个参数不够</span><span data-l="en" lang="en">One parameter is not enough</span></h2>
+    <p><span data-l="zh">只知道非谐性参数 <span class="var">B</span>，张力和有效长度分不开。不同的 (<span class="var">T</span>, <span class="var">L</span>) 组合给出同一个 <span class="var">B</span>，这是结构性的不可辨识，再精确的测量也救不回来。</span><span data-l="en" lang="en">Knowing the inharmonicity parameter <span class="var">B</span> alone does not separate tension from effective length: different pairs (<span class="var">T</span>, <span class="var">L</span>) give the same <span class="var">B</span>. The non-identifiability is structural, and no amount of measurement precision repairs it.</span></p>
+    <p><span data-l="zh">补入一个绝对尺度即可，理想弦的基频正好提供它：</span><span data-l="en" lang="en">An absolute scale fixes it, and the ideal-string fundamental provides one:</span></p>
+    <div class="eq"><span class="var">f</span><sub>0</sub> = <span class="frac"><span>1</span><span>2<span class="var">L</span></span></span> √<span class="rad"><span class="frac"><span><span class="var">T</span></span><span><span class="var">μ</span></span></span></span></div>
+    <p><span data-l="zh">于是反演分两步：先从谱形状定出非谐性参数，再借绝对频率尺度分别确定张力与有效长度。研究证明这个两阶段框架有全局唯一性和局部 Lipschitz 稳定性，即频谱扰动不大时，参数误差被常数倍地控制住。</span><span data-l="en" lang="en">Inversion then runs in two stages: recover the inharmonicity from the shape of the spectrum, then pin down tension and effective length separately using the absolute frequency scale. The study proves this two-stage framework has global uniqueness and local Lipschitz stability, meaning that for small spectral perturbations the parameter error stays bounded by a constant times the measurement error.</span></p>
+
+    <h2><span data-l="zh">数值结果</span><span data-l="en" lang="en">Numerical results</span></h2>
+    <table class="tbl">
+      <thead><tr>
+        <th><span data-l="zh">参数</span><span data-l="en" lang="en">Parameter</span></th>
+        <th><span data-l="zh">平均相对误差</span><span data-l="en" lang="en">Mean relative error</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span data-l="zh">非谐性参数 <span class="var">B</span></span><span data-l="en" lang="en">Inharmonicity <span class="var">B</span></span></td><td class="cm">1.29%</td></tr>
+        <tr><td><span data-l="zh">有效长度 <span class="var">L</span></span><span data-l="en" lang="en">Effective length <span class="var">L</span></span></td><td class="cm">0.32%</td></tr>
+        <tr><td><span data-l="zh">张力 <span class="var">T</span></span><span data-l="en" lang="en">Tension <span class="var">T</span></span></td><td class="cm">0.66%</td></tr>
+      </tbody>
+    </table>
+    <p><span data-l="zh"><span class="var">B</span> 的误差比另两项大，跟它靠高次泛音定出来有关，高次泛音的幅度小，也更容易被噪声盖住。</span><span data-l="en" lang="en">The error on <span class="var">B</span> is the largest of the three, which fits the way it is determined: from high partials, where amplitudes are small and noise covers more easily.</span></p>
+
+    <h2><span data-l="zh">可以用在哪里</span><span data-l="en" lang="en">Where it is useful</span></h2>
+    <p><span data-l="zh">一段录音里，弦的物理参数原则上是可以读出来的。音频分析和物理建模合成都需要这类反演：前者想知道乐器的状态，后者要拿参数去驱动一个数值弦。这项工作给这类反问题补上了数学依据。</span><span data-l="en" lang="en">In principle a recording carries the physical state of the string that produced it. Audio analysis and physical modeling synthesis both need this kind of inversion, one to learn what an instrument is doing, the other to drive a numerical string with the recovered parameters. This work supplies the mathematical footing for it.</span></p>
+
+    <span class="qed-mark" aria-hidden="true">∎</span>
+
+    <nav class="also" data-aria-zh="其他研究" data-aria-en="Other studies" aria-label="其他研究">
+      <h2><span data-l="zh">其他研究</span><span data-l="en" lang="en">Other studies</span></h2>
+      <ul>
+      <li><a href="../metro-report-card/"><span class="n">01</span><span class="t"><span data-l="zh">地铁成绩单</span><span data-l="en" lang="en">The Metro Report Card</span></span></a></li>
+      <li><a href="../antibody-screening/"><span class="n">02</span><span class="t"><span data-l="zh">用 AI 筛选抗 HBsAg 抗体</span><span data-l="en" lang="en">Screening anti-HBsAg antibodies with AI</span></span></a></li>
+      <li><a href="../energy-transition/"><span class="n">04</span><span class="t"><span data-l="zh">气候能源转型模拟器</span><span data-l="en" lang="en">Climate energy transition simulator</span></span></a></li>
+      </ul>
+    </nav>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg><b lang="en">Axiom</b><span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Mathematics Club</span></span>
+  </div>
+</footer>
+</body>
+</html>

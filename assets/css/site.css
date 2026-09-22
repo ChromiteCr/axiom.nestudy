@@ -432,3 +432,60 @@ html[data-lang="zh"] [data-l="en"], html[data-lang="en"] [data-l="zh"] { display
 .also .n { font: 400 14px/1.6 var(--cm); color: var(--graphite); }
 .also .t { font-weight: 500; transition: color 0.2s ease; }
 .article .map { margin: 34px 0; }
+
+/* ---------- 可交互的插图 ---------- */
+.ifig { margin: 38px 0; }
+.ifig-stage { padding: 12px 8px 4px; border-radius: 22px; background: var(--mist); }
+.ifig svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: manipulation; }
+.ifig .axis { fill: none; stroke: rgba(29, 29, 31, 0.28); stroke-width: 1.4; stroke-linecap: round; }
+.ifig .grid { stroke: rgba(29, 29, 31, 0.18); stroke-width: 1; stroke-dasharray: 3 6; }
+.ifig text { font: 400 12px/1 var(--sans); fill: var(--graphite); }
+.ifig text.cm { font-family: var(--cm); font-size: 13px; }
+.ifig .fig-lab { font-size: 12px; fill: var(--graphite); dominant-baseline: hanging; }
+.ifig .hit { fill: transparent; cursor: pointer; }
+.ifig .cand .bar { stroke: rgba(29, 29, 31, 0.22); stroke-width: 1.6; stroke-linecap: round; }
+.ifig .cand .dot { fill: rgba(29, 29, 31, 0.34); transition: fill 0.25s ease; }
+.ifig .cand.is-on .bar { stroke: rgba(91, 75, 255, 0.45); stroke-width: 2.2; }
+.ifig .cand.is-on .dot { fill: var(--violet); }
+.ifig .cand.is-hover .dot { fill: var(--ink); }
+.ifig .cand.is-hover .bar { stroke: var(--ink); }
+.ifig .ideal { stroke: rgba(29, 29, 31, 0.3); stroke-width: 1.6; stroke-dasharray: 2 5; }
+.ifig .part .line { stroke: var(--violet); stroke-width: 2.6; stroke-linecap: round; }
+.ifig .part.is-hover .line { stroke: var(--ink); stroke-width: 3.4; }
+.ifig .plan { fill: none; stroke: rgba(29, 29, 31, 0.24); stroke-width: 2.2; stroke-linejoin: round; transition: stroke 0.3s ease, stroke-width 0.3s ease; }
+.ifig .plan.is-on { stroke: var(--violet); stroke-width: 3.2; }
+.ifig-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 30px; margin-top: 20px; }
+.ifig-ctl label { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--graphite); }
+.ifig-ctl input[type="range"] { -webkit-appearance: none; appearance: none; width: 148px; height: 24px; background: none; cursor: pointer; }
+.ifig-ctl input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: rgba(29, 29, 31, 0.16); }
+.ifig-ctl input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); transition: transform 0.12s ease-out; }
+.ifig-ctl input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
+.ifig-ctl input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(29, 29, 31, 0.16); }
+.ifig-ctl input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+.ifig-ctl output { min-width: 5.2em; font: 400 14px/1.4 var(--cm); color: var(--ink); }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(29, 29, 31, 0.07); }
+.seg button { min-height: 34px; padding: 0 15px; border: 0; border-radius: 999px; background: none; color: var(--graphite); font: 500 13.5px/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color 0.25s var(--ease-out), color 0.2s ease, transform 0.1s ease-out; }
+.seg button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13); }
+.seg button:active { transform: scale(0.96); }
+.readout { margin: 16px 0 0; min-height: 3em; font-size: 14.5px; line-height: 1.7; color: var(--ink); }
+@media (max-width: 620px) {
+  .ifig-ctl { gap: 12px 20px; }
+  .ifig-ctl input[type="range"] { width: 112px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ifig .plan, .ifig .cand .dot, .seg button { transition: none; }
+  .seg button:active { transform: none; }
+}
+
+/* 卡片上的小动作：指过去，图形各自动一下 */
+.study-fig .ac, .study-fig .pt-on { transition: transform 0.55s var(--ease-out); }
+.study[data-k="spec"]:hover .ac { transform: translateX(7px); }
+.study[data-k="heat"]:hover .ac { transform: translateY(-6px); }
+.study[data-k="ab"]:hover .pt-on { transform: translateY(-4px); }
+.study[data-k="metro"]:hover .ac { stroke-dasharray: 36 400; animation: ml-flow 1.9s linear infinite; }
+@keyframes ml-flow { from { stroke-dashoffset: 436; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .study-fig .ac, .study-fig .pt-on { transition: none; }
+  .study[data-k="spec"]:hover .ac, .study[data-k="heat"]:hover .ac, .study[data-k="ab"]:hover .pt-on { transform: none; }
+  .study[data-k="metro"]:hover .ac { stroke-dasharray: none; animation: none; }
+}
