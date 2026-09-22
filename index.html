@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Axiom 应用数学社</title>
+<meta name="description" content="Axiom 应用数学社：从现实里提炼规则，用数学回应真实世界的难题。Axiom Applied Mathematics Club.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Axiom 应用数学社">
+<meta property="og:description" content="公理，一切推演开始的地方。Every deduction begins with an axiom.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, saved = null;
+    d.classList.add("js");
+    try { saved = localStorage.getItem("axiom-lang"); } catch (e) {}
+    var lang = saved === "zh" || saved === "en" ? saved : ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+    d.setAttribute("data-lang", lang);
+    d.lang = lang === "zh" ? "zh-Hans" : "en";
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/attractor.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en" lang="en">Skip to content</span></a>
+
+<header class="nav" data-tone="dark">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <b lang="en">Axiom</b>
+      <span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Math Club</span>
+    </a>
+    <nav data-aria-zh="页面导航" data-aria-en="Page navigation" aria-label="页面导航">
+      <ul class="nav-links">
+        <li><a href="#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="#research"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-tools">
+      <button class="lang-btn" type="button" data-lang-toggle data-aria-zh="切换到英文" data-aria-en="Switch to Chinese" aria-label="切换到英文"><span class="pill"><span data-l="zh" lang="en">EN</span><span data-l="en">中文</span></span></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-aria-zh="菜单" data-aria-en="Menu" aria-label="菜单"><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ul>
+    <li><a href="#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+    <li><a href="#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+    <li><a href="#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+    <li><a href="#research"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+    <li><a href="#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+  </ul>
+</div>
+
+<main id="main">
+<section class="hero" id="top">
+  <canvas aria-hidden="true"></canvas>
+  <div class="wrap hero-copy">
+    <h1 class="wordmark" lang="en" data-in style="--i:0">Axiom</h1>
+    <p class="tagline" data-in style="--i:1"><span data-l="zh">公理，一切推演开始的地方。</span><span data-l="en" lang="en">Every deduction begins with an axiom.</span></p>
+    <p class="lead" data-in style="--i:2"><span data-l="zh">Axiom 应用数学社现有 45 名成员。我们从现实里提炼规则，用数学回应真实世界的难题。</span><span data-l="en" lang="en">Axiom Applied Mathematics Club has 45 members. We draw rules out of the real world and answer its hard problems with mathematics.</span></p>
+    <div class="hero-actions" data-in style="--i:3">
+      <a class="btn btn-light" href="#join"><span data-l="zh">加入我们</span><span data-l="en" lang="en">Join us</span></a>
+      <a class="btn btn-line" href="#axiom"><span data-l="zh">看看我们在做什么</span><span data-l="en" lang="en">See what we do</span></a>
+    </div>
+  </div>
+  <div class="wrap hero-foot" data-in style="--i:4">
+    <div>
+      <p class="eqs" aria-hidden="true">
+        <span class="cm">d</span><span class="var">x</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">σ</span>(<span class="var">y</span> − <span class="var">x</span>)<br>
+        <span class="cm">d</span><span class="var">y</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span>(<span class="var">ρ</span> − <span class="var">z</span>) − <span class="var">y</span><br>
+        <span class="cm">d</span><span class="var">z</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span><span class="var">y</span> − <span class="var">β</span><span class="var">z</span>
+      </p>
+      <p class="eq-note"><span data-l="zh">洛伦茨吸引子，取 σ = 10，ρ = 28，β = 8/3。所有粒子几乎从同一个点出发，几秒后便各走各的路。</span><span data-l="en" lang="en">The Lorenz attractor with σ = 10, ρ = 28, β = 8/3. The particles start from almost the same point and, within seconds, each goes its own way.</span></p>
+    </div>
+    <button class="hint" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="off"><span data-l="zh">按住画面，给混沌一个锚点</span><span data-l="en" lang="en">Press and hold to anchor the chaos</span></span><span class="on"><span data-l="zh">再点一次，放开锚点</span><span data-l="en" lang="en">Click again to let go</span></span></button>
+  </div>
+</section>
+
+<section class="section" id="axiom">
+  <div class="wrap axiom-grid">
+    <div class="stick">
+      <h2 class="h2"><span data-l="zh">建模，<br>从立公理开始。</span><span data-l="en" lang="en">Modeling begins with axioms.</span></h2>
+      <p class="thm definition">
+        <span data-l="zh"><span class="thm-head">定义 <span class="cm">1</span>（公理）</span>无需证明，却撑起整套体系的前提。一切逻辑推演都从它出发。</span>
+        <span data-l="en" lang="en"><span class="thm-head">Definition <span class="cm">1</span> (Axiom).</span>A premise that needs no proof, yet holds up an entire system. Every chain of reasoning starts from one.</span>
+      </p>
+      <figure class="emblem">
+        <svg viewBox="-10 -20 84 84" aria-hidden="true">
+          <circle cx="32" cy="10" r="26" fill="none" stroke="currentColor" stroke-width="0.45" stroke-dasharray="1.2 2.4" opacity="0.45"/>
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g>
+          <circle cx="32" cy="10" r="4.4" fill="#6b5cff"/>
+        </svg>
+        <figcaption><span data-l="zh">图 <span class="cm">1</span>　Axiom 的徽标：一个顶点，两条射线，一段角弧。顶点就是公理，一切从这里出发。</span><span data-l="en" lang="en">Figure <span class="cm">1</span>. The Axiom mark: one vertex, two rays, one arc. The vertex is the axiom, and everything starts there.</span></figcaption>
+      </figure>
+    </div>
+    <div>
+      <p class="thm proof-claim">
+        <span data-l="zh"><span class="thm-head">命题</span>一个杂乱的现实问题，可以从几条公理出发，推出一个能解释它的模型。</span>
+        <span data-l="en" lang="en"><span class="thm-head">Proposition.</span>Starting from a few axioms, a messy real-world problem can be turned into a model that explains it.</span>
+      </p>
+      <p class="proof-label"><span data-l="zh">证明</span><span data-l="en" lang="en"><i>Proof.</i></span></p>
+      <ol class="proof">
+        <li><span class="ln">1</span><span><span data-l="zh">现实里的现象纷繁复杂，满是变量。</span><span data-l="en" lang="en">Real phenomena are tangled and full of variables.</span></span><span class="why"><span data-l="zh">观察</span><span data-l="en" lang="en">Observation</span></span></li>
+        <li><span class="ln">2</span><span><span data-l="zh">挑出真正起作用的条件，确立前提。这些前提，就是这个问题自己的公理。</span><span data-l="en" lang="en">Pick out the conditions that matter and fix the premises. These premises are the problem’s own axioms.</span></span><span class="why"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span></span></li>
+        <li><span class="ln">3</span><span><span data-l="zh">从公理出发，推导、演算、仿真。</span><span data-l="en" lang="en">From there, derive, calculate and simulate.</span></span><span class="why"><span data-l="zh">由 <span class="cm">2</span></span><span data-l="en" lang="en">By <span class="cm">2</span></span></span></li>
+        <li><span class="ln">4</span><span><span data-l="zh">杂乱的现象，变成一个严谨、可以解释的模型。</span><span data-l="en" lang="en">The mess becomes a rigorous model that can be explained.</span></span><span class="why"><span data-l="zh">由 <span class="cm">1</span>、<span class="cm">3</span></span><span data-l="en" lang="en">By <span class="cm">1</span>, <span class="cm">3</span></span></span></li>
+      </ol>
+      <div class="qed" data-aria-zh="证毕" data-aria-en="End of proof" role="img" aria-label="证毕">∎</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h3 class="h3 axioms-title"><span data-l="zh">Axiom 自己的四条公理</span><span data-l="en" lang="en">Our four axioms</span></h3>
+    <div class="axioms">
+      <article class="axiom">
+        <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">1</span></span>
+        <h4><span data-l="zh">数学就在日常里。</span><span data-l="en" lang="en">Mathematics lives in everyday life.</span></h4>
+        <p><span data-l="zh">校园生活和社会生活里，有很多有意思的现象。换成数学的眼光，常常能看出别的东西。</span><span data-l="en" lang="en">Campus life and city life are full of curious things. Seen through mathematics, they often turn out to be something else.</span></p>
+      </article>
+      <article class="axiom">
+        <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">2</span></span>
+        <h4><span data-l="zh">先弄清问题，再动手算。</span><span data-l="en" lang="en">Understand the problem before you calculate.</span></h4>
+        <p><span data-l="zh">建模的第一步，是从现实里提取条件、确立前提。公式在这之后才出场。</span><span data-l="en" lang="en">Modeling begins by pulling conditions out of reality and fixing the premises. Formulas come later.</span></p>
+      </article>
+      <article class="axiom">
+        <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">3</span></span>
+        <h4><span data-l="zh">对数学好奇，就够了。</span><span data-l="en" lang="en">Curiosity is enough.</span></h4>
+        <p><span data-l="zh">基础好不好，关系没有想象中那么大。在这里，每个对数学感兴趣的人都能找到自己的位置。</span><span data-l="en" lang="en">Where you start matters less than you might think. Anyone who is interested in mathematics can find a place here.</span></p>
+      </article>
+      <article class="axiom">
+        <span class="num"><span data-l="zh">公理</span><span data-l="en" lang="en">Axiom</span> <span class="cm">4</span></span>
+        <h4><span data-l="zh">有趣和有用，可以兼得。</span><span data-l="en" lang="en">Fun and useful can go together.</span></h4>
+        <p><span data-l="zh">我们尽量让数学保持好玩，也教实用、高效的方法，给以后的学习打个底子。</span><span data-l="en" lang="en">We keep mathematics playful and teach practical, efficient methods that will support your later studies.</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section mist" id="noon">
+  <div class="wrap">
+    <h2 class="h2"><span data-l="zh">中午的两件事</span><span data-l="en" lang="en">Two things at noon</span></h2>
+    <p class="intro"><span data-l="zh">一件轻松，一件扎实，都在中午。</span><span data-l="en" lang="en">One light, one deep. Both happen at noon.</span></p>
+    <div class="noon">
+      <article class="slot">
+        <p class="when"><span data-l="zh">周三中午</span><span data-l="en" lang="en">Wednesday, noon</span></p>
+        <h3><span class="cm" lang="en">Incubator</span></h3>
+        <p class="topic"><span data-l="zh">主题暂定「透过生活发现数学之美」</span><span data-l="en" lang="en">Working title: “Finding the beauty of mathematics in daily life”</span></p>
+        <p><span data-l="zh">讲一些很基础、也很实用的小技巧：怎样用数学思维观察生活。社团以外的同学也可以来。</span><span data-l="en" lang="en">Simple, practical tricks for looking at daily life the way a mathematician would. Students outside the club are welcome too.</span></p>
+      </article>
+      <article class="slot">
+        <p class="when"><span data-l="zh">中午 <span class="cm">1:00</span> 至 <span class="cm">1:30</span></span><span data-l="en" lang="en"><span class="cm">1:00</span> to <span class="cm">1:30</span> pm</span></p>
+        <h3><span data-l="zh">系统学习</span><span data-l="en" lang="en">Structured study</span></h3>
+        <p><span data-l="zh">拿往年的 IMMC、HiMCM 真题和生活里的问题做材料，找出其中的数学知识，再往深里学。</span><span data-l="en" lang="en">We work through past IMMC and HiMCM problems and questions from daily life, find the mathematics inside them, and study it in depth.</span></p>
+      </article>
+    </div>
+    <p class="note"><span data-l="zh">地点和具体安排，以社团通知为准。</span><span data-l="en" lang="en">Rooms and schedules follow club announcements.</span></p>
+  </div>
+</section>
+
+<section class="section" id="camp">
+  <div class="wrap camp-head">
+    <div>
+      <h2 class="h2"><span data-l="zh">数学建模训练营</span><span data-l="en" lang="en">Modeling training camp</span></h2>
+      <p class="intro"><span data-l="zh">23 周，从读懂第一道题开始，一直走到正式比赛。每周一节 40 分钟的正课，外加一节 10 分钟的线上小课。</span><span data-l="en" lang="en">Twenty-three weeks, from reading a first problem to real competitions. Each week brings one 40-minute lesson and a 10-minute online session.</span></p>
+    </div>
+    <div>
+      <p class="muted"><span data-l="zh">所有人都可以参加训练、自由组队。平时的训练重在培养能力，不做单纯的淘汰。</span><span data-l="en" lang="en">Everyone can train and form their own teams. Everyday training is for building skills, and we don’t run it as an elimination.</span></p>
+      <p class="roles-label"><span data-l="zh">四个角色，每人主攻一到两样：</span><span data-l="en" lang="en">Four roles. Each member focuses on one or two:</span></p>
+      <ul class="roles">
+        <li><span data-l="zh">模型</span><span data-l="en" lang="en">Modeling</span></li>
+        <li><span data-l="zh">代码</span><span data-l="en" lang="en">Code</span></li>
+        <li><span data-l="zh">论文</span><span data-l="en" lang="en">Writing</span></li>
+        <li><span data-l="zh">文献</span><span data-l="en" lang="en">Research</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap rail-bar">
+    <p class="muted rail-note"><span data-l="zh">作业和复习，在我们自己做的学习平台 nes modeling 上完成。</span><span data-l="en" lang="en">Homework and review happen on nes modeling, a learning platform we built ourselves.</span></p>
+    <div class="rail-ctl">
+      <button class="round-btn" type="button" data-rail="prev" data-aria-zh="上一个阶段" data-aria-en="Previous phase" aria-label="上一个阶段"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="round-btn" type="button" data-rail="next" data-aria-zh="下一个阶段" data-aria-en="Next phase" aria-label="下一个阶段"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <ol class="rail" tabindex="0" data-aria-zh="训练营的七个阶段" data-aria-en="Seven phases of the camp" aria-label="训练营的七个阶段">
+    <li class="phase"><span class="idx">1</span><span class="weeks"><span data-l="zh">第 1 至 4 周</span><span data-l="en" lang="en">Weeks 1–4</span></span>
+      <h3><span data-l="zh">入门与第一次模拟赛</span><span data-l="en" lang="en">Foundations and a first mock contest</span></h3>
+      <p><span data-l="zh">建模的完整流程，论文结构，评价类模型，一次按 IMMC 时长进行的五天模拟赛。</span><span data-l="en" lang="en">The full modeling workflow, paper structure, evaluation models, and a five-day mock contest on IMMC timing.</span></p></li>
+    <li class="phase"><span class="idx">2</span><span class="weeks"><span data-l="zh">第 5 至 9 周</span><span data-l="en" lang="en">Weeks 5–9</span></span>
+      <h3><span data-l="zh">代码、文献与论文工具</span><span data-l="en" lang="en">Code, literature and writing tools</span></h3>
+      <p><span data-l="zh">Python 数据处理与可视化，文献检索，模型设计，LaTeX 与模型检验，再来一次 mini 模拟赛。</span><span data-l="en" lang="en">Python for data and plots, literature search, model design, LaTeX and model validation, then a mini mock contest.</span></p></li>
+    <li class="phase"><span class="idx">3</span><span class="weeks"><span data-l="zh">第 10 至 12 周</span><span data-l="en" lang="en">Weeks 10–12</span></span>
+      <h3>HiMCM</h3>
+      <p><span data-l="zh">正式比赛。讲师只提醒规则、时间和提交，不碰具体解法。</span><span data-l="en" lang="en">The real contest. Instructors only remind teams about rules, timing and submission, and stay out of the solutions.</span></p></li>
+    <li class="phase"><span class="idx">4</span><span class="weeks"><span data-l="zh">第 13 周</span><span data-l="en" lang="en">Week 13</span></span>
+      <h3><span data-l="zh">IMMC 秋季赛</span><span data-l="en" lang="en">IMMC autumn round</span></h3>
+      <p><span data-l="zh">96 小时的高强度协作。</span><span data-l="en" lang="en">Ninety-six hours of intense teamwork.</span></p></li>
+    <li class="phase"><span class="idx">5</span><span class="weeks"><span data-l="zh">第 14 至 18 周</span><span data-l="en" lang="en">Weeks 14–18</span></span>
+      <h3><span data-l="zh">冬季专项</span><span data-l="en" lang="en">Winter topics</span></h3>
+      <p><span data-l="zh">预测与统计，优化，仿真与随机模型，文献驱动建模与图论。</span><span data-l="en" lang="en">Prediction and statistics, optimization, simulation and random models, literature-driven modeling and graph theory.</span></p></li>
+    <li class="phase"><span class="idx">6</span><span class="weeks"><span data-l="zh">第 19 至 21 周</span><span data-l="en" lang="en">Weeks 19–21</span></span>
+      <h3><span data-l="zh">往届题分析与定队</span><span data-l="en" lang="en">Past problems and final teams</span></h3>
+      <p><span data-l="zh">一起拆往届真题，确定代表队，赛前冲刺。</span><span data-l="en" lang="en">We take past problems apart together, settle the teams and get ready for the winter round.</span></p></li>
+    <li class="phase"><span class="idx">7</span><span class="weeks"><span data-l="zh">第 22 至 23 周</span><span data-l="en" lang="en">Weeks 22–23</span></span>
+      <h3><span data-l="zh">IMMC 冬季赛</span><span data-l="en" lang="en">IMMC winter round</span></h3>
+      <p><span data-l="zh">正式比赛，赛后归档与复盘。</span><span data-l="en" lang="en">The contest itself, followed by archiving and a review.</span></p></li>
+  </ol>
+  <div class="wrap"><p class="note"><span data-l="zh">比赛时间以官方公布为准。</span><span data-l="en" lang="en">Contest dates follow the official announcements.</span></p></div>
+</section>
+
+<section class="section mist" id="research">
+  <div class="wrap">
+    <h2 class="h2"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></h2>
+    <p class="intro muted"><span data-l="zh">从地铁线网到抗体序列，对象差得很远，做法却接近：先把现实写成能算的形式，再判断算出来的结果能回答什么。点开任意一项，看完整内容。</span><span data-l="en" lang="en">From a metro network to antibody sequences. The objects are far apart, the method is close: write the real thing in a form you can compute, then work out what the result is able to answer. Open any one of them for the full write-up.</span></p>
+
+    <div class="studies">
+      <a class="study" href="research/metro-report-card/">
+        <span class="study-fig">
+          <svg viewBox="0 0 320 180" aria-hidden="true">
+            <path class="ln ac" d="M20 120 L100 120 L144 76 L300 76"/>
+            <path class="ln" d="M64 16 L64 120 L108 164 L300 164"/>
+            <path class="ln" d="M300 24 L212 24 L164 72 L164 164"/>
+            <circle class="dot" cx="64" cy="120" r="5.5"/>
+            <circle class="dot" cx="164" cy="76" r="5.5"/>
+            <circle class="dot" cx="164" cy="164" r="5.5"/>
+          </svg>
+        </span>
+        <span class="study-top">
+          <span class="idx">01</span>
+          <span class="kw"><span data-l="zh">评价模型</span><span data-l="en" lang="en">Evaluation model</span></span>
+        </span>
+        <h3><span data-l="zh">地铁成绩单</span><span data-l="en" lang="en" class="cm">The Metro Report Card</span></h3>
+        <p><span data-l="zh">我们按 IMMC 格式为校内模拟赛出的题。线网更长，就一定更有利于市民吗？五问，中英双语。</span><span data-l="en" lang="en">A problem we wrote in IMMC format for our own mock contest. Is a longer network really better for the people who ride it? Five tasks, in Chinese and English.</span></p>
+        <span class="more"><span data-l="zh">读题面</span><span data-l="en" lang="en">Read the problem</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a class="study" href="research/antibody-screening/">
+        <span class="study-fig">
+          <svg viewBox="0 0 320 180" aria-hidden="true">
+            <rect class="pt" x="30" y="30" width="16" height="16" rx="3.5"/>
+            <rect class="pt" x="30" y="52" width="16" height="16" rx="3.5"/>
+            <rect class="pt-on" x="30" y="74" width="16" height="16" rx="3.5"/>
+            <rect class="pt" x="30" y="96" width="16" height="16" rx="3.5"/>
+            <rect class="pt-on" x="30" y="118" width="16" height="16" rx="3.5"/>
+            <rect class="pt" x="30" y="140" width="16" height="16" rx="3.5"/>
+            <path class="ln" d="M62 93 L102 93"/>
+            <path class="ln" d="M95 87 L102 93 L95 99"/>
+            <text x="82" y="80" text-anchor="middle">φ</text>
+            <path class="ln dsh" d="M124 64 L306 64"/>
+            <circle class="pt-on" cx="188" cy="44" r="5"/>
+            <circle class="pt-on" cx="232" cy="32" r="5"/>
+            <circle class="pt-on" cx="272" cy="50" r="5"/>
+            <circle class="pt" cx="150" cy="128" r="4.2"/>
+            <circle class="pt" cx="172" cy="96" r="4.2"/>
+            <circle class="pt" cx="196" cy="140" r="4.2"/>
+            <circle class="pt" cx="214" cy="110" r="4.2"/>
+            <circle class="pt" cx="238" cy="132" r="4.2"/>
+            <circle class="pt" cx="262" cy="100" r="4.2"/>
+            <circle class="pt" cx="286" cy="144" r="4.2"/>
+            <circle class="pt" cx="160" cy="152" r="4.2"/>
+            <circle class="pt" cx="202" cy="84" r="4.2"/>
+            <circle class="pt" cx="248" cy="152" r="4.2"/>
+            <circle class="pt" cx="276" cy="118" r="4.2"/>
+            <circle class="pt" cx="222" cy="146" r="4.2"/>
+          </svg>
+        </span>
+        <span class="study-top">
+          <span class="idx">02</span>
+          <span class="kw"><span data-l="zh">表示学习与贝叶斯优化</span><span data-l="en" lang="en">Representation learning, Bayesian optimization</span></span>
+        </span>
+        <h3><span data-l="zh">用 AI 筛选抗 HBsAg 抗体</span><span data-l="en" lang="en">Screening anti-HBsAg antibodies with AI</span></h3>
+        <p><span data-l="zh">把一条抗体序列映成一个分数，按分数排序，取最前面的几条送去做实验。难处在标签太少，实验太贵。</span><span data-l="en" lang="en">Map an antibody sequence to a score, rank by the score, send the top few to the bench. The hard part is that labels are scarce and experiments are expensive.</span></p>
+        <span class="more"><span data-l="zh">读这一项</span><span data-l="en" lang="en">Read this one</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a class="study" href="research/inharmonic-strings/">
+        <span class="study-fig">
+          <svg viewBox="0 0 320 180" aria-hidden="true">
+            <path class="ln" d="M24 152 L302 152" stroke-width="2"/>
+            <path class="ln dsh" d="M40 152 L40 56M76 152 L76 70M112 152 L112 84M148 152 L148 96M184 152 L184 106M220 152 L220 114"/>
+            <path class="ln ac" d="M40 152 L40 56M76 152 L76 70M114 152 L114 84M156 152 L156 96M203 152 L203 106M258 152 L258 114"/>
+          </svg>
+        </span>
+        <span class="study-top">
+          <span class="idx">03</span>
+          <span class="kw"><span data-l="zh">逆问题与谱可辨识性</span><span data-l="en" lang="en">Inverse problems, spectral identifiability</span></span>
+        </span>
+        <h3><span data-l="zh">同基频非理想弦的谱辨识与参数重建</span><span data-l="en" lang="en">Spectral identification of inharmonic strings</span></h3>
+        <p><span data-l="zh">两根弦基频相同，声音却不一样。只靠一段频谱，能不能把张力和有效长度算回来？</span><span data-l="en" lang="en">Two strings share a fundamental and still sound different. Can tension and effective length be recovered from the spectrum alone?</span></p>
+        <span class="more"><span data-l="zh">读这一项</span><span data-l="en" lang="en">Read this one</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a class="study" href="research/energy-transition/">
+        <span class="study-fig">
+          <svg viewBox="0 0 320 180" aria-hidden="true">
+            <path class="ln" d="M28 26 L28 152 L302 152" stroke-width="2"/>
+            <path class="ln dsh" d="M28 120 L302 120"/>
+            <path class="ln dsh" d="M196 152 L196 108"/>
+            <path class="ln ac" d="M28 48 L92 48 L92 108 L196 108 L196 74 L302 74"/>
+            <circle class="pt-on" cx="196" cy="108" r="5"/>
+          </svg>
+        </span>
+        <span class="study-top">
+          <span class="idx">04</span>
+          <span class="kw"><span data-l="zh">情境模拟与多准则决策</span><span data-l="en" lang="en">Scenario simulation, multi-criteria decisions</span></span>
+        </span>
+        <h3><span data-l="zh">气候能源转型模拟器</span><span data-l="en" lang="en">Climate energy transition simulator</span></h3>
+        <p><span data-l="zh">一户人家该不该把燃煤炉换成热泵？模型把收入、房子、气候和补贴放进同一笔账里算。</span><span data-l="en" lang="en">Should a household swap a coal stove for a heat pump? The model puts income, housing, climate and subsidies into one account.</span></p>
+        <span class="more"><span data-l="zh">读这一项</span><span data-l="en" lang="en">Read this one</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section join" id="join">
+  <div class="wrap">
+    <h2 class="h2"><span data-l="zh">加入 Axiom</span><span data-l="en" lang="en">Join Axiom</span></h2>
+    <p class="intro"><span data-l="zh">我们现在有 45 名成员，也是 IMMC Finalist 奖得主。数学基础好不好，关系不大；对数学好奇，就够了。</span><span data-l="en" lang="en">We have 45 members and an IMMC Finalist award. How good you are at math matters less than whether you are curious about it.</span></p>
+    <p class="intro muted"><span data-l="zh">想先看看？周三中午的 Incubator，社团以外的同学也可以来。招新和报名方式，请留意校内通知。</span><span data-l="en" lang="en">Want a look first? Drop by the Incubator at Wednesday noon; students outside the club are welcome. Watch school announcements for how to join.</span></p>
+    <div class="actions"><a class="btn btn-ink" href="#noon"><span data-l="zh">看看午间活动</span><span data-l="en" lang="en">See the noon sessions</span></a></div>
+    <p class="motto"><span data-l="zh">以公理为序，以逻辑为刃，去找事物背后藏着的秩序。</span><span data-l="en" lang="en">With axioms for order and logic for a blade, we go looking for the order hidden behind things.</span></p>
+    <span class="qed-mark" aria-hidden="true">∎</span>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg><b lang="en">Axiom</b><span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Mathematics Club</span></span>
+  </div>
+</footer>
+</body>
+</html>
