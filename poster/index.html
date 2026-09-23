@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Axiom 海报</title>
+<style>
+  @font-face { font-family: "CM"; src: url("../assets/fonts/KaTeX_Main-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "CM"; src: url("../assets/fonts/KaTeX_Main-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+  @font-face { font-family: "CM"; src: url("../assets/fonts/KaTeX_Main-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+  @font-face { font-family: "CM Math"; src: url("../assets/fonts/KaTeX_Math-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+
+  @page { size: 420mm 594mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; }
+  .page {
+    position: relative; width: 420mm; height: 594mm; overflow: hidden;
+    background: #000; color: #fff;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .cm { font-family: "CM", serif; }
+  .var { font-family: "CM Math", "CM", serif; font-style: italic; }
+
+  /* 底纹：极淡的坐标网格 */
+  .grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(to right, rgba(255,255,255,0.055) 0.18mm, transparent 0.18mm),
+                      linear-gradient(to bottom, rgba(255,255,255,0.055) 0.18mm, transparent 0.18mm);
+    background-size: 14mm 14mm;
+  }
+  .scrim {
+    position: absolute; left: 0; right: 0; top: 240mm; height: 180mm;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 38%, rgba(0,0,0,0.82) 72%, rgba(0,0,0,0.92) 100%);
+  }
+  .vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 78% at 50% 32%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 78%, #000 100%);
+  }
+
+  /* 吸引子 */
+  .attractor {
+    position: absolute; left: 50%; top: 8mm; width: 452mm; transform: translateX(-50%);
+    -webkit-mask-image: radial-gradient(64% 62% at 50% 46%, #000 52%, rgba(0,0,0,0.75) 74%, transparent 100%);
+    mask-image: radial-gradient(64% 62% at 50% 46%, #000 52%, rgba(0,0,0,0.75) 74%, transparent 100%);
+  }
+  .attractor img { display: block; width: 100%; }
+
+  /* 不动点标注 */
+  .pin { position: absolute; width: 0; height: 0; }
+  .pin i { position: absolute; left: -1.4mm; top: -1.4mm; width: 2.8mm; height: 2.8mm; border: 0.25mm solid rgba(160,148,255,0.9); border-radius: 50%; }
+  .pin u { position: absolute; left: 1.4mm; top: 0; width: 13mm; height: 0.2mm; background: rgba(255,255,255,0.45); }
+  .pin.l u { left: auto; right: 1.4mm; }
+  .pin b { position: absolute; left: 15mm; top: -5.6mm; width: 62mm; font-weight: 400; font-size: 4.4mm; line-height: 1.5; letter-spacing: 0.04em; color: rgba(255,255,255,0.82); }
+  .pin.l b { left: auto; right: 15mm; text-align: right; }
+  .pin b em { display: block; font-style: normal; font-size: 3.5mm; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
+
+  /* 页眉 */
+  .head { position: absolute; left: 26mm; right: 26mm; top: 20mm; display: flex; align-items: flex-start; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 4.5mm; }
+  .brand svg { width: 12mm; height: 12mm; overflow: visible; }
+  .brand .nm { font-family: "CM", serif; font-size: 11.5mm; line-height: 1; }
+  .brand .sub { font-size: 4.6mm; letter-spacing: 0.22em; color: rgba(255,255,255,0.62); }
+  .meta { text-align: right; font-size: 4.4mm; line-height: 1.75; letter-spacing: 0.12em; color: rgba(255,255,255,0.55); }
+  .meta .hi { color: #8f83ff; }
+
+  /* 主标题 */
+  .hero { position: absolute; left: 0; right: 0; top: 286mm; text-align: center; }
+  .wordmark { font-family: "CM", serif; font-size: 112mm; line-height: 0.86; letter-spacing: -0.012em; }
+  .tagline { margin-top: 11mm; font-size: 11.5mm; font-weight: 600; letter-spacing: 0.01em; }
+  .tagline-en { margin-top: 4mm; font-family: "CM", serif; font-size: 7.4mm; letter-spacing: 0.02em; color: rgba(255,255,255,0.62); }
+
+  /* 分栏 */
+  .rule { position: absolute; left: 26mm; right: 26mm; height: 0.2mm; background: rgba(255,255,255,0.22); }
+  .rule::before, .rule::after { content: ""; position: absolute; top: -1.6mm; width: 0.2mm; height: 1.6mm; background: rgba(255,255,255,0.22); }
+  .rule::before { left: 0; }
+  .rule::after { right: 0; }
+  .cols { position: absolute; left: 26mm; right: 26mm; top: 452mm; display: grid; grid-template-columns: 1fr 1fr 1.05fr; gap: 12mm; }
+  .col h3 { font-size: 4.4mm; font-weight: 400; letter-spacing: 0.2em; color: #8f83ff; margin-bottom: 5mm; }
+  .eqs { font-family: "CM", serif; font-size: 7.2mm; line-height: 1.85; color: rgba(255,255,255,0.9); }
+  .note { margin-top: 5mm; font-size: 4.4mm; line-height: 1.7; color: rgba(255,255,255,0.5); }
+  .list { list-style: none; }
+  .list li { display: grid; grid-template-columns: 9mm 1fr; font-size: 6mm; line-height: 1.5; padding: 2.4mm 0; }
+  .list li + li { border-top: 0.15mm solid rgba(255,255,255,0.14); }
+  .list .n { font-family: "CM", serif; font-size: 4.8mm; color: rgba(255,255,255,0.42); padding-top: 0.7mm; }
+  .list .en { display: block; font-family: "CM", serif; font-size: 4.3mm; color: rgba(255,255,255,0.42); letter-spacing: 0.01em; }
+
+  /* 页脚 */
+  .facts { position: absolute; left: 26mm; right: 26mm; top: 546mm; display: flex; justify-content: space-between; align-items: flex-end; }
+  .facts .f { font-size: 4.6mm; letter-spacing: 0.02em; color: rgba(255,255,255,0.62); }
+  .facts .f b { display: block; font-family: "CM", serif; font-size: 12.5mm; font-weight: 400; color: #fff; letter-spacing: 0; }
+  .facts .f b span { font-family: "PingFang SC", sans-serif; font-size: 6mm; }
+  .tail { position: absolute; left: 26mm; right: 26mm; top: 577mm; display: flex; justify-content: space-between; align-items: baseline; font-size: 4.4mm; letter-spacing: 0.04em; color: rgba(255,255,255,0.45); }
+  .tail .qed { font-family: "CM", serif; font-size: 6mm; color: rgba(255,255,255,0.8); }
+
+  /* 角标 */
+  .corner { position: absolute; width: 6mm; height: 6mm; }
+  .corner::before, .corner::after { content: ""; position: absolute; background: rgba(255,255,255,0.3); }
+  .corner::before { left: 0; top: 0; width: 6mm; height: 0.2mm; }
+  .corner::after { left: 0; top: 0; width: 0.2mm; height: 6mm; }
+  .c1 { left: 14mm; top: 14mm; }
+  .c2 { right: 14mm; top: 14mm; transform: scaleX(-1); }
+  .c3 { left: 14mm; bottom: 10mm; transform: scaleY(-1); }
+  .c4 { right: 14mm; bottom: 10mm; transform: scale(-1); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grid"></div>
+
+  <div class="attractor">
+    <img src="lorenz.png" alt="">
+    <div class="pin l" style="left: 31.3%; top: 46.3%;">
+      <i></i><u></u>
+      <b>C<sub class="cm">−</sub><em class="cm">(−√(β(ρ−1)), −√(β(ρ−1)), ρ−1)</em></b>
+    </div>
+    <div class="pin" style="left: 68.7%; top: 46.3%;">
+      <i></i><u></u>
+      <b>C<sub class="cm">+</sub><em class="cm">(√(β(ρ−1)), √(β(ρ−1)), ρ−1)</em></b>
+    </div>
+  </div>
+
+  <div class="vignette"></div>
+  <div class="scrim"></div>
+
+  <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+
+  <div class="head">
+    <div class="brand">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <div>
+        <div class="nm">Axiom</div>
+        <div class="sub">应用数学社</div>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="hi cm">LORENZ SYSTEM</div>
+      <div class="cm">σ = 10　ρ = 28　β = 8/3</div>
+      <div class="cm">λ<sub>1</sub> ≈ 0.9</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="wordmark">Axiom</div>
+    <div class="tagline">公理是推演的起点。</div>
+    <div class="tagline-en">An axiom is where deduction begins.</div>
+  </div>
+
+  <div class="rule" style="top: 442mm;"></div>
+
+  <div class="cols">
+    <div class="col">
+      <h3 class="cm">EQUATIONS</h3>
+      <div class="eqs">
+        <span class="cm">d</span><span class="var">x</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">σ</span>(<span class="var">y</span> − <span class="var">x</span>)<br>
+        <span class="cm">d</span><span class="var">y</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span>(<span class="var">ρ</span> − <span class="var">z</span>) − <span class="var">y</span><br>
+        <span class="cm">d</span><span class="var">z</span>/<span class="cm">d</span><span class="var">t</span> = <span class="var">x</span><span class="var">y</span> − <span class="var">β</span><span class="var">z</span>
+      </div>
+      <p class="note">画面是 520 条轨道的长曝光。此参数下轨道落在混沌吸引子上，初值的微小差别按指数放大。</p>
+    </div>
+    <div class="col">
+      <h3 class="cm">AXIOMS</h3>
+      <ul class="list">
+        <li><span class="n">1</span><span>数学就在日常里<span class="en">Mathematics lives in everyday life</span></span></li>
+        <li><span class="n">2</span><span>先弄清问题，再动手算<span class="en">Understand before you calculate</span></span></li>
+        <li><span class="n">3</span><span>对数学好奇，就够了<span class="en">Curiosity is enough</span></span></li>
+        <li><span class="n">4</span><span>有趣和有用，可以兼得<span class="en">Fun and useful can go together</span></span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3 class="cm">OUR OBSERVATION</h3>
+      <ul class="list">
+        <li><span class="n">01</span><span>地铁成绩单<span class="en">The Metro Report Card</span></span></li>
+        <li><span class="n">02</span><span>用 AI 筛选抗 HBsAg 抗体<span class="en">Screening antibodies with AI</span></span></li>
+        <li><span class="n">03</span><span>非理想弦的谱辨识<span class="en">Spectral identification of strings</span></span></li>
+        <li><span class="n">04</span><span>气候能源转型模拟器<span class="en">Climate energy transition simulator</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="f"><b>45</b>名成员</div>
+    <div class="f"><b class="cm">IMMC</b>Finalist 奖</div>
+    <div class="f"><b>23 <span>周</span></b>数学建模训练营</div>
+    <div class="f"><b>周三<span>中午</span></b>Incubator 公开活动</div>
+    <div class="f"><b class="cm">1:00–1:30</b>系统学习</div>
+  </div>
+
+  <div class="rule" style="top: 571mm;"></div>
+  <div class="tail">
+    <div>招新与报名方式，请留意校内通知。　Watch school announcements for how to join.</div>
+    <div class="qed">∎</div>
+  </div>
+</div>
+</body>
+</html>

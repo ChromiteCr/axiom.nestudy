@@ -489,3 +489,14 @@ html[data-lang="zh"] [data-l="en"], html[data-lang="en"] [data-l="zh"] { display
   .study[data-k="spec"]:hover .ac, .study[data-k="heat"]:hover .ac, .study[data-k="ab"]:hover .pt-on { transform: none; }
   .study[data-k="metro"]:hover .ac { stroke-dasharray: none; animation: none; }
 }
+
+/* 训练营：课堂照片 */
+.camp-photo { margin-block: clamp(48px, 6vw, 72px) 0; }
+.camp-photo img { display: block; width: 100%; height: auto; border-radius: 30px; background: var(--mist); }
+.camp-photo figcaption { margin-top: 14px; font-size: 14px; line-height: 1.7; color: var(--graphite); }
+@media (max-width: 620px) { .camp-photo img { border-radius: 20px; } }
+
+/* 窄屏英文模式下，页眉不折行 */
+.brand span, .lang-btn .pill { white-space: nowrap; }
+@media (max-width: 440px) { html[data-lang="en"] .brand span[data-l="en"] { display: none !important; } }
+@media (max-width: 360px) { .brand span { display: none !important; } }

@@ -1,6 +1,6 @@
 # Axiom 应用数学社官网
 
-![version](https://img.shields.io/badge/version-A1a1-blue)
+![version](https://img.shields.io/badge/version-A1b2-blue)
 ![last commit](https://img.shields.io/github/last-commit/ChromiteCr/axiom.nestudy)
 ![commit activity](https://img.shields.io/github/commit-activity/m/ChromiteCr/axiom.nestudy)
 ![stars](https://img.shields.io/github/stars/ChromiteCr/axiom.nestudy)
@@ -25,7 +25,9 @@ assets/js/attractor.js  首屏：洛伦茨吸引子，按住放下锚点
 assets/js/site.js       语言切换、导航、证明逐行点亮、训练营滑轨、线路图
 assets/js/figures.js    研究分页里的三张可交互插图
 assets/img/             徽标与网站图标
+assets/photos/          活动照片，每张两种宽度（1600、2400），JPEG 与 WebP 各一份，已去掉拍摄地点等元数据
 assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICENSE.txt）
+poster/                 招新海报：A2 的 PDF 与 PNG，源文件是一张 HTML
 ```
 
 分页靠目录取得干净的网址：`research/metro-report-card/index.html` 对应 `站点/research/metro-report-card/`，GitHub Pages 不需要额外配置。四页共用同一套导航和页脚，改导航要四页一起改。
@@ -44,6 +46,23 @@ assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICEN
 - `assets/img/axiom-logo.svg`：图形加字标，字标是 Computer Modern 的字形轮廓，不依赖字体安装
 - `assets/img/favicon.svg`、`assets/img/apple-touch-icon.png`：网站图标
 
+## 海报
+
+`poster/` 里是一张 A2（420 × 594 mm）海报。
+
+- `poster/axiom-poster.pdf`：印刷用，页面尺寸就是 A2，文字为矢量，吸引子是 3000 × 2500 的位图
+- `poster/axiom-poster.png`：屏幕用，2539 × 3592
+- `poster/index.html`：版式源文件，尺寸全部用毫米写
+- `poster/lorenz_render.py`：生成吸引子图的脚本，520 条轨道长曝光，按速度着色
+
+改完版式重新出片：先开本地服务，再打印。
+
+```bash
+python3 poster/lorenz_render.py
+```
+
+打印用 Chrome 的无头模式，指定 A2 纸张、保留背景色。图上标出的 C₊ 与 C₋ 是洛伦茨系统的两个不动点，坐标为 (±√(β(ρ−1)), ±√(β(ρ−1)), ρ−1)。
+
 ## 数据与署名
 
 地铁线路图取自 OpenStreetMap（© OpenStreetMap contributors，ODbL 许可），页面底部已署名。
@@ -52,6 +71,9 @@ assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICEN
 
 | 版本 | 日期 | 变更内容 | 类型 |
 |------|------|----------|------|
+| A1b2 | 2026-09-23 | 训练营一节加入第 3 周的课堂照片（图 2，2026 年 9 月 17 日），裁成 16:9，按屏幕宽度加载 1600 或 2400 像素、优先 WebP，懒加载，去掉了照片元数据；中英两种替代文本随语言切换。另修正窄屏页眉：英文模式下副标题与语言按钮不再折行，440 像素以下英文隐去副标题，360 像素以下两种语言都隐去，菜单按钮始终留在屏幕内 | fix |
+| A1b1 | 2026-09-22 | 海报字号整体放大：正文列表 6mm、公式 7.2mm、标语 11.5mm、页脚数字 12.5mm，标注也一并加大；版面重排腾出空间，主标题下方加一层压暗，白字在亮处仍然清楚 | fix |
+| A1b | 2026-09-22 | 新增招新海报：A2 尺寸，黑底，主图是 520 条洛伦茨轨道的长曝光（RK4 积分，双线性抛点，按速度从紫到青到白着色，再叠一层辉光），标出两个不动点 C₊、C₋。版式是一张按毫米写的 HTML，用 Chrome 打印成矢量文字的 PDF，另出一张 PNG。内容取自网站：四条公理、四项研究、方程与参数、45 名成员与 IMMC Finalist 奖 | feat |
 | A1a1 | 2026-09-22 | 研究之外的文案全部重写，中英同步：首屏改用洛伦茨方程的准确说法并给出最大李雅普诺夫指数；公理的定义改为形式系统内的表述；命题写明结论的有效范围，证明四步补上假设的取舍与回到现象的检验，证毕后加一条注，说明这是类比；四条公理、午间活动、训练营与加入段落改为更克制、可核对的说法 | fix |
 | A1a | 2026-09-22 | 「我们出的题」改为「我们的研究 / Our observation」，四项研究在主页只留索引卡片，正文各自分页（`/research/<slug>/`，GitHub Pages 直接可用）。新增三项研究：AI 筛选抗 HBsAg 抗体、同基频非理想弦的谱辨识与参数重建、气候能源转型模拟器。可交互的北京线路图移到地铁那一页，另给三项研究各做一张可交互插图：拖 β 看入选的候选如何更替、拖非谐性参数看泛音偏离整数倍、调补贴年限与能效看三种供暖方案的年度支出。索引卡片指上去有各自的小动作。午间活动与图注等处的文案改写，去掉过白的表述 | feat |
 | A1 | 2026-09-22 | 官网第一版。整站按一篇数学文本来排：首屏是洛伦茨吸引子，粒子从几乎同一点出发，几秒后散成混沌；按住画面放下锚点，粒子按黄金角螺旋收拢，松手回到混沌，混合量由临界阻尼弹簧驱动，随时可以打断。之后依次是定义与两栏证明（滚到哪行亮哪行）、四条公理、午间活动、23 周训练营（横向滑轨）、我们出的题「地铁成绩单」（可交互的北京线路图）和加入，以 ∎ 收尾。中英文一键切换，不刷新页面。徽标是一个角：顶点、两条射线、一段角弧。字体用系统字和 KaTeX 的 Computer Modern，零依赖。照顾减弱动效、减弱透明度和高对比度三种系统偏好 | milestone |
