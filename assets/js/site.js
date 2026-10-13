@@ -50,7 +50,10 @@
   document.addEventListener("pointerdown", function (e) {
     if (sheet.classList.contains("is-open") && !sheet.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false);
   });
-  window.addEventListener("resize", function () { if (window.innerWidth > 800) setMenu(false); });
+  // 导航链接重新露出来时收起菜单；何时露出由样式决定，中英文的断点不同
+  function menuHidden() { return getComputedStyle(menuBtn).display === "none"; }
+  window.addEventListener("resize", function () { if (menuHidden()) setMenu(false); });
+  onLang.push(function () { if (menuHidden()) setMenu(false); });
 
   /* ---------- 首屏 ---------- */
   if (hero && window.AxiomAttractor) {

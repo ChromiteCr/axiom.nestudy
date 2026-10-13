@@ -41,6 +41,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
       </ul>
@@ -56,6 +57,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
   </ul>
@@ -77,7 +79,7 @@
     </ul>
 
     <h2><span data-l="zh">问的是什么</span><span data-l="en" lang="en">The question</span></h2>
-    <p><span data-l="zh">依赖参数的振动系统，反过来问参数，是一类常见问题。谱可辨识性问得更基本：把物理参数映到一组频率，这个映射是单射吗？测量带噪声时，它稳定吗？两个问题都答不好，任何反演算法算出的数字都不值得信。</span><span data-l="en" lang="en">Asking for the parameters of a parameter-dependent vibrating system is a familiar kind of inverse problem. Spectral identifiability asks something more basic: is the map from physical parameters to a set of frequencies injective, and is it stable when the measurement carries noise? Without answers to both, the numbers an inversion algorithm returns are not worth much.</span></p>
+    <p><span data-l="zh">依赖参数的振动系统，反过来问参数，是一类常见问题。谱可辨识性问得更基本：把物理参数映到一组频率，这个映射是单射吗？测量带噪声时，它稳定吗？这两点没有保证，反演算法算出的数字就不可信。</span><span data-l="en" lang="en">Asking for the parameters of a parameter-dependent vibrating system is a familiar kind of inverse problem. Spectral identifiability asks something more basic: is the map from physical parameters to a set of frequencies injective, and is it stable when the measurement carries noise? Unless both hold, the numbers an inversion algorithm returns cannot be trusted.</span></p>
 
     <h2><span data-l="zh">模型</span><span data-l="en" lang="en">The model</span></h2>
     <p><span data-l="zh">理想弦只有张力，实际的弦还有抗弯劲度。加上这一项，标准的劲度弦方程写成：</span><span data-l="en" lang="en">An ideal string carries only tension; a real one also resists bending. With that term added, the standard stiff-string equation reads:</span></p>
@@ -88,7 +90,7 @@
 
     <h2><span data-l="zh">高次泛音带着信息</span><span data-l="en" lang="en">The information sits in the high partials</span></h2>
     <p><span data-l="zh">取两根弦，实际基频完全相同，非谐性参数不同。研究证明，归一化的谱偏差随谐波次数按 <span class="var">O</span>(<span class="var">n</span><sup>2</sup>) 增长，绝对频率偏差按 <span class="var">O</span>(<span class="var">n</span><sup>3</sup>) 增长。</span><span data-l="en" lang="en">Take two strings with exactly the same actual fundamental and different inharmonicity. The study proves that their normalized spectral deviation grows as <span class="var">O</span>(<span class="var">n</span><sup>2</sup>) with harmonic order, while the absolute frequency deviation grows as <span class="var">O</span>(<span class="var">n</span><sup>3</sup>).</span></p>
-    <p><span data-l="zh">低次泛音几乎重合，难以分辨，差异要到高次才显现。频率分辨率有限时，可以推出从第几次谐波起两者才真正可分。这个次数决定了测量要做多长。</span><span data-l="en" lang="en">The consequence is practical. Low partials nearly coincide and tell the two strings apart poorly; the gap only becomes visible higher up. Under finite frequency resolution one can derive the lowest harmonic order at which they become distinguishable, and that order sets how long the measurement has to be.</span></p>
+    <p><span data-l="zh">低次泛音几乎重合，难以分辨，差异要到高次才显现。频率分辨率有限时，可以推出从第几次谐波起两者才分得开。这个次数决定了测量要做多长。</span><span data-l="en" lang="en">Low partials nearly coincide and tell the two strings apart poorly; the gap only becomes visible higher up. Under finite frequency resolution one can derive the lowest harmonic order at which they become distinguishable, and that order sets how long the measurement has to be.</span></p>
 
     <figure class="ifig" data-fig="spec">
       <div class="ifig-stage">
@@ -106,7 +108,7 @@
     </figure>
 
     <h2><span data-l="zh">一个参数不够</span><span data-l="en" lang="en">One parameter is not enough</span></h2>
-    <p><span data-l="zh">只知道非谐性参数 <span class="var">B</span>，张力和有效长度分不开。不同的 (<span class="var">T</span>, <span class="var">L</span>) 组合给出同一个 <span class="var">B</span>，这是结构性的不可辨识，再精确的测量也救不回来。</span><span data-l="en" lang="en">Knowing the inharmonicity parameter <span class="var">B</span> alone does not separate tension from effective length: different pairs (<span class="var">T</span>, <span class="var">L</span>) give the same <span class="var">B</span>. The non-identifiability is structural, and no amount of measurement precision repairs it.</span></p>
+    <p><span data-l="zh">只知道非谐性参数 <span class="var">B</span>，张力和有效长度分不开。不同的 (<span class="var">T</span>, <span class="var">L</span>) 组合给出同一个 <span class="var">B</span>，这是结构性的不可辨识，测量再精确也分不开。</span><span data-l="en" lang="en">Knowing the inharmonicity parameter <span class="var">B</span> alone does not separate tension from effective length: different pairs (<span class="var">T</span>, <span class="var">L</span>) give the same <span class="var">B</span>. The non-identifiability is structural, and no amount of measurement precision separates them.</span></p>
     <p><span data-l="zh">补入一个绝对尺度即可，理想弦的基频正好提供它：</span><span data-l="en" lang="en">An absolute scale fixes it, and the ideal-string fundamental provides one:</span></p>
     <div class="eq"><span class="var">f</span><sub>0</sub> = <span class="frac"><span>1</span><span>2<span class="var">L</span></span></span> √<span class="rad"><span class="frac"><span><span class="var">T</span></span><span><span class="var">μ</span></span></span></span></div>
     <p><span data-l="zh">于是反演分两步：先从谱形状定出非谐性参数，再借绝对频率尺度分别确定张力与有效长度。研究证明这个两阶段框架有全局唯一性和局部 Lipschitz 稳定性，即频谱扰动不大时，参数误差被常数倍地控制住。</span><span data-l="en" lang="en">Inversion then runs in two stages: recover the inharmonicity from the shape of the spectrum, then pin down tension and effective length separately using the absolute frequency scale. The study proves this two-stage framework has global uniqueness and local Lipschitz stability, meaning that for small spectral perturbations the parameter error stays bounded by a constant times the measurement error.</span></p>
@@ -126,7 +128,7 @@
     <p><span data-l="zh"><span class="var">B</span> 的误差比另两项大，跟它靠高次泛音定出来有关，高次泛音的幅度小，也更容易被噪声盖住。</span><span data-l="en" lang="en">The error on <span class="var">B</span> is the largest of the three, which fits the way it is determined: from high partials, where amplitudes are small and noise covers more easily.</span></p>
 
     <h2><span data-l="zh">可以用在哪里</span><span data-l="en" lang="en">Where it is useful</span></h2>
-    <p><span data-l="zh">一段录音里，弦的物理参数原则上是可以读出来的。音频分析和物理建模合成都需要这类反演：前者想知道乐器的状态，后者要拿参数去驱动一个数值弦。这项工作给这类反问题补上了数学依据。</span><span data-l="en" lang="en">In principle a recording carries the physical state of the string that produced it. Audio analysis and physical modeling synthesis both need this kind of inversion, one to learn what an instrument is doing, the other to drive a numerical string with the recovered parameters. This work supplies the mathematical footing for it.</span></p>
+    <p><span data-l="zh">一段录音里，弦的物理参数原则上是可以读出来的。音频分析和物理建模合成都需要这类反演：前者想知道乐器的状态，后者要拿参数去驱动一个数值弦。</span><span data-l="en" lang="en">In principle a recording carries the physical state of the string that produced it. Audio analysis and physical modeling synthesis both need this kind of inversion, one to learn what an instrument is doing, the other to drive a numerical string with the recovered parameters.</span></p>
 
     <span class="qed-mark" aria-hidden="true">∎</span>
 

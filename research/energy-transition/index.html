@@ -41,6 +41,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
       </ul>
@@ -56,6 +57,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
   </ul>
@@ -108,15 +110,15 @@
     </figure>
 
     <h2><span data-l="zh">全球版：先估需求，再排方案</span><span data-l="en" lang="en">Global version: estimate demand, then rank the options</span></h2>
-    <p><span data-l="zh">国别一换，补贴政策随之不同，可依凭的只剩更基础的量。全球版从采暖度日和制冷度日入手，配上能源账单、设备效率和当地能源价格，估算一户人家的冷热需求。</span><span data-l="en" lang="en">Move to another country and the subsidy rules change, so only the more basic quantities survive. The global version starts from heating and cooling degree days, adds the energy bill, equipment efficiency and local energy prices, and estimates the household's heating and cooling demand.</span></p>
+    <p><span data-l="zh">换一个国家，补贴政策就不同了，能用的只有更基础的量。全球版从采暖度日和制冷度日入手，配上能源账单、设备效率和当地能源价格，估算一户人家的冷热需求。</span><span data-l="en" lang="en">Move to another country and the subsidy rules change, so only the more basic quantities survive. The global version starts from heating and cooling degree days, adds the energy bill, equipment efficiency and local energy prices, and estimates the household's heating and cooling demand.</span></p>
     <div class="eq">HDD = <span class="op">Σ</span><sub class="var">d</sub> max(<span class="var">T</span><sub>base</sub> − <span class="var">T</span><sub class="var">d</sub>, 0)</div>
     <p><span data-l="zh">可行的方案先筛一遍，剩下的按四个维度打分加权，再排序：可负担性、气候适应性、环境表现、实施便利性。</span><span data-l="en" lang="en">Infeasible options are filtered out first; the rest are scored on four dimensions, weighted and ranked: affordability, climate suitability, environmental performance and ease of implementation.</span></p>
     <div class="eq"><span class="var">S</span>(<span class="var">a</span>) = <span class="op">Σ</span><sub class="var">k</sub> <span class="var">w</span><sub class="var">k</sub> <span class="var">u</span><sub class="var">k</sub>(<span class="var">a</span>)</div>
-    <p><span data-l="zh">热泵在温和气候里通常排在前面，到了极冷地区，效率掉下来，排序就可能翻过来。这类翻转正是模型要抓的地方。</span><span data-l="en" lang="en">Heat pumps usually come out on top in mild climates. Where winters are severe their efficiency falls and the ranking may reverse, and reversals of that kind are exactly what the model is built to catch.</span></p>
+    <p><span data-l="zh">热泵在温和气候里通常排在前面，到了极冷地区，效率掉下来，排序就可能翻过来。模型要算出的，就是排序在什么条件下翻转。</span><span data-l="en" lang="en">Heat pumps usually come out on top in mild climates. Where winters are severe their efficiency falls and the ranking may reverse; the model is there to find the conditions under which that happens.</span></p>
 
     <h2><span data-l="zh">规则写在明面上</span><span data-l="en" lang="en">The rules are written down</span></h2>
-    <p><span data-l="zh">数据缺失、极端气候、基础设施限制，模型对每种情形都设了明确规则，不靠临时判断。由此每一项结果都能追溯，也能复算：换一组输入，结果为何改变，看得出来。</span><span data-l="en" lang="en">Missing data, extreme climates and infrastructure limits are each handled by an explicit rule rather than a judgement call made on the spot. The result is that every output can be traced and recomputed: change an input and you can see why the answer moved.</span></p>
-    <p><span data-l="zh">做成网站，是因为这类问题的答案与具体那户人家绑得很紧。参数一改，结论就可能反过来；与其给一条平均意义上的建议，不如让人把自己的数字填进去。</span><span data-l="en" lang="en">It became a website because the answer is bound tightly to the particular household. Change the parameters and the conclusion can flip, so it is better to let people enter their own numbers than to hand out advice that holds only on average.</span></p>
+    <p><span data-l="zh">数据缺失、极端气候和基础设施限制，模型对每种情形都写了明确的处理规则。所以每一项结果都能追溯、能复算，换一组输入，看得出结果为什么变。</span><span data-l="en" lang="en">Missing data, extreme climates and infrastructure limits are each handled by an explicit rule. Every output can therefore be traced and recomputed, and when an input changes you can see why the answer moved.</span></p>
+    <p><span data-l="zh">做成网站，是因为答案取决于具体那户人家，参数一改，结论就可能反过来。每户填进自己的数字，算出的就是这一户的结果。</span><span data-l="en" lang="en">It became a website because the answer depends on the particular household, and changing the parameters can flip the conclusion. Each household enters its own numbers and gets a result for itself.</span></p>
 
     <span class="qed-mark" aria-hidden="true">∎</span>
 

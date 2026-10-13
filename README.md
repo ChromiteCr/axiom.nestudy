@@ -1,11 +1,11 @@
 # Axiom 应用数学社官网
 
-![version](https://img.shields.io/badge/version-A1c-blue)
+![version](https://img.shields.io/badge/version-A1d-blue)
 ![last commit](https://img.shields.io/github/last-commit/ChromiteCr/axiom.nestudy)
 ![commit activity](https://img.shields.io/github/commit-activity/m/ChromiteCr/axiom.nestudy)
 ![stars](https://img.shields.io/github/stars/ChromiteCr/axiom.nestudy)
 
-Axiom 应用数学社的宣传网站。纯静态，中英双语，一张主页加四个研究分页。没有框架，也没有构建步骤，推到 GitHub Pages 就能访问。
+Axiom 应用数学社的宣传网站。纯静态，中英双语，一张主页、四个研究分页和一个训练营课件页。没有框架，也没有构建步骤，推到 GitHub Pages 就能访问。
 
 ## 本地预览
 
@@ -28,10 +28,12 @@ assets/img/             徽标与网站图标
 assets/photos/          活动照片，每张两种宽度（1600、2400），JPEG 与 WebP 各一份，已去掉拍摄地点等元数据
 assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICENSE.txt）
 poster/                 招新海报：A2 的 PDF 与 PNG，源文件是一张 HTML
-slides/                 训练营课件：各周的 HTML 投影片，第 2 周的 PDF 与 PPTX，目录页 /slides/
+slides/                 训练营课件：各周的 HTML 投影片，第 2 周的 PDF 与 PPTX；目录页 slides/index.html 与研究分页同一套样式
 ```
 
-分页靠目录取得干净的网址：`research/metro-report-card/index.html` 对应 `站点/research/metro-report-card/`，GitHub Pages 不需要额外配置。四页共用同一套导航和页脚，改导航要四页一起改。
+分页靠目录取得干净的网址：`research/metro-report-card/index.html` 对应 `站点/research/metro-report-card/`，GitHub Pages 不需要额外配置。主页、四个研究分页和课件目录页共用同一套导航和页脚，改导航要六页一起改。导航在 800 像素以下收进菜单，英文导航更长，1000 像素以下就收进菜单。
+
+加一周课件：把文件放进 `slides/`，在 `slides/index.html` 的列表里照前一周的卡片加一张。
 
 ## 改文案
 
@@ -72,6 +74,7 @@ python3 poster/lorenz_render.py
 
 | 版本 | 日期 | 变更内容 | 类型 |
 |------|------|----------|------|
+| A1d | 2026-10-13 | 主页加课件入口：导航加「课件」一项（六个页面同步），训练营一节加「查看各周课件」按钮，nes modeling 加上链接；课件目录页 `/slides/` 改用主站的样式表、导航、页脚和中英切换，每周一张卡片，整张可点，第 2 周另有下载 PPTX 的链接，页尾附翻页键位。全站文案统一并删掉空话：首屏只写成员数、奖项和两项活动；去掉证明后的「注」、午间活动和研究两节的导语、加入一节的结语；四条公理和各节标题去掉句号；研究卡片和四个研究分页里的文言腔、「与其……不如……」和收尾升华句改成直白说法，抗体页删掉重复全文的小结框；地铁页的延伸链接改指第 3 周课件。训练营七个阶段按 9/26 的安排改正：第二阶段去掉已取消的 mini 模拟赛，冬季专项为第 14 至 19 周，定队为第 20 至 21 周，选拔说法改为代表队按平时表现确定、其他队伍可自行报名。修正英文模式下 801 到 999 像素之间导航溢出 | feat |
 | A1c | 2026-10-13 | 新增训练营课件栏目 `/slides/`：第 1、3、5、7 周的投影课件（单个 HTML，浏览器直接打开，键位与课上相同），第 2 周课件用 PowerPoint 导出的 PDF 在线看、原 PPTX 供下载；目录页 `/slides/` 列出各周主题和链接。课件内容未改：发布副本里 Google Fonts 的样式表改为不阻塞加载（国内连不上时直接用系统宋体，不再白屏等超时），PPTX 清掉了文件属性里的修改者邮箱。暂未加进主页导航 | feat |
 | A1b2 | 2026-09-23 | 训练营一节加入第 3 周的课堂照片（图 2，2026 年 9 月 17 日），裁成 16:9，按屏幕宽度加载 1600 或 2400 像素、优先 WebP，懒加载，去掉了照片元数据；中英两种替代文本随语言切换。另修正窄屏页眉：英文模式下副标题与语言按钮不再折行，440 像素以下英文隐去副标题，360 像素以下两种语言都隐去，菜单按钮始终留在屏幕内 | fix |
 | A1b1 | 2026-09-22 | 海报字号整体放大：正文列表 6mm、公式 7.2mm、标语 11.5mm、页脚数字 12.5mm，标注也一并加大；版面重排腾出空间，主标题下方加一层压暗，白字在亮处仍然清楚 | fix |

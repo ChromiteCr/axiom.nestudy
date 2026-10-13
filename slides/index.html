@@ -1,118 +1,143 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh" data-title-zh="训练营课件 · Axiom 应用数学社" data-title-en="Camp slides · Axiom Applied Mathematics Club">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>训练营课件 · 数学建模</title>
-  <meta name="description" content="数学建模校队训练营每周正课的投影课件，浏览器打开即可。" />
-  <style>
-    :root {
-      --bg: #16140f;
-      --surface: #211e16;
-      --chalk: #f3ead8;
-      --yellow: #e6b84d;
-      --line: color-mix(in srgb, var(--chalk) 14%, transparent);
-      --mute: color-mix(in srgb, var(--chalk) 62%, transparent);
-      --serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
-      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      color-scheme: dark;
-    }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #efe6d4;
-        --surface: #f6f0e2;
-        --chalk: #1c1913;
-        --yellow: #8f6910;
-        --line: color-mix(in srgb, var(--chalk) 16%, transparent);
-        --mute: color-mix(in srgb, var(--chalk) 66%, transparent);
-        color-scheme: light;
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
-    body {
-      background: var(--bg);
-      color: var(--chalk);
-      font-family: var(--serif);
-      line-height: 1.5;
-      padding: clamp(28px, 7vw, 72px) clamp(16px, 6vw, 64px) 48px;
-    }
-    main { max-width: 760px; margin: 0 auto; }
-    .eyebrow {
-      margin: 0 0 10px;
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      color: var(--yellow);
-      font-weight: 600;
-    }
-    h1 {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 6vw, 44px);
-      line-height: 1.15;
-      font-weight: 600;
-    }
-    .lede { margin: 0 0 32px; font-size: 17px; color: var(--mute); }
-    ol { list-style: none; margin: 0; padding: 0; border-top: 4px solid var(--yellow); }
-    li { border-bottom: 1px solid var(--line); padding: 18px 0 20px; }
-    .meta {
-      display: block;
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--mute);
-      margin-bottom: 4px;
-    }
-    .title { display: block; font-size: clamp(19px, 3.6vw, 23px); font-weight: 600; margin-bottom: 8px; }
-    a { color: var(--yellow); text-underline-offset: 3px; }
-    a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
-    .links { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 16px; }
-    .keys { margin: 36px 0 0; font-size: 15px; color: var(--mute); }
-    kbd {
-      font-family: var(--mono);
-      font-size: 13px;
-      border: 1px solid var(--line);
-      padding: 0 5px;
-      background: var(--surface);
-      color: var(--chalk);
-    }
-    footer { margin-top: 28px; font-size: 15px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>训练营课件 · Axiom 应用数学社</title>
+<meta name="description" content="数学建模训练营每周正课的课件，在浏览器里直接打开。">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="训练营课件 · Axiom 应用数学社">
+<meta property="og:description" content="数学建模训练营每周正课的课件，在浏览器里直接打开。">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, saved = null;
+    d.classList.add("js");
+    try { saved = localStorage.getItem("axiom-lang"); } catch (e) {}
+    var lang = saved === "zh" || saved === "en" ? saved : ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+    d.setAttribute("data-lang", lang);
+    d.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.title = d.getAttribute("data-title-" + lang);
+  })();
+</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
 </head>
 <body>
-  <main>
-    <p class="eyebrow">数学建模校队训练营</p>
-    <h1>每周正课课件</h1>
-    <p class="lede">投影用的课件，浏览器直接打开。第 4 周是五日模拟赛，没有正课课件。</p>
+<a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en" lang="en">Skip to content</span></a>
 
-    <ol>
-      <li>
-        <span class="meta">第 1 周 · 8/31—9/6</span>
-        <span class="title">数学建模是什么 · 训练营启动</span>
-        <span class="links"><a href="week1.html">打开课件</a></span>
+<header class="nav" data-tone="light">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg>
+      <b lang="en">Axiom</b>
+      <span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Math Club</span>
+    </a>
+    <nav data-aria-zh="页面导航" data-aria-en="Page navigation" aria-label="页面导航">
+      <ul class="nav-links">
+        <li><a href="../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="./" aria-current="true"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
+        <li><a href="../#research"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-tools">
+      <button class="lang-btn" type="button" data-lang-toggle data-aria-zh="切换到英文" data-aria-en="Switch to Chinese" aria-label="切换到英文"><span class="pill"><span data-l="zh" lang="en">EN</span><span data-l="en">中文</span></span></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-aria-zh="菜单" data-aria-en="Menu" aria-label="菜单"><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ul>
+        <li><a href="../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
+        <li><a href="../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
+        <li><a href="../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="./" aria-current="true"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
+        <li><a href="../#research"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
+        <li><a href="../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
+  </ul>
+</div>
+
+<main id="main" class="page">
+  <article class="article">
+    <a class="back" href="../#camp"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 8H4M7.5 4.5 4 8l3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a>
+
+    <p class="eyebrow"><span data-l="zh">数学建模训练营</span><span data-l="en" lang="en">Modeling training camp</span></p>
+    <h1 class="h1"><span data-l="zh">训练营课件</span><span data-l="en" lang="en">Camp slides</span></h1>
+    <p class="dek"><span data-l="zh">每周正课用的课件，在浏览器里直接打开。第 4 周是五天模拟赛，没有课件。</span><span data-l="en" lang="en">Slides from the weekly lessons, opened directly in the browser. Week 4 was the five-day mock contest and has no slides. The slides themselves are in Chinese.</span></p>
+
+    <ol class="decks">
+      <li class="deck">
+        <span class="idx" aria-hidden="true">1</span>
+        <div>
+          <p class="when"><span data-l="zh">第 1 周 · 8 月 31 日至 9 月 6 日</span><span data-l="en" lang="en">Week 1 · 31 Aug – 6 Sep</span></p>
+          <h2><a href="week1.html"><span data-l="zh">数学建模是什么 · 训练营启动</span><span data-l="en" lang="en">What mathematical modeling is · Camp kickoff</span></a></h2>
+          <p class="go"><span class="more"><span data-l="zh">打开课件</span><span data-l="en" lang="en">Open the slides</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+        </div>
       </li>
-      <li>
-        <span class="meta">第 2 周 · 9/7—9/13</span>
-        <span class="title">论文结构与问题拆解：从校园问题到数学模型</span>
-        <span class="links"><a href="week2.pdf">打开 PDF</a><a href="week2.pptx" download>下载 PPTX</a></span>
+      <li class="deck">
+        <span class="idx" aria-hidden="true">2</span>
+        <div>
+          <p class="when"><span data-l="zh">第 2 周 · 9 月 7 日至 9 月 13 日</span><span data-l="en" lang="en">Week 2 · 7 – 13 Sep</span></p>
+          <h2><a href="week2.pdf"><span data-l="zh">论文结构与问题拆解：从校园问题到数学模型</span><span data-l="en" lang="en">Paper structure and breaking down a problem: from a campus question to a mathematical model</span></a></h2>
+          <p class="go"><span class="more"><span data-l="zh">打开 PDF</span><span data-l="en" lang="en">Open the PDF</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><a href="week2.pptx" download><span data-l="zh">下载 PPTX</span><span data-l="en" lang="en">Download the PPTX</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+        </div>
       </li>
-      <li>
-        <span class="meta">第 3 周 · 9/14—9/20</span>
-        <span class="title">评价类模型：AHP、熵权法、TOPSIS</span>
-        <span class="links"><a href="week3.html">打开课件</a></span>
+      <li class="deck">
+        <span class="idx" aria-hidden="true">3</span>
+        <div>
+          <p class="when"><span data-l="zh">第 3 周 · 9 月 14 日至 9 月 20 日</span><span data-l="en" lang="en">Week 3 · 14 – 20 Sep</span></p>
+          <h2><a href="week3.html"><span data-l="zh">评价类模型：AHP、熵权法、TOPSIS</span><span data-l="en" lang="en">Evaluation models: AHP, entropy weights, TOPSIS</span></a></h2>
+          <p class="go"><span class="more"><span data-l="zh">打开课件</span><span data-l="en" lang="en">Open the slides</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+        </div>
       </li>
-      <li>
-        <span class="meta">第 5 周 · 9/28—10/4</span>
-        <span class="title">Python 数据处理与可视化：拟合、插值、简单回归</span>
-        <span class="links"><a href="week5.html">打开课件</a></span>
+      <li class="deck">
+        <span class="idx" aria-hidden="true">5</span>
+        <div>
+          <p class="when"><span data-l="zh">第 5 周 · 9 月 28 日至 10 月 4 日</span><span data-l="en" lang="en">Week 5 · 28 Sep – 4 Oct</span></p>
+          <h2><a href="week5.html"><span data-l="zh">Python 数据处理与可视化：拟合、插值、简单回归</span><span data-l="en" lang="en">Python for data and plots: fitting, interpolation, simple regression</span></a></h2>
+          <p class="go"><span class="more"><span data-l="zh">打开课件</span><span data-l="en" lang="en">Open the slides</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+        </div>
       </li>
-      <li>
-        <span class="meta">第 7 周 · 10/12—10/18</span>
-        <span class="title">模型设计基础：目标函数、约束与题型识别</span>
-        <span class="links"><a href="week7.html">打开课件</a></span>
+      <li class="deck">
+        <span class="idx" aria-hidden="true">7</span>
+        <div>
+          <p class="when"><span data-l="zh">第 7 周 · 10 月 12 日至 10 月 18 日</span><span data-l="en" lang="en">Week 7 · 12 – 18 Oct</span></p>
+          <h2><a href="week7.html"><span data-l="zh">模型设计基础：目标函数、约束与题型识别</span><span data-l="en" lang="en">Model design: objectives, constraints and problem types</span></a></h2>
+          <p class="go"><span class="more"><span data-l="zh">打开课件</span><span data-l="en" lang="en">Open the slides</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+        </div>
       </li>
     </ol>
 
-    <p class="keys">翻页：<kbd>→</kbd> 或 <kbd>空格</kbd> 下一页，<kbd>←</kbd> 上一页；<kbd>I</kbd> 目录，<kbd>N</kbd> 讲者提示，<kbd>L</kbd> 切换亮场，<kbd>F</kbd> 全屏。手机上点屏幕左右两侧翻页。</p>
-    <footer><a href="/">返回首页</a></footer>
-  </main>
+    <h2><span data-l="zh">翻页</span><span data-l="en" lang="en">Controls</span></h2>
+    <p><span data-l="zh">HTML 课件用键盘翻页，按 <kbd>?</kbd> 可以随时查看全部键位。手机上点屏幕左右两侧翻页。</span><span data-l="en" lang="en">The HTML slides run from the keyboard; press <kbd>?</kbd> at any time for the full list. On a phone, tap the left or right side of the screen.</span></p>
+    <table class="tbl">
+      <thead><tr>
+        <th><span data-l="zh">按键</span><span data-l="en" lang="en">Key</span></th>
+        <th><span data-l="zh">作用</span><span data-l="en" lang="en">Action</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><kbd>→</kbd> <kbd><span data-l="zh">空格</span><span data-l="en" lang="en">Space</span></kbd></td><td><span data-l="zh">下一步或下一页</span><span data-l="en" lang="en">Next step or slide</span></td></tr>
+        <tr><td><kbd>←</kbd></td><td><span data-l="zh">上一步或上一页</span><span data-l="en" lang="en">Previous step or slide</span></td></tr>
+        <tr><td><kbd>I</kbd></td><td><span data-l="zh">目录</span><span data-l="en" lang="en">Contents</span></td></tr>
+        <tr><td><kbd>F</kbd></td><td><span data-l="zh">全屏</span><span data-l="en" lang="en">Full screen</span></td></tr>
+        <tr><td><kbd>L</kbd></td><td><span data-l="zh">换成浅色底</span><span data-l="en" lang="en">Light background</span></td></tr>
+        <tr><td><kbd>N</kbd></td><td><span data-l="zh">讲者提示</span><span data-l="en" lang="en">Speaker notes</span></td></tr>
+      </tbody>
+    </table>
+
+    <span class="qed-mark" aria-hidden="true">∎</span>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 55 L32 10 L52 55" stroke-width="3.6"/><path d="M21.44 33.76 A26 26 0 0 0 42.56 33.76" stroke-width="2.4"/></g><circle cx="32" cy="10" r="4.4" fill="#6b5cff"/></svg><b lang="en">Axiom</b><span data-l="zh">应用数学社</span><span data-l="en" lang="en">Applied Mathematics Club</span></span>
+  </div>
+</footer>
 </body>
 </html>

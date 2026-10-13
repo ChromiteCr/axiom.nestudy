@@ -94,6 +94,11 @@ p { margin: 0 0 1em; }
   .nav-links { display: none; }
   .menu-btn { display: inline-flex; }
 }
+/* 英文导航更长，1000 像素以下也收进菜单 */
+@media (max-width: 1000px) {
+  html[data-lang="en"] .nav-links { display: none; }
+  html[data-lang="en"] .menu-btn { display: inline-flex; }
+}
 
 /* ---------- 按钮：按下即反馈 ---------- */
 .btn {
@@ -232,6 +237,7 @@ p { margin: 0 0 1em; }
 /* ---------- 训练营：可横向滑动的阶段 ---------- */
 .camp-head { display: grid; gap: 28px; }
 @media (min-width: 900px) { .camp-head { grid-template-columns: 7fr 5fr; align-items: end; } }
+.camp-actions { margin-top: 30px; }
 .roles { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .roles li { padding: 8px 16px; border-radius: 999px; background: var(--mist); font-size: 15px; }
 .rail-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 56px; }
@@ -288,7 +294,7 @@ p { margin: 0 0 1em; }
 .join { text-align: center; }
 .join .intro { margin-inline: auto; }
 .join .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
-.motto { margin: clamp(72px, 9vw, 120px) auto 0; max-width: 20em; font: 600 clamp(1.45rem, 3vw, 2.1rem)/1.55 var(--display); }
+.join .qed-mark { margin-top: clamp(64px, 8vw, 104px); }
 .qed-mark { display: block; margin-top: 22px; font: 400 26px/1 var(--cm); }
 
 .footer { padding-block: 36px 44px; background: var(--mist); font-size: 13px; color: var(--graphite); }
@@ -348,7 +354,7 @@ html[data-lang="zh"] [data-l="en"], html[data-lang="en"] [data-l="zh"] { display
 @media (prefers-reduced-motion: reduce) { .lang-btn:active .pill { transform: none; } }
 
 /* ---------- 断行：标题均衡，正文不留孤字 ---------- */
-.h2, .h3, .tagline, .motto, .paper-title, .axiom h4, .slot .when { text-wrap: balance; }
+.h2, .h3, .tagline, .paper-title, .axiom h4, .slot .when { text-wrap: balance; }
 .intro, .lead, .definition, .proof li, .axiom p, .slot p, .phase p, .tasks li, .eq-note, figcaption { text-wrap: pretty; }
 .paper-title { font-size: clamp(1.8rem, 3vw, 2.5rem); }
 @media (max-width: 800px) { .map figcaption { flex-direction: column; gap: 6px; } }
@@ -500,3 +506,39 @@ html[data-lang="zh"] [data-l="en"], html[data-lang="en"] [data-l="zh"] { display
 .brand span, .lang-btn .pill { white-space: nowrap; }
 @media (max-width: 440px) { html[data-lang="en"] .brand span[data-l="en"] { display: none !important; } }
 @media (max-width: 360px) { .brand span { display: none !important; } }
+
+/* ---------- 课件页：每周一张卡片，整张可点 ---------- */
+.article .decks { display: grid; gap: 14px; margin: 40px 0 0; padding: 0; list-style: none; }
+.article .deck {
+  position: relative; display: grid; grid-template-columns: 3.6rem 1fr; gap: 0 16px;
+  margin: 0; padding: 24px 28px 26px 20px; border-radius: 26px; background: var(--mist);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+.deck:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(29, 29, 31, 0.09); }
+.deck:active { transform: scale(0.99); }
+.deck .idx { font: 400 46px/1 var(--cm); text-align: center; }
+.deck .when { margin: 2px 0 6px; font-size: 13.5px; color: var(--graphite); }
+.article .deck h2 { margin: 0; font: 600 clamp(1.12rem, 1.9vw, 1.32rem)/1.45 var(--display); text-wrap: balance; }
+.deck h2 a { color: inherit; text-decoration: none; }
+.deck h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.deck h2 a:focus-visible { outline: none; }
+.deck h2 a:focus-visible::after { outline: 2px solid var(--violet); outline-offset: 3px; }
+.deck .go { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 14px 0 0; font-size: 15px; font-weight: 500; color: var(--violet-ink); }
+.deck .go > * { display: inline-flex; align-items: center; gap: 7px; }
+.deck .go a { position: relative; z-index: 1; color: inherit; text-decoration: none; }
+.deck .go a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.deck .go svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease-out); }
+.deck:hover .more svg { transform: translateX(4px); }
+.article kbd {
+  display: inline-block; min-width: 1.9em; padding: 3px 7px; border-radius: 7px;
+  background: var(--mist); box-shadow: inset 0 0 0 1px var(--hairline);
+  font: 500 13px/1.2 var(--sans); text-align: center; color: var(--ink);
+}
+@media (max-width: 620px) {
+  .article .deck { grid-template-columns: 2.4rem 1fr; gap: 0 12px; padding: 20px 20px 22px 12px; border-radius: 20px; }
+  .deck .idx { font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck:hover, .deck:active { transform: none; }
+  .deck:hover .more svg { transform: none; }
+}

@@ -41,6 +41,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
       </ul>
@@ -56,6 +57,7 @@
         <li><a href="../../#axiom"><span data-l="zh">公理</span><span data-l="en" lang="en">Axioms</span></a></li>
         <li><a href="../../#noon"><span data-l="zh">午间活动</span><span data-l="en" lang="en">At noon</span></a></li>
         <li><a href="../../#camp"><span data-l="zh">训练营</span><span data-l="en" lang="en">Training camp</span></a></li>
+        <li><a href="../../slides/"><span data-l="zh">课件</span><span data-l="en" lang="en">Slides</span></a></li>
         <li><a href="../../#research" aria-current="true"><span data-l="zh">我们的研究</span><span data-l="en" lang="en">Our observation</span></a></li>
         <li><a href="../../#join"><span data-l="zh">加入</span><span data-l="en" lang="en">Join</span></a></li>
   </ul>
@@ -103,7 +105,7 @@
     <p><span data-l="zh">湿实验那一步可以看成对一个黑箱函数的查询，很贵，次数有限。用高斯过程给它建模，每次选采集函数最大的点去做实验，这就是贝叶斯优化。</span><span data-l="en" lang="en">The wet-lab step can be seen as querying an expensive black-box function a limited number of times. Model it with a Gaussian process and test whichever point maximizes an acquisition function: this is Bayesian optimization.</span></p>
     <p><span data-l="zh">只给一个分数并不够，还需知道模型有多确定。深度集成或贝叶斯神经网络给出预测均值 <span class="var">μ</span> 与方差 <span class="var">σ</span><sup>2</sup>，筛选策略于是变成：</span><span data-l="en" lang="en">A score alone is not enough; we also need to know how sure the model is. A deep ensemble or a Bayesian neural network gives a predictive mean <span class="var">μ</span> and variance <span class="var">σ</span><sup>2</sup>, and the selection rule becomes:</span></p>
     <div class="eq"><span class="var">x</span><sub>next</sub> = argmax<sub class="var">x</sub> [ <span class="var">μ</span>(<span class="var">x</span>) + <span class="var">β</span> <span class="var">σ</span>(<span class="var">x</span>) ]</div>
-    <p><span data-l="zh">既选预测高的，也选模型把握不大的。后者或许带来意外，也可能白费一次实验，<span class="var">β</span> 正是在两者之间定价。</span><span data-l="en" lang="en">It picks both the promising candidates and the ones the model is unsure about. The second kind may hide a surprise or may waste an experiment, and <span class="var">β</span> is where that trade is priced.</span></p>
+    <p><span data-l="zh">既选预测高的，也选模型把握不大的。后者可能有意外收获，也可能白做一次实验，两者各占多少分量由 <span class="var">β</span> 决定。</span><span data-l="en" lang="en">It picks both the promising candidates and the ones the model is unsure about. The second kind may turn up a surprise or may waste an experiment, and <span class="var">β</span> sets how much each of them counts.</span></p>
 
     <figure class="ifig" data-fig="acq">
       <div class="ifig-stage">
@@ -136,10 +138,6 @@
         <tr><td class="cm">6</td><td><span data-l="zh">贝叶斯更新</span><span data-l="en" lang="en">Bayesian update</span></td><td><span data-l="zh">实验结果回灌，模型再算一轮</span><span data-l="en" lang="en">Feed results back and let the model run again</span></td></tr>
       </tbody>
     </table>
-
-    <div class="callout">
-      <p><span data-l="zh">整件事的数学内核，是在抗体序列的高维离散空间上学一个从序列到亲和力的回归函数，再用它排序和决策。标签稀缺，所以依赖预训练嵌入和半监督；实验昂贵，所以要用贝叶斯优化在探索与利用之间反复取舍。</span><span data-l="en" lang="en">At its mathematical core the work learns a regression from sequence to affinity over a high-dimensional discrete space, then ranks and decides with it. Labels are scarce, hence the pretrained embeddings and semi-supervised training; experiments are expensive, hence Bayesian optimization weighing exploration against exploitation round after round.</span></p>
-    </div>
 
     <span class="qed-mark" aria-hidden="true">∎</span>
 
