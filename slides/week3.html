@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>第 3 周 · 评价类模型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!--
+    拉丁 Source Serif 4 + 中文 Noto Serif SC 成对引入。
+    只引 400 / 600：中文多一档字重会拆出大量 unicode-range 分片，阻塞首屏。
+    离线时回退到 Songti SC / STSong / SimSun，仍是衬线对衬线，避免 macOS 黑体割裂。
+    想改无衬线：把 --font-serif 改成 "Source Sans 3", "Noto Sans SC", sans-serif 即可。
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <style>
+    :root {
+      /* 配色沿用第 1 周：暖黑板配地标黄线。 */
+      --bg: #16140f;
+      --surface: #211e16;
+      --surface-2: #2c281c;
+      --chalk: #f3ead8;
+      --yellow: #e6b84d;     /* 地标黄线 / 当前环节。比安全黄暗一档，投影上不发飘 */
+      --oxide: #c45c48;      /* 划掉、失效、禁写。和黄线一冷一暖里偏土的那一支 */
+      --line: color-mix(in srgb, var(--chalk) 12%, transparent);
+      --line-strong: color-mix(in srgb, var(--chalk) 22%, transparent);
+      --mute: color-mix(in srgb, var(--chalk) 58%, transparent);
+      --mute-2: color-mix(in srgb, var(--chalk) 38%, transparent);
+
+      --font-serif: "Source Serif 4", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      --font-mono: "IBM Plex Mono", "Sarasa Mono SC", ui-monospace, monospace;
+
+      --pad: clamp(1.4rem, 4vw, 3.2rem);
+      --rule: 4px;           /* 黄线厚度按地标漆，不要细成 UI hairline */
+      --radius-chip: 999px;
+      --radius-panel: 2px;   /* 黑板几乎直角；芯片才用胶囊。两套手法，不分主次会糊 */
+
+      color-scheme: dark;
+    }
+
+    /*
+      亮场：中午教室投影仪常把深色洗成灰雾。
+      纸色沿用粉笔白，黄线改成更深的干漆黄，保证对比。
+      按 L 切换。只改 token，组件不用动。
+    */
+    html[data-theme="paper"] {
+      --bg: #efe6d4;
+      --surface: #f6f0e2;
+      --surface-2: #e7dcc4;
+      --chalk: #1c1913;
+      --yellow: #8f6910;
+      --oxide: #9d3a2c;
+      --line: color-mix(in srgb, var(--chalk) 14%, transparent);
+      --line-strong: color-mix(in srgb, var(--chalk) 26%, transparent);
+      --mute: color-mix(in srgb, var(--chalk) 62%, transparent);
+      --mute-2: color-mix(in srgb, var(--chalk) 42%, transparent);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--chalk);
+      font-family: var(--font-serif);
+      overflow: hidden;
+    }
+
+    /*
+      浅格：演算纸。
+      代价：部分老投影机会把 6% 网格扫成脏带。觉得脏就把 --grid-a 改成 0。
+    */
+    body {
+      --grid-a: 0.045;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--chalk) calc(var(--grid-a) * 100%), transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--chalk) calc(var(--grid-a) * 100%), transparent) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      font-weight: 600;
+      margin: 0 0 0.7rem;
+    }
+    html:lang(zh-Hans) .eyebrow { letter-spacing: 0.22em; }
+
+    .display-1 {
+      font-size: clamp(34px, 5.6vw, 68px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.6rem;
+    }
+    .display-2 {
+      font-size: clamp(24px, 3.2vw, 40px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 0.8rem;
+    }
+    .lede {
+      font-size: clamp(18px, 2.15vw, 28px);
+      line-height: 1.45;
+      max-width: 38em;
+      margin: 0;
+    }
+    .mute { color: var(--mute); }
+    .oxide { color: var(--oxide); }
+    .yellow { color: var(--yellow); }
+
+    .mono, table, .timer, .count, kbd {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    #deck {
+      height: 100%;
+      outline: none;
+    }
+
+    .slide {
+      display: none;
+      height: 100%;
+      padding: var(--pad) var(--pad) 5.4rem;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide.is-on { display: flex; }
+
+    .slide-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .slide-head .clock {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--mute);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .prompt {
+      border-left: var(--rule) solid var(--yellow);
+      padding: 0.2rem 0 0.2rem 1.2rem;
+    }
+    .prompt p { margin: 0 0 0.85rem; }
+    .prompt p:last-child { margin-bottom: 0; }
+
+    .quote-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1.2rem;
+    }
+    .quote-list li {
+      font-size: clamp(26px, 3.4vw, 42px);
+      font-weight: 600;
+      line-height: 1.25;
+      padding-left: 1rem;
+      border-left: var(--rule) solid var(--yellow);
+    }
+
+    .arrows {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.7rem;
+      font-size: clamp(20px, 2.6vw, 32px);
+      font-weight: 600;
+    }
+    .arrows span.arr { color: var(--yellow); font-weight: 400; }
+
+    .q-list, .plain-list {
+      margin: 0;
+      padding-left: 1.2em;
+      font-size: clamp(18px, 2.1vw, 28px);
+      line-height: 1.5;
+    }
+    .plain-list { list-style: none; padding-left: 0; }
+    .plain-list li { margin: 0.45rem 0; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1rem, 3vw, 2.4rem);
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .split { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-panel);
+      padding: 1rem 1.15rem 1.15rem;
+    }
+    .panel h3 {
+      margin: 0 0 0.65rem;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      color: var(--yellow);
+      font-weight: 600;
+    }
+    .panel ul {
+      margin: 0;
+      padding-left: 1.1em;
+      font-size: clamp(15px, 1.7vw, 22px);
+      line-height: 1.45;
+    }
+    .panel.ignore h3 { color: var(--oxide); }
+    .panel.ignore { opacity: 0.92; }
+    .panel.hold h3 { color: var(--mute); }
+
+    .formula {
+      font-family: var(--font-mono);
+      font-size: clamp(20px, 2.8vw, 36px);
+      line-height: 1.45;
+      background: var(--surface);
+      border-top: var(--rule) solid var(--yellow);
+      padding: 1rem 1.2rem;
+    }
+    .formula small {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 0.55em;
+      color: var(--mute);
+      font-family: var(--font-serif);
+    }
+
+    table.sym {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(13px, 1.45vw, 18px);
+    }
+    table.sym th, table.sym td {
+      text-align: left;
+      padding: 0.45rem 0.55rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    table.sym th {
+      color: var(--yellow);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .roles, .tools {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .roles, .tools { grid-template-columns: 1fr 1fr; }
+    }
+    .chip-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 1rem 1rem 1.1rem;
+      min-height: 8.5rem;
+    }
+    .chip-card strong {
+      display: block;
+      font-size: clamp(20px, 2.2vw, 28px);
+      margin-bottom: 0.4rem;
+    }
+    .chip-card p {
+      margin: 0;
+      color: var(--mute);
+      font-size: clamp(14px, 1.5vw, 18px);
+      line-height: 1.4;
+    }
+
+    .card-fields {
+      display: grid;
+      gap: 0.7rem;
+      font-size: clamp(16px, 1.8vw, 22px);
+    }
+    .card-fields div {
+      border-bottom: 1px solid var(--line-strong);
+      padding: 0.35rem 0 0.55rem;
+      color: var(--mute);
+    }
+    .card-fields b { color: var(--chalk); font-weight: 600; }
+
+    .two-col-copy {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 820px) { .two-col-copy { grid-template-columns: 1fr; } }
+    .two-col-copy h2 { margin: 0 0 0.5rem; font-size: clamp(22px, 2.4vw, 32px); }
+    .two-col-copy ul { margin: 0; padding-left: 1.1em; font-size: clamp(16px, 1.8vw, 22px); line-height: 1.45; }
+
+    .big-num {
+      font-family: var(--font-mono);
+      font-size: clamp(40px, 8vw, 88px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    .timer-wrap {
+      margin-top: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 3; /* 高于左右翻页热区，避免点「开始计时」却翻页 */
+    }
+    .timer {
+      font-size: clamp(42px, 8vw, 86px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .timer.is-warn { color: var(--yellow); }
+    .timer.is-end { color: var(--oxide); }
+
+    button {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--chalk);
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      padding: 0.55rem 1rem;
+      min-height: 44px;
+      cursor: pointer;
+      border-radius: var(--radius-panel);
+    }
+    button:hover { border-color: var(--yellow); }
+    button:focus-visible {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--yellow) 45%, transparent);
+    }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    button.primary {
+      background: var(--yellow);
+      color: #1c1913;
+      border-color: var(--yellow);
+      font-weight: 600;
+    }
+
+    .dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem var(--pad) 0.7rem;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      border-top: 1px solid var(--line);
+      z-index: 5;
+    }
+    .dock .bar {
+      flex: 1;
+      height: var(--rule);
+      background: var(--line);
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .dock .bar > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--yellow);
+    }
+    .count {
+      font-size: 12px;
+      color: var(--mute);
+      min-width: 4.2em;
+      text-align: right;
+    }
+    .dock button { min-width: 44px; padding: 0.4rem 0.7rem; }
+
+    .note {
+      position: fixed;
+      left: var(--pad);
+      right: var(--pad);
+      bottom: 3.4rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      border-left: var(--rule) solid var(--yellow);
+      padding: 0.55rem 0.9rem;
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--mute);
+      display: none;
+      z-index: 4;
+      max-width: 52em;
+    }
+    .note.is-on { display: block; }
+    .note b { color: var(--yellow); font-weight: 600; margin-right: 0.4rem; }
+
+    .help, .index {
+      position: fixed;
+      inset: 0;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      padding: 2rem;
+    }
+    .help.is-on, .index.is-on { display: flex; }
+    .help-card, .index-card {
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      padding: 1.4rem 1.6rem;
+      max-width: 36rem;
+      width: min(36rem, 100%);
+      max-height: 80vh;
+      overflow: auto;
+    }
+    .index-card { max-width: 44rem; }
+    .help-card h2, .index-card h2 { margin: 0 0 0.8rem; font-size: 22px; }
+    .help-card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+    .help-card dt kbd, kbd {
+      display: inline-block;
+      border: 1px solid var(--line-strong);
+      padding: 0.05rem 0.4rem;
+      font-size: 12px;
+      background: var(--surface-2);
+    }
+    .help-card dd { margin: 0; color: var(--mute); }
+
+    .index-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.2rem;
+    }
+    .index-list button {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      padding: 0.45rem 0.2rem;
+      font-size: 15px;
+    }
+    .index-list button[aria-current="true"] { color: var(--yellow); }
+
+    .strike { text-decoration: line-through; color: var(--mute-2); }
+    .rule-bottom {
+      position: absolute;
+      left: var(--pad);
+      right: var(--pad);
+      bottom: 4.6rem;
+      height: var(--rule);
+      background: var(--yellow);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+    .cover .rule-bottom { bottom: 5.2rem; }
+
+    .click-zones {
+      position: fixed;
+      inset: 0 0 3.2rem 0;
+      display: grid;
+      grid-template-columns: 18% 1fr 18%;
+      z-index: 2;
+      pointer-events: none; /* 中间留给计时按钮；只有左右 18% 接翻页 */
+    }
+    .click-zones #zone-prev,
+    .click-zones #zone-next {
+      pointer-events: auto;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      min-height: 0;
+      opacity: 0;
+    }
+    .click-zones #zone-prev:focus-visible,
+    .click-zones #zone-next:focus-visible {
+      opacity: 1;
+      background: color-mix(in srgb, var(--yellow) 8%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="click-zones" aria-hidden="false">
+    <button type="button" id="zone-prev" aria-label="上一页"></button>
+    <div aria-hidden="true"></div>
+    <button type="button" id="zone-next" aria-label="下一页"></button>
+  </div>
+
+  <main id="deck" tabindex="0">
+    <section class="slide cover is-on" data-t="0:00" data-note="开场先说上周拆解表：目标栏常写成话题，比如「研究医院好坏」。今天两道题，先写清最后交什么。">
+      <p class="eyebrow">Week 3 · 40 min</p>
+      <h1 class="display-1">评价类模型<br />AHP · 熵权法 · TOPSIS</h1>
+      <p class="lede mute">两道 IMMC 真题。先读题，方法放在后面。</p>
+      <div class="rule-bottom" aria-hidden="true"></div>
+    </section>
+
+    <section class="slide" data-t="0:00–0:03" data-note="读完问一句：这道题最后要交出什么？">
+      <div class="slide-head">
+        <p class="eyebrow">题一 · 2018 · The Best Hospital</p>
+        <span class="clock">0:00–0:03</span>
+      </div>
+      <div class="prompt">
+        <p class="lede">家附近有 4–5 家医院，怎样挑出「最好」的一家？</p>
+      </div>
+      <ol class="q-list" style="margin-top:1.2rem">
+        <li>只用死亡率衡量医院质量</li>
+        <li>加入其他因素，决定选哪家</li>
+        <li>两页备忘，普通人也能用</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-t="0:03–0:04" data-note="第 3 问要预测 5、10、15 年后各物种的养宠情况，属于预测模型，今天不讲。">
+      <div class="slide-head">
+        <p class="eyebrow">题二 · 2024 · Picking the Perfect Pet</p>
+        <span class="clock">0:03–0:04</span>
+      </div>
+      <div class="prompt">
+        <p class="lede">收容所输入一户家庭的信息，判断它是否准备好养猫。</p>
+      </div>
+      <ol class="q-list" style="margin-top:1.2rem">
+        <li>输入不超过 10 项，画出决策图</li>
+        <li>合格、不合格家庭各至少 3 户</li>
+        <li>估算三个国家或地区的合格户数</li>
+        <li>推广到另外 4 种宠物</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-t="0:04–0:05" data-note="先问：两道题最后交出的东西一样吗？等学生说完再翻到这一页。">
+      <div class="slide-head">
+        <p class="eyebrow">两道题都要评价</p>
+        <span class="clock">0:04–0:05</span>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <h3>医院题</h3>
+          <p class="lede">几家放在一起，排出先后，选一家</p>
+        </div>
+        <div class="panel hold">
+          <h3>宠物题</h3>
+          <p class="lede">一户一户对照标准，判断够不够格</p>
+        </div>
+      </div>
+      <p class="lede mute" style="margin-top:1.2rem">先用医院题走一遍三个方法。</p>
+    </section>
+
+    <section class="slide" data-t="0:05–0:06" data-note="等学生说。题目原文有提示：比较病情相近的病例。">
+      <p class="eyebrow">要求 1 · 死亡率</p>
+      <h1 class="display-1">甲院去年死亡 30 人，<br />乙院 12 人。<br />甲院更差吗？</h1>
+      <p class="lede mute">甲院收治的病人更多，病情也更重。</p>
+    </section>
+
+    <section class="slide" data-t="0:06–0:07" data-note="死亡概率由大量病例拟合的模型给出，如 logistic 回归，输入可用年龄、诊断、合并症、急诊。">
+      <div class="slide-head">
+        <p class="eyebrow">要求 1 · 风险调整</p>
+        <span class="clock">0:06–0:07</span>
+      </div>
+      <div class="formula">
+        SMR = O / E
+        <small>O：实际死亡数。E：每位病人按病情算出的死亡概率之和。</small>
+      </div>
+      <div class="formula" style="margin-top:0.8rem">
+        甲 30 / 36 ≈ 0.83　乙 12 / 10 = 1.20
+        <small>小于 1：比同样病情的预期少。数字为课堂虚构。</small>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:07–0:08" data-note="区间按泊松分布精确计算。可以合并多年数据，或把区间写进结论。">
+      <div class="slide-head">
+        <p class="eyebrow">SMR 的 95% 置信区间</p>
+        <span class="clock">0:07–0:08</span>
+      </div>
+      <ul class="plain-list lede mono">
+        <li>甲　0.83　区间 0.56–1.19</li>
+        <li>乙　1.20　区间 0.62–2.10</li>
+      </ul>
+      <p class="lede" style="margin-top:1.2rem">两个区间都含 1。只凭一年的数据，分不出高下。</p>
+    </section>
+
+    <section class="slide" data-t="0:08–0:09" data-note="题目点名了医生经验和医护照看。每一项都要说得出去哪里查。">
+      <div class="slide-head">
+        <p class="eyebrow">要求 2 · 指标表</p>
+        <span class="clock">0:08–0:09</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>指标</th><th>方向</th><th>单位</th><th>来源</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>风险调整死亡比</td><td>越小越好</td><td>无</td><td>NHS 的 SHMI 等公开数据</td></tr>
+          <tr><td>医生平均执业年限</td><td>越大越好</td><td>年</td><td>医院官网</td></tr>
+          <tr><td>床护比</td><td>越大越好</td><td>护士/床</td><td>医院年报</td></tr>
+          <tr><td>平均入院等待</td><td>越小越好</td><td>天</td><td>医院公布、患者调查</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-t="0:09–0:10" data-note="先让学生凭直觉选一家，记下全班的选择，最后和模型结果对照。">
+      <div class="slide-head">
+        <p class="eyebrow">课堂虚构数据 · 五家医院</p>
+        <span class="clock">0:09–0:10</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>医院</th><th>SMR</th><th>年限 / 年</th><th>床护比</th><th>等待 / 天</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>0.95</td><td>12</td><td>0.55</td><td>3</td></tr>
+          <tr><td>B</td><td>0.80</td><td>16</td><td>0.62</td><td>14</td></tr>
+          <tr><td>C</td><td>1.05</td><td>20</td><td>0.48</td><td>10</td></tr>
+          <tr><td>D</td><td>0.90</td><td>9</td><td>0.70</td><td>12</td></tr>
+          <tr><td>E</td><td>1.15</td><td>14</td><td>0.45</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-t="0:10–0:11" data-note="当场算 A 那一格。这种标准化只认这五家的最大值和最小值，宠物题会回到这一点。">
+      <div class="slide-head">
+        <p class="eyebrow">统一方向，去掉单位</p>
+        <span class="clock">0:10–0:11</span>
+      </div>
+      <div class="formula">
+        越大越好　z = (x − min) / (max − min)
+      </div>
+      <div class="formula" style="margin-top:0.8rem">
+        越小越好　z = (max − x) / (max − min)
+        <small>每列最好记 1，最差记 0。</small>
+      </div>
+      <p class="lede mute" style="margin-top:1.1rem">SMR 列：A 记 (1.15 − 0.95) / 0.35 ≈ 0.57</p>
+    </section>
+
+    <section class="slide" data-t="0:11–0:13" data-note="四项两两比较共 6 次。两分钟，同桌两人一起填。2、4、6、8 表示介于两档之间。">
+      <div class="slide-head">
+        <p class="eyebrow">AHP · 权重来自人的判断</p>
+        <span class="clock">0:11–0:13</span>
+      </div>
+      <div class="prompt">
+        <p class="lede">假设你病情较重。四项两两比较：哪项更重要，重要多少？</p>
+        <p class="lede mute">1 同样重要　3 稍重要　5 明显重要　7 强烈重要　9 极端重要</p>
+      </div>
+      <div class="timer-wrap">
+        <div class="timer" id="timer" aria-live="polite">2:00</div>
+        <button type="button" class="primary" id="timer-btn">开始计时</button>
+        <button type="button" id="timer-reset">重置</button>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:13–0:14" data-note="和学生填的对照。不同的人会填出不同的矩阵，所以论文里要写清是谁、依据什么填的。">
+      <div class="slide-head">
+        <p class="eyebrow">比较矩阵 · 一种可能的填法</p>
+        <span class="clock">0:13–0:14</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th></th><th>死亡比</th><th>经验</th><th>床护比</th><th>等待</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>死亡比</td><td>1</td><td>3</td><td>5</td><td>7</td></tr>
+          <tr><td>经验</td><td>1/3</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>床护比</td><td>1/5</td><td>1/2</td><td>1</td><td>2</td></tr>
+          <tr><td>等待</td><td>1/7</td><td>1/3</td><td>1/2</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p class="lede mute" style="margin-top:1.1rem">a<sub>ji</sub> = 1 / a<sub>ij</sub>，对角线为 1。</p>
+    </section>
+
+    <section class="slide" data-t="0:14–0:15" data-note="第一行 1×3×5×7 = 105，四次方根约 3.20。特征向量法结果几乎一样，λmax ≈ 4.02。">
+      <div class="slide-head">
+        <p class="eyebrow">权重与一致性</p>
+        <span class="clock">0:14–0:15</span>
+      </div>
+      <div class="formula">
+        w<sub>i</sub> ∝ (a<sub>i1</sub> a<sub>i2</sub> ⋯ a<sub>in</sub>)<sup>1/n</sup>
+        <small>每行连乘开 n 次方，再归一化。</small>
+      </div>
+      <div class="formula" style="margin-top:0.8rem">
+        CR = CI / RI　CI = (λ<sub>max</sub> − n) / (n − 1)
+        <small>n = 4 时 RI = 0.90，CR &lt; 0.1 才能用。</small>
+      </div>
+      <p class="lede mono" style="margin-top:1rem">w = (0.59, 0.22, 0.12, 0.07)　CR ≈ 0.01</p>
+    </section>
+
+    <section class="slide" data-t="0:15–0:16" data-note="三项循环、每次都差 3 倍：λmax = 13/3，CI = 2/3，n = 3 时 RI = 0.58。">
+      <p class="eyebrow">判断互相矛盾时</p>
+      <h1 class="display-2">死亡比比经验重要，经验比床护比重要，床护比又比死亡比重要。</h1>
+      <p class="big-num">CR ≈ 1.15</p>
+      <p class="lede oxide">回去改那几条判断。0.1 这条线不动。</p>
+    </section>
+
+    <section class="slide" data-t="0:16–0:18" data-note="ln m 里的 m 是医院个数。把它抄成指标个数，是这一课最常见的计算错误。">
+      <div class="slide-head">
+        <p class="eyebrow">熵权法 · 权重来自数据</p>
+        <span class="clock">0:16–0:18</span>
+      </div>
+      <h1 class="display-2">某一项上五家得分越不均匀，权重越大。</h1>
+      <div class="formula">
+        p<sub>ij</sub> = z<sub>ij</sub> / Σ<sub>i</sub> z<sub>ij</sub>　e<sub>j</sub> = −(1 / ln m) Σ<sub>i</sub> p<sub>ij</sub> ln p<sub>ij</sub>
+        <small>m：医院个数。w<sub>j</sub> ∝ 1 − e<sub>j</sub>，0 · ln 0 记为 0。</small>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:18–0:19" data-note="问：哪一套更可信？看题目问的是谁眼里的「最好」。这道题问的是病人怎么选。">
+      <div class="slide-head">
+        <p class="eyebrow">两套权重</p>
+        <span class="clock">0:18–0:19</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>指标</th><th>AHP</th><th>熵权</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>死亡比</td><td>0.59</td><td>0.21</td></tr>
+          <tr><td>经验</td><td>0.22</td><td>0.23</td></tr>
+          <tr><td>床护比</td><td>0.12</td><td>0.29</td></tr>
+          <tr><td>等待</td><td>0.07</td><td>0.27</td></tr>
+        </tbody>
+      </table>
+      <p class="lede" style="margin-top:1.1rem">病人最看重的死亡比，在熵权法里权重最低。</p>
+      <p class="lede mute" style="margin-top:0.6rem">熵权只看数据差得开不开。</p>
+    </section>
+
+    <section class="slide" data-t="0:19–0:21" data-note="经典 TOPSIS 多用向量标准化，本课用极差标准化。换一种名次可能变，论文里写清用的哪种。">
+      <div class="slide-head">
+        <p class="eyebrow">TOPSIS · 离最好近，离最差远</p>
+        <span class="clock">0:19–0:21</span>
+      </div>
+      <div class="formula">
+        v<sub>ij</sub> = w<sub>j</sub> z<sub>ij</sub>　v<sup>+</sup> 取每列最大，v<sup>−</sup> 取每列最小
+      </div>
+      <div class="formula" style="margin-top:0.8rem">
+        D<sub>i</sub><sup>+</sup> = √Σ<sub>j</sub>(v<sub>j</sub><sup>+</sup> − v<sub>ij</sub>)²　C<sub>i</sub> = D<sub>i</sub><sup>−</sup> / (D<sub>i</sub><sup>+</sup> + D<sub>i</sub><sup>−</sup>)
+        <small>D<sup>−</sup> 同理，量到最差点。C 越大越好。</small>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:21–0:22" data-note="熵权下 A 和 B 只差 0.04。差距这么小，先查数据和权重的误差，再下结论。">
+      <div class="slide-head">
+        <p class="eyebrow">贴近度 C 与名次</p>
+        <span class="clock">0:21–0:22</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>医院</th><th>AHP 权重</th><th>名次</th><th>熵权</th><th>名次</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>0.53</td><td>3</td><td>0.56</td><td>1</td></tr>
+          <tr><td>B</td><td>0.84</td><td>1</td><td>0.52</td><td>2</td></tr>
+          <tr><td>C</td><td>0.39</td><td>4</td><td>0.43</td><td>4</td></tr>
+          <tr><td>D</td><td>0.61</td><td>2</td><td>0.51</td><td>3</td></tr>
+          <tr><td>E</td><td>0.15</td><td>5</td><td>0.31</td><td>5</td></tr>
+        </tbody>
+      </table>
+      <p class="lede" style="margin-top:1.1rem">换一套权重，第一名从 B 换成了 A。</p>
+    </section>
+
+    <section class="slide" data-t="0:22–0:23" data-note="做法：其余三项保持 AHP 比例，死亡比权重从 0 扫到 1。低于 0.19 时第一名是 C。">
+      <div class="slide-head">
+        <p class="eyebrow">排名之后</p>
+        <span class="clock">0:22–0:23</span>
+      </div>
+      <ol class="q-list">
+        <li>B 赢在死亡比，离满分最远的是医生经验。</li>
+        <li>其余三项比例不变时，死亡比权重 ≥ 0.19，第一名都是 B。</li>
+        <li>论文里放：权重表、名次表、一段解释。</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-t="0:23–0:24" data-note="加入或删掉一家医院，其余几家的先后也可能改变，这叫排序逆转。AHP 和 TOPSIS 都会出现。">
+      <div class="slide-head">
+        <p class="eyebrow">从约 50 家里挑，模型要改什么</p>
+        <span class="clock">0:23–0:24</span>
+      </div>
+      <ul class="plain-list lede">
+        <li>先排除：没有对应专科、SMR 区间整个高于 1</li>
+        <li>愿意远行：重新比较各项轻重</li>
+        <li>家数变了，最大、最小值跟着变，名次要重算</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-t="0:24–0:25" data-note="备忘的读者不会算 CR。给他一张表和一个算好的例子，他能照着自己算一遍。">
+      <div class="slide-head">
+        <p class="eyebrow">要求 3 · 给普通人的两页备忘</p>
+        <span class="clock">0:24–0:25</span>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <h3>放进去</h3>
+          <ul>
+            <li>每家医院四项的得分表</li>
+            <li>读者把 10 分分给四项</li>
+            <li>一个算好的例子</li>
+          </ul>
+        </div>
+        <div class="panel ignore">
+          <h3>别放</h3>
+          <ul>
+            <li>比较矩阵和 CR</li>
+            <li>熵、距离公式</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:25–0:26" data-note="问：医院题那一套能直接搬过来吗？先让学生说哪里不对劲。">
+      <p class="eyebrow">回到题二</p>
+      <h1 class="display-1">一户家庭来领养猫。<br />收容所怎样判断？</h1>
+      <p class="lede mute">这里没有「五户里挑一户」。每来一户，单独判断一次。</p>
+    </section>
+
+    <section class="slide" data-t="0:26–0:27" data-note="示意权重：预算 0.3、空间 0.2、照料时间 0.3、住处允许 0.2。甲的得分依次为 1、1、0.7、0，乙为 0.5、0.5、0.8、1。">
+      <div class="slide-head">
+        <p class="eyebrow">直接加权求和，会出什么事 · 示意数字</p>
+        <span class="clock">0:26–0:27</span>
+      </div>
+      <div class="split">
+        <div class="panel ignore">
+          <h3>甲户</h3>
+          <p class="lede">预算足，房子大，房东不允许养宠物</p>
+          <p class="lede mono" style="margin-top:0.6rem">总分 0.71</p>
+        </div>
+        <div class="panel">
+          <h3>乙户</h3>
+          <p class="lede">预算一般，住处允许养宠物</p>
+          <p class="lede mono" style="margin-top:0.6rem">总分 0.69</p>
+        </div>
+      </div>
+      <p class="lede oxide" style="margin-top:1.2rem">合格线定在 0.70：甲户过线，却养不了猫。</p>
+    </section>
+
+    <section class="slide" data-t="0:27–0:28" data-note="加权和允许一项的高分抵掉另一项的零分。不能被抵掉的条件，要放到打分之前单独判断。">
+      <div class="slide-head">
+        <p class="eyebrow">决策图：先否决，再打分</p>
+        <span class="clock">0:27–0:28</span>
+      </div>
+      <div class="arrows">
+        <span>输入 ≤ 10 项</span><span class="arr">→</span>
+        <span>否决项</span><span class="arr">→</span>
+        <span>打分</span><span class="arr">→</span>
+        <span>合格线</span>
+      </div>
+      <div class="split" style="margin-top:1.4rem">
+        <div class="panel ignore">
+          <h3>否决项：一项不满足就不合格</h3>
+          <ul>
+            <li>住处禁止养宠物</li>
+            <li>家人对猫严重过敏</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>打分项：可互相弥补</h3>
+          <ul>
+            <li>每天可照料的时间</li>
+            <li>养猫预算</li>
+            <li>居住空间</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-t="0:28–0:29" data-note="这个式子适合够了就行的项，比如预算、照料时间。越少越好的项要换一种写法。">
+      <div class="slide-head">
+        <p class="eyebrow">打分：对照固定标准</p>
+        <span class="clock">0:28–0:29</span>
+      </div>
+      <div class="formula">
+        z = min(1, x / x<sub>标准</sub>)
+        <small>x<sub>标准</sub>：如养猫一年的平均花费，查资料并写清来源。</small>
+      </div>
+      <p class="lede" style="margin-top:1.2rem">标准固定，换一批家庭，同一户的结论不变。</p>
+    </section>
+
+    <section class="slide" data-t="0:29–0:30" data-note="比赛期间不能找队外的人讨论，兽医也不行。AHP 的判断依据只能来自公开资料。">
+      <div class="slide-head">
+        <p class="eyebrow">放进宠物题</p>
+        <span class="clock">0:29–0:30</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>方法</th><th>怎么用</th><th>要注意</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AHP</td><td>依据兽医指南等资料两两比较</td><td>写清依据，报告 CR</td></tr>
+          <tr><td>熵权法</td><td>权重随样本家庭的差异变</td><td>差异大，不代表对养猫要紧</td></tr>
+          <tr><td>TOPSIS</td><td>理想点取自样本</td><td>改用固定标准作理想点</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-t="0:30–0:31" data-note="收入和住房条件通常正相关。两个正相关的条件同时满足的概率，大于各自概率的乘积。">
+      <div class="slide-head">
+        <p class="eyebrow">1b · 合格的有多少户</p>
+        <span class="clock">0:30–0:31</span>
+      </div>
+      <h1 class="display-2">选输入时先查：有没有全国统计？</h1>
+      <ul class="plain-list lede">
+        <li>有逐户调查数据：逐户代入，加权推到全国</li>
+        <li>只有分项统计：假设各项独立，概率相乘</li>
+      </ul>
+      <p class="lede mute" style="margin-top:0.9rem">预算和住房常一起好，相乘会把合格户数算少。</p>
+    </section>
+
+    <section class="slide" data-t="0:31–0:33" data-note="第 2b 问问多只宠物。一种做法是先扣掉已有宠物占用的时间和预算，再判断新的一只。">
+      <div class="slide-head">
+        <p class="eyebrow">第 2 问 · 每种宠物一套规则</p>
+        <span class="clock">0:31–0:33</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>物种</th><th>否决项举例</th><th>较重的打分项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>猫</td><td>家人对猫严重过敏</td><td>照料时间、预算</td></tr>
+          <tr><td>狗</td><td>没人能每天遛狗</td><td>照料时间、居住空间</td></tr>
+          <tr><td>另 3 种</td><td>查资料</td><td>查资料</td></tr>
+        </tbody>
+      </table>
+      <p class="lede mute" style="margin-top:1.1rem">输入不变，变的是否决项、权重和合格线。</p>
+    </section>
+
+    <section class="slide" data-t="0:33–0:35" data-note="两道题都能对着这条线检查。第 3 问的预测，要用另一类模型。">
+      <div class="slide-head">
+        <p class="eyebrow">两道题走的同一条路</p>
+        <span class="clock">0:33–0:35</span>
+      </div>
+      <div class="arrows">
+        <span>评价对象</span><span class="arr">→</span>
+        <span>指标</span><span class="arr">→</span>
+        <span>统一方向</span><span class="arr">→</span>
+        <span>权重</span><span class="arr">→</span>
+        <span>合成</span><span class="arr">→</span>
+        <span>决策规则</span><span class="arr">→</span>
+        <span>检验</span>
+      </div>
+      <p class="lede mute" style="margin-top:1.4rem">每一步都要做选择。选了什么、为什么，都写进论文。</p>
+    </section>
+
+    <section class="slide" data-t="0:35–0:36" data-note="拿到新题先判断属于哪一行，再挑方法。两行都沾的题，可以先否决、再在剩下的对象里排序。">
+      <div class="slide-head">
+        <p class="eyebrow">看题目要什么，再选方法</p>
+        <span class="clock">0:35–0:36</span>
+      </div>
+      <table class="sym">
+        <thead>
+          <tr><th>题目要的</th><th>参照</th><th>合成</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>一组里排先后</td><td>组内最大最小值</td><td>加权和或 TOPSIS</td></tr>
+          <tr><td>对照标准判合格</td><td>固定标准</td><td>否决项 + 打分 + 合格线</td></tr>
+        </tbody>
+      </table>
+      <p class="lede mute" style="margin-top:1.1rem">权重要说清来历：AHP 报 CR，熵权说明理由。</p>
+    </section>
+
+    <section class="slide" data-t="0:36–0:37" data-note="每条都在今天的两道题里出现过。让学生对照自己上周的拆解表找一找。">
+      <div class="slide-head">
+        <p class="eyebrow">评价题最常见的错</p>
+        <span class="clock">0:36–0:37</span>
+      </div>
+      <ul class="plain-list lede">
+        <li>越小越好的指标没换方向</li>
+        <li>权重说不出来历</li>
+        <li>只交名次表，没说第一名赢在哪</li>
+        <li>该一票否决的条件放进了加权和</li>
+        <li>CR 超过 0.1，改了那条线</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-t="0:37–0:40" data-note="这张表下周模拟赛用得上。9/19–9/20 周末发题讲规则，9/21–9/25 连续五天。下周没有正课和作业。">
+      <div class="slide-head">
+        <p class="eyebrow">本周只交这一张</p>
+        <span class="clock">0:37–0:40</span>
+      </div>
+      <div class="card-fields">
+        <div><b>题目</b>　宠物题第 1 问，只做猫</div>
+        <div><b>指标</b>　最多 5 个</div>
+        <div><b>每个指标写</b>　含义 / 方向 / 能查到的数据来源</div>
+        <div><b>可选</b>　标出哪几项做否决项</div>
+      </div>
+      <p class="lede mute" style="margin-top:1.3rem">不用算权重，下次课前交。9/21–9/25 模拟赛，下周没有正课。</p>
+    </section>
+
+  </main>
+
+  <div class="note" id="note" role="note"><b>讲者</b><span id="note-text"></span></div>
+
+  <nav class="dock" aria-label="翻页">
+    <button type="button" id="prev" aria-label="上一页">←</button>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    <span class="count" id="count">1 / 1</span>
+    <button type="button" id="next" aria-label="下一页">→</button>
+  </nav>
+
+  <div class="help" id="help" hidden>
+    <div class="help-card">
+      <h2>键位</h2>
+      <dl>
+        <dt><kbd>→</kbd> <kbd>Space</kbd> <kbd>J</kbd></dt><dd>下一页</dd>
+        <dt><kbd>←</kbd> <kbd>K</kbd> <kbd>Backspace</kbd></dt><dd>上一页</dd>
+        <dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>封面 / 末页</dd>
+        <dt><kbd>F</kbd></dt><dd>全屏</dd>
+        <dt><kbd>L</kbd></dt><dd>黑板 / 亮场（中午投影发灰时切亮场）</dd>
+        <dt><kbd>N</kbd></dt><dd>讲者提示开或关</dd>
+        <dt><kbd>I</kbd></dt><dd>目录跳转</dd>
+        <dt><kbd>?</kbd></dt><dd>本页说明</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="index" id="index" hidden>
+    <div class="index-card">
+      <h2>目录</h2>
+      <ol class="index-list" id="index-list"></ol>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const deck = document.getElementById("deck");
+      const countEl = document.getElementById("count");
+      const bar = document.getElementById("bar");
+      const noteEl = document.getElementById("note");
+      const noteText = document.getElementById("note-text");
+      const help = document.getElementById("help");
+      const indexPane = document.getElementById("index");
+      const indexList = document.getElementById("index-list");
+      const timerEl = document.getElementById("timer");
+      const timerBtn = document.getElementById("timer-btn");
+      const timerReset = document.getElementById("timer-reset");
+
+      let i = 0;
+      let notesOn = false;
+      let timerId = null;
+      let left = 120;
+
+      function titleOf(slide) {
+        const h = slide.querySelector("h1, h2, .display-2, .eyebrow");
+        const t = slide.dataset.t || "";
+        const text = (h && h.textContent || "未命名").replace(/\s+/g, " ").trim().slice(0, 36);
+        return (t ? t + " · " : "") + text;
+      }
+
+      indexList.innerHTML = slides.map(function (s, idx) {
+        return "<li><button type='button' data-i='" + idx + "'>" +
+          String(idx + 1).padStart(2, "0") + "　" + titleOf(s) + "</button></li>";
+      }).join("");
+
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("is-on", idx === i);
+        });
+        countEl.textContent = (i + 1) + " / " + slides.length;
+        bar.style.width = ((i + 1) / slides.length * 100) + "%";
+        noteText.textContent = slides[i].dataset.note || "";
+        document.getElementById("prev").disabled = i === 0;
+        document.getElementById("next").disabled = i === slides.length - 1;
+        indexList.querySelectorAll("button").forEach(function (b) {
+          b.setAttribute("aria-current", Number(b.dataset.i) === i ? "true" : "false");
+        });
+        location.hash = String(i + 1);
+      }
+
+      function next() { show(i + 1); }
+      function prev() { show(i - 1); }
+
+      function toggleHelp() {
+        const on = !help.classList.contains("is-on");
+        help.classList.toggle("is-on", on);
+        help.hidden = !on;
+        indexPane.classList.remove("is-on");
+        indexPane.hidden = true;
+      }
+      function toggleIndex() {
+        const on = !indexPane.classList.contains("is-on");
+        indexPane.classList.toggle("is-on", on);
+        indexPane.hidden = !on;
+        help.classList.remove("is-on");
+        help.hidden = true;
+      }
+      function closeOverlays() {
+        help.classList.remove("is-on");
+        help.hidden = true;
+        indexPane.classList.remove("is-on");
+        indexPane.hidden = true;
+      }
+
+      function renderTimer() {
+        const m = Math.floor(left / 60);
+        const s = left % 60;
+        timerEl.textContent = m + ":" + String(s).padStart(2, "0");
+        timerEl.classList.toggle("is-warn", left > 0 && left <= 30);
+        timerEl.classList.toggle("is-end", left === 0);
+      }
+      function tick() {
+        if (left <= 0) {
+          clearInterval(timerId);
+          timerId = null;
+          timerBtn.textContent = "已到时";
+          return;
+        }
+        left -= 1;
+        renderTimer();
+        if (left === 30) timerBtn.textContent = "还有三十秒";
+        if (left === 0) timerBtn.textContent = "停笔";
+      }
+      function startTimer() {
+        if (timerId) return;
+        if (left === 0) left = 120;
+        timerBtn.textContent = "计时中";
+        timerId = setInterval(tick, 1000);
+      }
+      function resetTimer() {
+        clearInterval(timerId);
+        timerId = null;
+        left = 120;
+        timerBtn.textContent = "开始计时";
+        renderTimer();
+      }
+
+      document.getElementById("next").addEventListener("click", next);
+      document.getElementById("prev").addEventListener("click", prev);
+      document.getElementById("zone-next").addEventListener("click", function (e) {
+        if (e.target.closest("button.primary, #timer-btn, #timer-reset, a, input, textarea")) return;
+        if (help.classList.contains("is-on") || indexPane.classList.contains("is-on")) return;
+        next();
+      });
+      document.getElementById("zone-prev").addEventListener("click", function () {
+        if (help.classList.contains("is-on") || indexPane.classList.contains("is-on")) return;
+        prev();
+      });
+      timerBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        startTimer();
+      });
+      timerReset.addEventListener("click", function (e) {
+        e.stopPropagation();
+        resetTimer();
+      });
+
+      indexList.addEventListener("click", function (e) {
+        const b = e.target.closest("button");
+        if (!b) return;
+        show(Number(b.dataset.i));
+        closeOverlays();
+      });
+      help.addEventListener("click", function (e) {
+        if (e.target === help) closeOverlays();
+      });
+      indexPane.addEventListener("click", function (e) {
+        if (e.target === indexPane) closeOverlays();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "?" || (e.shiftKey && e.key === "/")) { e.preventDefault(); toggleHelp(); return; }
+        if (e.key === "Escape") { closeOverlays(); return; }
+        if (help.classList.contains("is-on") || indexPane.classList.contains("is-on")) {
+          if (e.key === "i" || e.key === "I") toggleIndex();
+          return;
+        }
+        const tag = (e.target && e.target.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON") {
+          if (e.key === " " && tag === "BUTTON") return;
+        }
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "j" || e.key === "J" || e.key === "PageDown") {
+          e.preventDefault(); next();
+        } else if (e.key === "ArrowLeft" || e.key === "k" || e.key === "K" || e.key === "Backspace" || e.key === "PageUp") {
+          e.preventDefault(); prev();
+        } else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        } else if (e.key === "l" || e.key === "L") {
+          const nextTheme = document.documentElement.getAttribute("data-theme") === "paper" ? null : "paper";
+          if (nextTheme) document.documentElement.setAttribute("data-theme", "paper");
+          else document.documentElement.removeAttribute("data-theme");
+        } else if (e.key === "n" || e.key === "N") {
+          notesOn = !notesOn;
+          noteEl.classList.toggle("is-on", notesOn);
+        } else if (e.key === "i" || e.key === "I") {
+          toggleIndex();
+        }
+      });
+
+      let touchX = null;
+      document.addEventListener("touchstart", function (e) {
+        touchX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      document.addEventListener("touchend", function (e) {
+        if (touchX == null) return;
+        const dx = e.changedTouches[0].screenX - touchX;
+        touchX = null;
+        if (Math.abs(dx) < 50) return;
+        if (dx < 0) next();
+        else prev();
+      }, { passive: true });
+
+      const fromHash = parseInt((location.hash || "").slice(1), 10);
+      show(fromHash >= 1 ? fromHash - 1 : 0);
+      renderTimer();
+      deck.focus();
+    })();
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Axiom 应用数学社官网
 
-![version](https://img.shields.io/badge/version-A1b2-blue)
+![version](https://img.shields.io/badge/version-A1c-blue)
 ![last commit](https://img.shields.io/github/last-commit/ChromiteCr/axiom.nestudy)
 ![commit activity](https://img.shields.io/github/commit-activity/m/ChromiteCr/axiom.nestudy)
 ![stars](https://img.shields.io/github/stars/ChromiteCr/axiom.nestudy)
@@ -28,6 +28,7 @@ assets/img/             徽标与网站图标
 assets/photos/          活动照片，每张两种宽度（1600、2400），JPEG 与 WebP 各一份，已去掉拍摄地点等元数据
 assets/fonts/           KaTeX 的 Computer Modern 字体（许可见 KaTeX-LICENSE.txt）
 poster/                 招新海报：A2 的 PDF 与 PNG，源文件是一张 HTML
+slides/                 训练营课件：各周的 HTML 投影片，第 2 周的 PDF 与 PPTX，目录页 /slides/
 ```
 
 分页靠目录取得干净的网址：`research/metro-report-card/index.html` 对应 `站点/research/metro-report-card/`，GitHub Pages 不需要额外配置。四页共用同一套导航和页脚，改导航要四页一起改。
@@ -71,6 +72,7 @@ python3 poster/lorenz_render.py
 
 | 版本 | 日期 | 变更内容 | 类型 |
 |------|------|----------|------|
+| A1c | 2026-10-13 | 新增训练营课件栏目 `/slides/`：第 1、3、5、7 周的投影课件（单个 HTML，浏览器直接打开，键位与课上相同），第 2 周课件用 PowerPoint 导出的 PDF 在线看、原 PPTX 供下载；目录页 `/slides/` 列出各周主题和链接。课件内容未改：发布副本里 Google Fonts 的样式表改为不阻塞加载（国内连不上时直接用系统宋体，不再白屏等超时），PPTX 清掉了文件属性里的修改者邮箱。暂未加进主页导航 | feat |
 | A1b2 | 2026-09-23 | 训练营一节加入第 3 周的课堂照片（图 2，2026 年 9 月 17 日），裁成 16:9，按屏幕宽度加载 1600 或 2400 像素、优先 WebP，懒加载，去掉了照片元数据；中英两种替代文本随语言切换。另修正窄屏页眉：英文模式下副标题与语言按钮不再折行，440 像素以下英文隐去副标题，360 像素以下两种语言都隐去，菜单按钮始终留在屏幕内 | fix |
 | A1b1 | 2026-09-22 | 海报字号整体放大：正文列表 6mm、公式 7.2mm、标语 11.5mm、页脚数字 12.5mm，标注也一并加大；版面重排腾出空间，主标题下方加一层压暗，白字在亮处仍然清楚 | fix |
 | A1b | 2026-09-22 | 新增招新海报：A2 尺寸，黑底，主图是 520 条洛伦茨轨道的长曝光（RK4 积分，双线性抛点，按速度从紫到青到白着色，再叠一层辉光），标出两个不动点 C₊、C₋。版式是一张按毫米写的 HTML，用 Chrome 打印成矢量文字的 PDF，另出一张 PNG。内容取自网站：四条公理、四项研究、方程与参数、45 名成员与 IMMC Finalist 奖 | feat |
