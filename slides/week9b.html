@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 9 周 B 路 · 论文写作、资料查找与 LaTeX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'"><style>
+:root{--bg:#16140f;--surface:#211e16;--surface-2:#2c281c;--chalk:#f3ead8;--yellow:#e6b84d;--oxide:#c45c48;--line:color-mix(in srgb,var(--chalk) 12%,transparent);--line-strong:color-mix(in srgb,var(--chalk) 22%,transparent);--mute:color-mix(in srgb,var(--chalk) 58%,transparent);--mute-2:color-mix(in srgb,var(--chalk) 38%,transparent);--font-serif:"Source Serif 4","Noto Serif SC","Songti SC","STSong","SimSun",serif;--font-mono:"IBM Plex Mono","Sarasa Mono SC",ui-monospace,monospace;--pad:clamp(1.4rem,4vw,3.2rem);--rule:4px;--radius-panel:2px;color-scheme:dark}
+html[data-theme="paper"]{--bg:#efe6d4;--surface:#f6f0e2;--surface-2:#e7dcc4;--chalk:#1c1913;--yellow:#8f6910;--oxide:#9d3a2c;--line:color-mix(in srgb,var(--chalk) 14%,transparent);--line-strong:color-mix(in srgb,var(--chalk) 26%,transparent);--mute:color-mix(in srgb,var(--chalk) 62%,transparent);--mute-2:color-mix(in srgb,var(--chalk) 42%,transparent);color-scheme:light}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--chalk);font-family:var(--font-serif);overflow:hidden}body{--grid-a:.045;background-color:var(--bg);background-image:linear-gradient(color-mix(in srgb,var(--chalk) calc(var(--grid-a)*100%),transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--chalk) calc(var(--grid-a)*100%),transparent) 1px,transparent 1px);background-size:48px 48px}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);font-weight:600;margin:0 0 .7rem}.display-1{font-size:clamp(34px,5.6vw,68px);font-weight:600;line-height:1.08;letter-spacing:-.02em;margin:0 0 .6rem}.display-2{font-size:clamp(24px,3.2vw,40px);font-weight:600;line-height:1.2;margin:0 0 .8rem}.lede{font-size:clamp(18px,2.15vw,28px);line-height:1.45;max-width:38em;margin:0}.mute{color:var(--mute)}.oxide{color:var(--oxide)}.yellow{color:var(--yellow)}.mono,table,.count,kbd,pre,code{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+#deck{height:100%;outline:none}.slide{display:none;height:100%;padding:var(--pad) var(--pad) 5.4rem;flex-direction:column;justify-content:center}.slide.is-on{display:flex}.slide-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.15rem}.slide-head .clock{font-size:12px;letter-spacing:.08em;color:var(--mute);font-family:var(--font-mono);flex-shrink:0}
+.prompt{border-left:var(--rule) solid var(--yellow);padding:.2rem 0 .2rem 1.2rem}.prompt p{margin:0 0 .85rem}.prompt p:last-child{margin-bottom:0}.plain-list,.q-list{margin:0;padding-left:1.2em;font-size:clamp(18px,2.1vw,28px);line-height:1.5}.plain-list{list-style:none;padding-left:0}.plain-list li{margin:.38rem 0}.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2.4rem);align-items:center}@media(max-width:820px){.split{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-panel);padding:1rem 1.15rem 1.15rem}.panel h3{margin:0 0 .65rem;font-size:13px;letter-spacing:.14em;color:var(--yellow);font-weight:600}.panel ul{margin:0;padding-left:1.1em;font-size:clamp(15px,1.7vw,22px);line-height:1.45}.panel.ignore h3{color:var(--oxide)}.panel.ignore{opacity:.92}.formula{font-family:var(--font-mono);font-size:clamp(20px,2.5vw,34px);line-height:1.45;background:var(--surface);border-top:var(--rule) solid var(--yellow);padding:.9rem 1.1rem}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}@media(max-width:900px){.roles{grid-template-columns:1fr 1fr}}.chip-card{background:var(--surface);border:1px solid var(--line);padding:1rem 1rem 1.1rem;min-height:8rem}.chip-card strong{display:block;font-size:clamp(20px,2.2vw,28px);margin-bottom:.4rem}.chip-card p{margin:0;color:var(--mute);font-size:clamp(14px,1.5vw,18px);line-height:1.4}
+.arrows{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem .7rem;font-size:clamp(18px,2.2vw,30px);font-weight:600}.arrows span.arr{color:var(--yellow);font-weight:400}.two-col-copy{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}.two-col-copy h2{margin:0 0 .5rem;font-size:clamp(22px,2.4vw,32px)}.two-col-copy p{font-size:clamp(16px,1.8vw,22px);line-height:1.45;color:var(--mute);margin:0}.bottom-call{margin-top:1.1rem;border-top:1px solid var(--line-strong);padding-top:.8rem;font-size:clamp(18px,2vw,26px);line-height:1.45}
+table.sym{width:100%;border-collapse:collapse;font-size:clamp(13px,1.4vw,18px)}table.sym th,table.sym td{text-align:left;padding:.42rem .52rem;border-bottom:1px solid var(--line);vertical-align:top}table.sym th{color:var(--yellow);font-weight:500;font-size:12px;letter-spacing:.08em}.card-fields{display:grid;gap:.7rem;font-size:clamp(16px,1.8vw,22px)}.card-fields div{border-bottom:1px solid var(--line-strong);padding:.35rem 0 .55rem;color:var(--mute)}.card-fields b{color:var(--chalk);font-weight:600}
+.chart{width:100%;max-height:52vh;object-fit:contain;border:1px solid var(--line)}.caption{font-size:clamp(11px,1.15vw,15px);line-height:1.4;color:var(--mute);margin:.35rem 0 0}.codebox,.folder{background:#12100c;border:1px solid var(--line-strong);border-left:var(--rule) solid var(--yellow);padding:.8rem 1rem;overflow:hidden}.codebox pre,.folder pre{margin:0;white-space:pre-wrap;font-size:clamp(12px,1.25vw,18px);line-height:1.5;color:var(--chalk)}.derive{border-top:1px solid var(--line)}.derive>div{display:grid;grid-template-columns:6% 47% 1fr;gap:2%;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--line)}.derive span{font-family:var(--font-mono);color:var(--yellow)}.formula-line{font-family:var(--font-mono);font-size:clamp(17px,2vw,28px)}.derive p{margin:0;color:var(--mute);font-size:clamp(14px,1.4vw,20px)}
+.dock{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:.75rem;padding:.55rem var(--pad) .7rem;background:color-mix(in srgb,var(--bg) 88%,transparent);border-top:1px solid var(--line);z-index:5}.dock .bar{flex:1;height:var(--rule);background:var(--line);overflow:hidden}.dock .bar>i{display:block;height:100%;width:0;background:var(--yellow)}.count{font-size:12px;color:var(--mute);min-width:4.2em;text-align:right}.dock button{min-width:44px;padding:.4rem .7rem}button{font-family:var(--font-serif);font-size:15px;color:var(--chalk);background:var(--surface-2);border:1px solid var(--line-strong);padding:.55rem 1rem;min-height:44px;cursor:pointer;border-radius:var(--radius-panel)}button:hover{border-color:var(--yellow)}button:disabled{opacity:.4;cursor:not-allowed}
+.note{position:fixed;left:var(--pad);right:var(--pad);bottom:3.4rem;background:var(--surface-2);border:1px solid var(--line-strong);border-left:var(--rule) solid var(--yellow);padding:.55rem .9rem;font-size:14px;line-height:1.4;color:var(--mute);display:none;z-index:4;max-width:62em}.note.is-on{display:block}.note b{color:var(--yellow);font-weight:600;margin-right:.4rem}.help,.index{position:fixed;inset:0;background:color-mix(in srgb,var(--bg) 82%,transparent);display:none;align-items:center;justify-content:center;z-index:10;padding:2rem}.help.is-on,.index.is-on{display:flex}.help-card,.index-card{background:var(--surface);border:1px solid var(--line-strong);padding:1.4rem 1.6rem;max-width:44rem;width:min(44rem,100%);max-height:80vh;overflow:auto}.help-card h2,.index-card h2{margin:0 0 .8rem;font-size:22px}.help-card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem}.help-card dd{margin:0;color:var(--mute)}kbd{display:inline-block;border:1px solid var(--line-strong);padding:.05rem .4rem;font-size:12px;background:var(--surface-2)}.index-list{list-style:none;margin:0;padding:0;display:grid;gap:.2rem}.index-list button{width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:.45rem .2rem;font-size:15px}.index-list button[aria-current="true"]{color:var(--yellow)}
+.click-zones{position:fixed;inset:0 0 3.2rem 0;display:grid;grid-template-columns:18% 1fr 18%;z-index:2;pointer-events:none}.click-zones #zone-prev,.click-zones #zone-next{pointer-events:auto;background:transparent;border:0;border-radius:0;min-height:0;opacity:0}.click-zones #zone-prev:focus-visible,.click-zones #zone-next:focus-visible{opacity:1;background:color-mix(in srgb,var(--yellow) 8%,transparent)}
+.rule-bottom{position:absolute;left:var(--pad);right:var(--pad);bottom:4.6rem;height:var(--rule);background:var(--yellow);pointer-events:none;opacity:.9}.cover .rule-bottom{bottom:5.2rem}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}@media(max-width:900px){.stats{grid-template-columns:1fr}}
+.stat strong{font-family:var(--font-mono);font-size:clamp(30px,4.2vw,58px);color:var(--yellow);line-height:1.05;margin-bottom:.6rem}
+.stat p{font-size:clamp(15px,1.6vw,21px);line-height:1.45}
+.tag-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}.tag-row span{font-family:var(--font-mono);font-size:13px;letter-spacing:.02em;border:1px solid var(--line-strong);padding:.22rem .6rem;color:var(--mute)}
+.cover .tag-row{margin-top:1.4rem}
+.formula.sm{font-size:clamp(15px,1.7vw,24px)}
+table.num td:not(:first-child){font-variant-numeric:tabular-nums}
+
+.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:1.3rem}@media(max-width:900px){.choices{grid-template-columns:1fr 1fr}}
+.choice{border-top:var(--rule) solid var(--line-strong);padding:.8rem .1rem 0;transition:border-color .32s ease}
+.choice b{display:block;font-family:var(--font-mono);font-size:clamp(17px,2vw,26px);color:var(--mute);margin-bottom:.4rem;transition:color .32s ease}
+.choice p{margin:0;font-size:clamp(16px,1.8vw,24px);line-height:1.42}
+.choice .fx{display:block;margin-top:.6rem;font-family:var(--font-mono);font-size:clamp(15px,1.7vw,22px);color:var(--mute)}
+.choice .ans{display:block;margin-top:.7rem;font-size:clamp(18px,2.1vw,28px);color:var(--yellow);font-weight:600}
+.choice.is-marked{border-top-color:var(--yellow)}.choice.is-marked b{color:var(--yellow)}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,2vw,1.6rem);align-items:stretch}@media(max-width:900px){.tri{grid-template-columns:1fr}}
+.quote{font-size:clamp(22px,2.8vw,38px);line-height:1.35;margin:0 0 .6rem;font-style:italic}
+.src{font-family:var(--font-mono);font-size:clamp(11px,1.1vw,14px);color:var(--mute);margin:.8rem 0 0;letter-spacing:.01em}
+.out{font-family:var(--font-mono);color:var(--yellow)}
+.recap{display:grid;grid-template-columns:minmax(8em,28%) 1fr;gap:0 1.6rem;margin:0;font-size:clamp(18px,2.1vw,28px);line-height:1.45}
+.recap dt{color:var(--yellow);font-weight:600;border-top:1px solid var(--line);padding:.6rem 0}
+.recap dd{margin:0;border-top:1px solid var(--line);padding:.6rem 0}
+table.sym td.fx{font-family:var(--font-mono)}
+.stat strong .unit{font-size:.55em}
+table.sym td.nw,table.sym th.nw{white-space:nowrap}
+.formula table.model{border-collapse:collapse;width:auto}.formula table.model td{padding:.06rem 1.1rem .06rem 0;border:0;white-space:nowrap;vertical-align:baseline}.formula table.model td:last-child{color:var(--mute);padding-left:1.6rem}
+sub{font-size:.7em;line-height:0;vertical-align:-.25em}
+[data-step]{opacity:0;transform:translateY(16px);transition:opacity .32s ease,transform .32s ease}
+[data-step].is-shown{opacity:1;transform:none}
+.is-struck{text-decoration:line-through;text-decoration-color:var(--oxide);color:var(--mute-2)}
+@media(prefers-reduced-motion:reduce){[data-step]{transform:none}}
+</style></head><body>
+<div class="click-zones"><button id="zone-prev" aria-label="上一页"></button><div></div><button id="zone-next" aria-label="下一页"></button></div>
+<main id="deck" tabindex="0"><section class="slide cover" data-t="0:00" data-note="gh 开场。今天两路同时上课，这一路是论文、资料和 LaTeX，给论文和文献分工的同学；模型扩展与算法在 A 路。第 8 周没有讲成，LaTeX 从头讲。两份课件都会放到网站上。">
+      <p class="eyebrow">Week 9 · B 路 · 40 min · 10/28</p>
+      <h1 class="display-1">论文写作、资料查找与 LaTeX</h1>
+      <p class="lede mute">HiMCM 开赛前一周：一篇论文由哪几块组成、每块怎么写，参数去哪找、怎么记，LaTeX 里怎么排图、表、公式和引用。</p>
+      <div class="tag-row"><span>gh · 论文与 LaTeX</span><span>lsh · 资料查找</span><span>A 路：模型扩展与算法</span></div>
+      <div class="rule-bottom" aria-hidden="true"></div>
+    </section>
+<section class="slide" data-t="0:00–0:01" data-note="gh：四站。写什么、交之前查什么是 gh，找什么是 lsh。">
+      <div class="slide-head"><p class="eyebrow">GH · 路线</p><span class="clock">0:00–0:01</span></div>
+      <h1 class="display-2">今天四站</h1>
+      <div class="arrows" style="font-size:clamp(24px,3.2vw,44px)"><span>写什么</span><span class="arr">→</span><span>找什么</span><span class="arr">→</span><span>怎么排</span><span class="arr">→</span><span>交之前</span></div>
+      <div class="bottom-call">gh 讲写和排，lsh 讲找；最后一道概念题和本周产出。</div>
+    </section>
+<section class="slide" data-t="0:01–0:03" data-note="gh：以 2025 A 的题面为准，每年题面末尾都会列一遍，开赛那天先核对。25 页包括摘要、目录、正文、信和参考文献；AI 使用报告另附，不计页数。">
+      <div class="slide-head"><p class="eyebrow">GH · 论文的组成</p><span class="clock">0:01–0:03</span></div>
+      <h1 class="display-2">一份 HiMCM 论文：一个 PDF，不超过 25 页</h1>
+      <div class="arrows"><span>Summary Sheet 1 页</span><span class="arr">→</span><span>目录</span><span class="arr">→</span><span>完整解答</span><span class="arr">→</span><span>信 1—2 页</span><span class="arr">→</span><span>参考文献</span></div>
+      <div class="bottom-call" data-step="1">用了 AI 还要附 AI 使用报告，放在最后，不计入 25 页。</div>
+      <p class="src">COMAP. 2025 HiMCM Problem A，题面末尾的提交要求；2026 年以开赛时的题面为准</p>
+    </section>
+<section class="slide" data-t="0:03–0:04" data-note="gh：这是建议的分法，不是规定。正文按问分节；灵敏度和优缺点各留一两页，最后一天才写的部分最容易被挤掉，所以先把页数占上。">
+      <div class="slide-head"><p class="eyebrow">GH · 页数怎么分</p><span class="clock">0:03–0:04</span></div>
+      <h1 class="display-2">25 页先分好，灵敏度和优缺点先占位</h1>
+      <table class="sym num"><thead><tr><th>部分</th><th>建议页数</th></tr></thead><tbody>
+<tr><td>Summary Sheet、目录</td><td>2</td></tr>
+<tr><td>问题重述、假设、符号表</td><td>3</td></tr>
+<tr><td>模型与结果（按问分节）</td><td>12</td></tr>
+<tr><td>灵敏度分析</td><td>2</td></tr>
+<tr><td>优缺点</td><td>1</td></tr>
+<tr><td>信</td><td>2</td></tr>
+<tr><td>参考文献与附录</td><td>3</td></tr>
+</tbody></table>
+      <p class="src">建议值，按题目调整；合计 25 页</p>
+    </section>
+<section class="slide" data-t="0:04–0:05" data-note="gh：预测题，本页不揭晓。每人押一个，讲完摘要页写什么再对照。四句都是 2025 A 的摘要开头。">
+      <div class="slide-head"><p class="eyebrow">GH · 预测题</p><span class="clock">0:04–0:05</span></div>
+      <h1 class="display-2">摘要的第一句，哪一句最好？</h1>
+      <div class="choices"><div class="choice"><b>A</b><p lang="en">In recent years, emergency evacuation has attracted increasing attention.</p></div><div class="choice"><b>B</b><p lang="en">In this paper, we build a model to study building sweeps.</p></div><div class="choice"><b>C</b><p lang="en">Under our baseline assumptions, two firefighters entering from opposite exits clear all six offices in 189 s.</p></div><div class="choice"><b>D</b><p lang="en">Evacuation is important and complex, so we use several methods.</p></div></div>
+    </section>
+<section class="slide" data-t="0:05–0:07" data-note="gh：Summary Sheet 是评委最先读的一页。四块：问题一句；每一问用了什么模型，一句；每一问的结果，带数字；给委员会的建议。整篇做完最后写，因为数字要从结果里抄过来。">
+      <div class="slide-head"><p class="eyebrow">GH · SUMMARY SHEET</p><span class="clock">0:05–0:07</span></div>
+      <h1 class="display-2">摘要页四块：问题、方法、带数字的结果、建议</h1>
+      <div class="derive"><div data-step="1"><span>01</span><div class="formula-line">问题</div><p>一句，不写背景铺垫</p></div><div data-step="2"><span>02</span><div class="formula-line">每一问的方法</div><p>模型名加一句做法</p></div><div data-step="3"><span>03</span><div class="formula-line">每一问的结果</div><p>带数字和条件</p></div><div data-step="4"><span>04</span><div class="formula-line">建议</div><p>和信里的建议一致</p></div></div>
+      <div class="bottom-call" data-step="5">放在第 1 页，最后写。</div>
+    </section>
+<section class="slide" data-t="0:07–0:08" data-note="gh：对照自己押的。A 和 D 是背景铺垫，B 只说做了模型、没说结果。C 一句就交代了条件、方案和数字。">
+      <div class="slide-head"><p class="eyebrow">GH · 预测题揭晓</p><span class="clock">0:07–0:08</span></div>
+      <h1 class="display-2">摘要的第一句，哪一句最好？</h1>
+      <div class="choices"><div class="choice"><b>A</b><p lang="en">In recent years, emergency evacuation has attracted increasing attention.</p></div><div class="choice"><b>B</b><p lang="en">In this paper, we build a model to study building sweeps.</p></div><div class="choice" data-mark="1"><b>C</b><p lang="en">Under our baseline assumptions, two firefighters entering from opposite exits clear all six offices in 189 s.</p><span class="ans">条件、方案、数字都有</span></div><div class="choice"><b>D</b><p lang="en">Evacuation is important and complex, so we use several methods.</p></div></div>
+    </section>
+<section class="slide" data-t="0:08–0:09" data-note="gh：每一节、每一段的第一句写结论，后面的句子给证据。评委翻页时只读第一句，也知道这一节说了什么。数字来自第 7 周的灵敏度。">
+      <div class="slide-head"><p class="eyebrow">GH · 第一句</p><span class="clock">0:08–0:09</span></div>
+      <h1 class="display-2">每一节的第一句写结论</h1>
+      <div class="two-col-copy"><div><h2 style="color:var(--oxide)">不要写</h2><p class="lede" lang="en" data-strike="1">Figure 3 shows the results of the sensitivity analysis.</p></div><div data-step="1"><h2>写成</h2><p class="lede" lang="en">Check time drives the sweep time: from 19 s to 135 s, T rises from 66 s to 414 s, while walking speed moves T by about 11 s.</p></div></div>
+    </section>
+<section class="slide" data-t="0:09–0:10" data-note="gh：图注也写成一句发现，读者只看图和图注就能得到结论。数据来源和条件放在图注后半句。">
+      <div class="slide-head"><p class="eyebrow">GH · 图注</p><span class="clock">0:09–0:10</span></div>
+      <h1 class="display-2">图注写这张图说明了什么</h1>
+      <div class="two-col-copy"><div><h2 style="color:var(--oxide)">不要写</h2><p class="lede" lang="en" data-strike="1">Figure 4: Sweep time versus number of responders.</p></div><div data-step="1"><h2>写成</h2><p class="lede" lang="en">Figure 4: A fifth responder saves no time; a sixth saves 54 s. (Baseline assumptions A1–A4.)</p></div></div>
+    </section>
+<section class="slide" data-t="0:10–0:11" data-note="gh：第 7 周讲过假设写三样，今天给英文样子。理由要能指回资料，影响要能指回灵敏度一节。">
+      <div class="slide-head"><p class="eyebrow">GH · 假设</p><span class="clock">0:10–0:11</span></div>
+      <h1 class="display-2">每条假设写三样：内容、理由、影响</h1>
+      <div class="card-fields" lang="en"><div data-step="1"><b>Assumption</b>　Checking one room takes c = 60 s.</div><div data-step="2"><b>Justification</b>　Within the 19–135 s range measured by Hsiao et al. (2016).</div><div data-step="3"><b>Impact</b>　T grows linearly with c; see Section 6.</div></div>
+    </section>
+<section class="slide" data-t="0:11–0:13" data-note="gh：灵敏度分析一节放在结果之后、优缺点之前。结论句写范围和条件。A 路今天算的就是这几个数，两边说法一致。HiMCM 2022 A 第 2 问直接点名要灵敏度分析。">
+      <div class="slide-head"><p class="eyebrow">GH · 灵敏度一节</p><span class="clock">0:11–0:13</span></div>
+      <h1 class="display-2">灵敏度一节放在结果之后，结论写范围和条件</h1>
+      <div class="arrows"><span>Results</span><span class="arr">→</span><span style="color:var(--yellow)">Sensitivity Analysis</span><span class="arr">→</span><span>Strengths and Weaknesses</span></div>
+      <div class="two-col-copy" style="margin-top:1.4rem"><div><h2 style="color:var(--oxide)">不要写</h2><p class="lede" lang="en" data-strike="1">The model is relatively sensitive to c.</p></div><div data-step="1"><h2>写成</h2><p class="lede" lang="en">When c varies by ±10%, T changes by ±24 s and the assignment stays the same.</p></div></div>
+    </section>
+<section class="slide" data-t="0:13–0:14" data-note="gh：信写给不读公式的人。2025 A 第 5 问的收信人是地方应急规划委员会。只写做法和条件，不写变量；每条建议后面跟一个数字。">
+      <div class="slide-head"><p class="eyebrow">GH · 信</p><span class="clock">0:13–0:14</span></div>
+      <h1 class="display-2">信写给不读公式的人：做法、条件、数字</h1>
+      <div class="two-col-copy"><div><h2 style="color:var(--oxide)">不要写</h2><p class="lede" lang="en" data-strike="1">Setting x<sub>ik</sub> = 1 for i ∈ {N1, S1, N2} minimizes T.</p></div><div data-step="1"><h2>写成</h2><p class="lede" lang="en">Send two responders through opposite exits; each checks the three nearest rooms. The floor is cleared in about three minutes.</p></div></div>
+      <p class="src">COMAP. 2025 HiMCM Problem A, Requirement 5：给 Local Emergency Planning Committee 的 1—2 页信</p>
+    </section>
+<section class="slide" data-t="0:14–0:16" data-note="gh：同一个数在论文里会出现四五次。改了模型以后，最容易漏改的是摘要和信。交之前拿一张表逐个核对。说完交给 lsh。">
+      <div class="slide-head"><p class="eyebrow">GH · 前后一致</p><span class="clock">0:14–0:16</span></div>
+      <h1 class="display-2">同一个数，摘要、结果、图、信里要一样</h1>
+      <div class="arrows"><span>Summary</span><span class="arr">=</span><span>Results</span><span class="arr">=</span><span>图与表</span><span class="arr">=</span><span>信</span></div>
+      <div class="bottom-call" data-step="1">模型一改，先改结果，再回头改摘要和信；交之前逐个核对一遍。</div>
+    </section>
+<section class="slide" data-t="0:16–0:17" data-note="lsh 接手。找资料之前先列清单：每条假设里的每个数都要一个来源。第 7 周的 c 和 v 就是这样找来的。">
+      <div class="slide-head"><p class="eyebrow">LSH · 先列清单</p><span class="clock">0:16–0:17</span></div>
+      <h1 class="display-2">找资料之前，先列出要找的数</h1>
+      <table class="sym"><thead><tr><th>假设里的数</th><th>要找什么</th><th>第 7 周找到的</th></tr></thead><tbody>
+<tr><td>c = 60 s</td><td>查一间房要多久</td><td>19—135 s，Hsiao 等（2016）的训练场实验</td></tr>
+<tr><td>v = 1.0 m/s</td><td>烟雾中走多快</td><td>0.5—1.32 m/s，Yan 等（2024）的综述</td></tr>
+<tr data-step="1"><td>s = 20 s</td><td>上下一层要多久</td><td>还没找，所以要做灵敏度</td></tr>
+</tbody></table>
+    </section>
+<section class="slide" data-t="0:17–0:19" data-note="lsh：三个地方。论文给实验测出来的参数；官方统计和标准给规范值和真实数据；公开数据集给能直接算的原始数据。一律用英文检索。">
+      <div class="slide-head"><p class="eyebrow">LSH · 去哪找</p><span class="clock">0:17–0:19</span></div>
+      <h1 class="display-2">参数从三个地方来</h1>
+      <div class="tri"><div class="panel" data-step="1"><h3>论文</h3><p class="lede">Google Scholar</p><p class="lede mute">实验测出来的参数和区间</p></div><div class="panel" data-step="2"><h3>官方统计与标准</h3><p class="lede">政府、国际组织、行业标准</p><p class="lede mute">规范值和真实统计</p></div><div class="panel" data-step="3"><h3>公开数据集</h3><p class="lede">政府开放数据、机构数据库</p><p class="lede mute">能直接拿来算的原始数据</p></div></div>
+    </section>
+<section class="slide" data-t="0:19–0:21" data-note="lsh：四个写法。引号锁定短语；OR 连同义词；site: 限定网站类型；filetype:pdf 找报告和论文全文。Google Scholar 里 allintitle: 只在标题里找。现场演示一次。">
+      <div class="slide-head"><p class="eyebrow">LSH · 检索式</p><span class="clock">0:19–0:21</span></div>
+      <h1 class="display-2">检索式：引号、同义词、限定网站和文件类型</h1>
+      <div class="codebox"><pre><code>"firefighter" "search time" room experiment
+("walking speed" OR "travel speed") "low visibility" evacuation
+evacuation stair descent speed site:gov filetype:pdf
+allintitle: firefighter wayfinding        # 只在 Google Scholar 用</code></pre></div>
+      <div class="bottom-call" data-step="1">搜不到就换同义词，不要换成中文。</div>
+    </section>
+<section class="slide" data-t="0:21–0:22" data-note="lsh：找到一篇对的论文以后，往前看它的参考文献，往后看谁引用了它（Google Scholar 的「被引用次数」）。往后找能找到更新的数据。">
+      <div class="slide-head"><p class="eyebrow">LSH · 顺着引用</p><span class="clock">0:21–0:22</span></div>
+      <h1 class="display-2">找到一篇对的，顺着引用往前往后找</h1>
+      <div class="arrows"><span data-step="1">它引用的文献：更早的原始数据</span><span class="arr" data-step="2">←</span><span data-step="2">这一篇</span><span class="arr" data-step="3">→</span><span data-step="3">引用它的文献：更新的结果</span></div>
+    </section>
+<section class="slide" data-t="0:22–0:23" data-note="lsh：比赛里没时间读全文。先看摘要判断有没有用，再直接看表和图找数，最后回到方法部分看这个数是在什么条件下测的。条件要和数一起抄下来。">
+      <div class="slide-head"><p class="eyebrow">LSH · 读论文</p><span class="clock">0:22–0:23</span></div>
+      <h1 class="display-2">读论文找数：摘要、表和图、实验条件</h1>
+      <div class="derive"><div data-step="1"><span>01</span><div class="formula-line">摘要</div><p>判断有没有要的数</p></div><div data-step="2"><span>02</span><div class="formula-line">表和图</div><p>直接找数和区间</p></div><div data-step="3"><span>03</span><div class="formula-line">方法里的实验条件</div><p>条件和数一起抄下来</p></div></div>
+    </section>
+<section class="slide" data-t="0:23–0:25" data-note="lsh：找到一个数，当场记三样：来源、数和条件、用在哪条假设。同时把 BibTeX 存进 refs.bib。Google Scholar 每条结果下面点「引用」再点 BibTeX；有 DOI 的，用下面这条命令直接取。">
+      <div class="slide-head"><p class="eyebrow">LSH · 当场记下</p><span class="clock">0:23–0:25</span></div>
+      <h1 class="display-2">找到一个数，当场记来源，存 BibTeX</h1>
+      <div class="card-fields"><div data-step="1"><b>资料卡</b>　来源、数和条件、用在哪条假设</div><div data-step="2"><b>Google Scholar</b>　结果下面点「引用」，再点 BibTeX</div></div>
+      <div class="codebox" data-step="3"><pre><code>curl -LH "Accept: application/x-bibtex" https://doi.org/10.1007/s10694-015-0477-y</code></pre></div>
+      <p class="src">示例 DOI：Hsiao 等（2016），Fire Technology 52</p>
+    </section>
+<section class="slide" data-t="0:25–0:27" data-note="lsh：来源有高下。同行评审论文和官方统计最可靠，新闻和博客只能当线索，要顺着找到原始出处。AI 的回答不能当来源引用；比赛里用了 AI，要按 COMAP 的规定附 AI 使用报告。说完交回 gh。">
+      <div class="slide-head"><p class="eyebrow">LSH · 来源与 AI</p><span class="clock">0:25–0:27</span></div>
+      <h1 class="display-2">新闻、博客和 AI 的回答只能当线索，不能当来源</h1>
+      <div class="arrows"><span>同行评审论文、官方统计</span><span class="arr">&gt;</span><span>机构报告</span><span class="arr">&gt;</span><span>新闻</span><span class="arr">&gt;</span><span>博客、AI 回答</span></div>
+      <div class="bottom-call" data-step="1">用了 AI，就按 COMAP 的规定在论文最后附 AI 使用报告。</div>
+    </section>
+<section class="slide" data-t="0:27–0:28" data-note="gh：用平台的 HiMCM 预设，不要从空白文档开始，预设已经排好页面顺序和页眉。多人同写时每人负责一个文件，主文件用 input 接起来，就不会两个人同时改一段。">
+      <div class="slide-head"><p class="eyebrow">GH · LATEX 项目</p><span class="clock">0:27–0:28</span></div>
+      <h1 class="display-2">从平台的 HiMCM 预设开始，每人写一个文件</h1>
+      <div class="codebox"><pre><code>main.tex            % 预设：摘要页、目录、顺序和页眉已排好
+sections/model.tex  % 每人负责一个文件
+sections/sensitivity.tex
+figures/            % 所有图
+refs.bib            % 所有参考文献
+
+\input{sections/model}        % 在 main.tex 里接回来</code></pre></div>
+    </section>
+<section class="slide" data-t="0:28–0:30" data-note="gh：图的写法。matplotlib 存成 PDF，放大不糊。htbp 让 LaTeX 自己找位置，图跑到下一页是正常的，正文用 ref 引用它就不怕找不到。label 写在 caption 后面。">
+      <div class="slide-head"><p class="eyebrow">GH · 图</p><span class="clock">0:28–0:30</span></div>
+      <h1 class="display-2">图：存成 PDF，caption 写发现，正文用 \ref</h1>
+      <div class="codebox"><pre><code>plt.savefig("figures/sens_c.pdf")              # Python 里存成 PDF
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/sens_c.pdf}
+  \caption{Check time drives the sweep time.}
+  \label{fig:sens}                             % 写在 caption 后面
+\end{figure}
+As Figure~\ref{fig:sens} shows, ...</code></pre></div>
+    </section>
+<section class="slide" data-t="0:30–0:32" data-note="gh：学术表格用三线表，不画竖线。导言区加 booktabs。表的 caption 写在表上方。数字列右对齐。">
+      <div class="slide-head"><p class="eyebrow">GH · 表</p><span class="clock">0:30–0:32</span></div>
+      <h1 class="display-2">表：三线表，不画竖线</h1>
+      <div class="codebox"><pre><code>\usepackage{booktabs}                 % 导言区
+\begin{table}[htbp]
+  \centering
+  \caption{Sweep time by number of responders.}
+  \label{tab:k}
+  \begin{tabular}{lrr}
+    \toprule
+    Responders & Time (s) & Saved (s) \\
+    \midrule
+    2 & 189 & -- \\
+    3 & 129 & 60 \\
+    \bottomrule
+  \end{tabular}
+\end{table}</code></pre></div>
+    </section>
+<section class="slide" data-t="0:32–0:33" data-note="gh：公式要编号才能引用，用 eqref 会自动带括号。引用文献用 cite，键名就是 refs.bib 里每条的第一个词。编译后正文出现问号，就是 label 或文献键名写错了。">
+      <div class="slide-head"><p class="eyebrow">GH · 公式与引用</p><span class="clock">0:32–0:33</span></div>
+      <h1 class="display-2">公式用 \eqref，文献用 \cite</h1>
+      <div class="codebox"><pre><code>\begin{equation}
+  T = \max_k T_k \label{eq:T}
+\end{equation}
+By \eqref{eq:T}, the sweep ends when the last responder finishes.
+The check time follows \cite{hsiao2016}.     % refs.bib 里的键名
+
+\bibliographystyle{plain}
+\bibliography{refs}</code></pre></div>
+      <div class="bottom-call" data-step="1">正文里出现 ?? ：label 或键名写错了，或者还没再编译一次。</div>
+    </section>
+<section class="slide" data-t="0:33–0:35" data-note="gh：报错先看第一条，后面的多半是第一条连带出来的。五条最常见的，每条一个原因。">
+      <div class="slide-head"><p class="eyebrow">GH · 编译报错</p><span class="clock">0:33–0:35</span></div>
+      <h1 class="display-2">编译报错先看第一条</h1>
+      <table class="sym"><thead><tr><th>报错</th><th>常见原因</th></tr></thead><tbody>
+<tr><td class="nw">Undefined control sequence</td><td>命令拼错，或忘了加宏包</td></tr>
+<tr><td class="nw">Missing $ inserted</td><td>正文里直接写了 _ 或 ^，没放进 $ $</td></tr>
+<tr><td class="nw">File not found</td><td>图的路径或文件名写错，大小写也算</td></tr>
+<tr><td class="nw">Citation undefined</td><td>键名不对，或 refs.bib 没接上</td></tr>
+<tr><td class="nw">Overfull \hbox</td><td>一行太长溢出页边，是警告，看 PDF 再决定改不改</td></tr>
+</tbody></table>
+    </section>
+<section class="slide" data-t="0:35–0:37" data-note="gh：交之前逐条查。匿名最容易漏的是 PDF 属性和图里的水印；在 PDF 阅读器里看一下文档属性。这些规定以开赛时的官方说明为准。">
+      <div class="slide-head"><p class="eyebrow">GH · 交之前</p><span class="clock">0:35–0:37</span></div>
+      <h1 class="display-2">交之前查六件事</h1>
+      <div class="card-fields"><div data-step="1"><b>页数</b>　不超过 25 页，AI 使用报告另算</div><div data-step="2"><b>第 1 页</b>　Summary Sheet</div><div data-step="3"><b>匿名</b>　正文、页眉、图、PDF 属性里没有学生、老师、学校和地区</div><div data-step="4"><b>文件</b>　一个 PDF，小于 20 MB，文件名是队号</div><div data-step="5"><b>引用</b>　正文里没有 ??，每个数都有出处</div><div data-step="6"><b>AI</b>　用了就附 AI 使用报告，放在最后</div></div>
+      <p class="src">训练营提交规范对照表（2026-09-16 核对）；以开赛时 COMAP 的说明为准</p>
+    </section>
+<section class="slide" data-t="0:37–0:38" data-note="gh：概念题，本页揭晓。B 参考文献算在 25 页里，但两页不违规；C 是正确做法；D 是规定。A 违反匿名。">
+      <div class="slide-head"><p class="eyebrow">GH · 概念题</p><span class="clock">0:37–0:38</span></div>
+      <h1 class="display-2">下面哪一项会让论文违规？</h1>
+      <div class="choices"><div class="choice" data-mark="1"><b>A</b><p>页眉里写了学校名</p><span class="ans">违反匿名</span></div><div class="choice"><b>B</b><p>参考文献占了 2 页</p></div><div class="choice"><b>C</b><p>用了 AI，最后附了报告</p></div><div class="choice"><b>D</b><p>摘要页放在第 1 页</p></div></div>
+    </section>
+<section class="slide" data-t="0:38–0:39" data-note="gh：先念左列，停几秒，再逐条按出。">
+      <div class="slide-head"><p class="eyebrow">GH · 回顾</p><span class="clock">0:38–0:39</span></div>
+      <h1 class="display-2">回顾：先想，再看答案</h1>
+      <dl class="recap"><dt>摘要页</dt><dd data-step="1">问题、方法、带数字的结果、建议；最后写</dd><dt>第一句</dt><dd data-step="2">每节、每张图注都先写结论</dd><dt>找到一个数</dt><dd data-step="3">当场记来源和条件，存 BibTeX</dd><dt>交之前</dt><dd data-step="4">25 页、匿名、队号命名、没有 ??</dd></dl>
+    </section>
+<section class="slide" data-t="0:39–0:40" data-note="gh：本周唯一产出，25 到 30 分钟，周末小课检查。这份骨架就是比赛时的起点。HiMCM 11 月 4 日开赛，以 COMAP 官网为准。">
+      <div class="slide-head"><p class="eyebrow">GH · 本周产出</p><span class="clock">0:39–0:40</span></div>
+      <h1 class="display-2">本周产出：在预设里搭好论文骨架，编译通过</h1>
+      <div class="card-fields"><div><b>做什么</b>　按今天的页数分配建好各节标题，每人一个 sections 文件</div><div><b>要有</b>　refs.bib 里至少 3 条带出处的文献；一张图注写成结论的图，被 \ref 引用；一个被 \eqref 引用的公式</div><div><b>用时</b>　25—30 分钟，周末小课检查</div></div>
+      <div class="bottom-call">HiMCM 2026：11 月 4 日至 17 日。</div>
+      <p class="src">比赛日期：contest.comap.com/highschool/contests/himcm（2026-10-26 查）</p>
+    </section>
+</main>
+<div class="note" id="note" role="note"><b>讲者</b><span id="note-text"></span></div>
+<nav class="dock" aria-label="翻页"><button id="prev">←</button><div class="bar"><i id="bar"></i></div><span class="count" id="count">1 / 1</span><button id="next">→</button></nav>
+<div class="help" id="help" hidden><div class="help-card"><h2>键位</h2><dl><dt><kbd>→</kbd> <kbd>Space</kbd> <kbd>J</kbd></dt><dd>下一步；本页的步骤走完后翻到下一页</dd><dt><kbd>←</kbd> <kbd>K</kbd></dt><dd>上一步 / 上一页</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>首 / 末页</dd><dt><kbd>F</kbd></dt><dd>全屏</dd><dt><kbd>L</kbd></dt><dd>黑板 / 亮场</dd><dt><kbd>N</kbd></dt><dd>讲者提示</dd><dt><kbd>I</kbd></dt><dd>目录跳转</dd><dt><kbd>?</kbd></dt><dd>帮助</dd></dl><p class="caption" style="margin-top:.9rem">页码后面的 1/2 表示本页有两步、已经走到第一步。</p></div></div>
+<div class="index" id="index" hidden><div class="index-card"><h2>目录</h2><ol class="index-list" id="index-list"></ol></div></div>
+<script>
+(function(){
+ const slides=Array.from(document.querySelectorAll('.slide')); const countEl=document.getElementById('count'); const bar=document.getElementById('bar'); const noteEl=document.getElementById('note'); const noteText=document.getElementById('note-text'); const help=document.getElementById('help'); const indexPane=document.getElementById('index'); const indexList=document.getElementById('index-list'); let i=0,step=0,notesOn=false;
+ const ATTRS=['step','mark','strike'];
+ function stepsOf(s){let m=0;s.querySelectorAll('[data-step],[data-mark],[data-strike]').forEach(el=>ATTRS.forEach(a=>{if(el.dataset[a])m=Math.max(m,Number(el.dataset[a]))}));return m}
+ function applySteps(){const s=slides[i],n=stepsOf(s);s.querySelectorAll('[data-step]').forEach(el=>el.classList.toggle('is-shown',step>=Number(el.dataset.step)));s.querySelectorAll('[data-mark]').forEach(el=>el.classList.toggle('is-marked',step>=Number(el.dataset.mark)));s.querySelectorAll('[data-strike]').forEach(el=>el.classList.toggle('is-struck',step>=Number(el.dataset.strike)));countEl.textContent=(i+1)+' / '+slides.length+(n?'　'+step+'/'+n:'');document.getElementById('prev').disabled=i===0&&step===0;document.getElementById('next').disabled=i===slides.length-1&&step>=n}
+ function titleOf(s){const h=s.querySelector('h1,h2,.display-2,.eyebrow');const t=s.dataset.t||'';const text=((h&&h.textContent)||'未命名').replace(/\s+/g,' ').trim().slice(0,40);return (t?t+' · ':'')+text}
+ indexList.innerHTML=slides.map((s,idx)=>"<li><button type='button' data-i='"+idx+"'>"+String(idx+1).padStart(2,'0')+'　'+titleOf(s)+"</button></li>").join('');
+ function show(n,st){i=Math.max(0,Math.min(slides.length-1,n));step=st==='end'?stepsOf(slides[i]):(st||0);slides.forEach((s,idx)=>s.classList.toggle('is-on',idx===i));bar.style.width=((i+1)/slides.length*100)+'%';noteText.textContent=slides[i].dataset.note||'';indexList.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',Number(b.dataset.i)===i?'true':'false'));location.hash=String(i+1);applySteps()}
+ const next=()=>{if(step<stepsOf(slides[i])){step++;applySteps()}else if(i<slides.length-1)show(i+1,0)},prev=()=>{if(step>0){step--;applySteps()}else if(i>0)show(i-1,'end')};
+ function close(){help.classList.remove('is-on');help.hidden=true;indexPane.classList.remove('is-on');indexPane.hidden=true} function toggleHelp(){const on=!help.classList.contains('is-on');close();help.classList.toggle('is-on',on);help.hidden=!on} function toggleIndex(){const on=!indexPane.classList.contains('is-on');close();indexPane.classList.toggle('is-on',on);indexPane.hidden=!on}
+ document.getElementById('next').onclick=next; document.getElementById('prev').onclick=prev; document.getElementById('zone-next').onclick=()=>{if(!help.classList.contains('is-on')&&!indexPane.classList.contains('is-on'))next()};document.getElementById('zone-prev').onclick=()=>{if(!help.classList.contains('is-on')&&!indexPane.classList.contains('is-on'))prev()}; indexList.onclick=e=>{const b=e.target.closest('button');if(b){show(Number(b.dataset.i),0);close()}};help.onclick=e=>{if(e.target===help)close()};indexPane.onclick=e=>{if(e.target===indexPane)close()};
+ document.addEventListener('keydown',e=>{if(e.key==='?'||(e.shiftKey&&e.key==='/')){e.preventDefault();toggleHelp();return}if(e.key==='Escape'){close();return}if(help.classList.contains('is-on')||indexPane.classList.contains('is-on')){if(e.key==='i'||e.key==='I')toggleIndex();return}if(['ArrowRight',' ','j','J','PageDown'].includes(e.key)){e.preventDefault();next()}else if(['ArrowLeft','k','K','Backspace','PageUp'].includes(e.key)){e.preventDefault();prev()}else if(e.key==='Home'){e.preventDefault();show(0,0)}else if(e.key==='End'){e.preventDefault();show(slides.length-1,'end')}else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}else if(e.key==='l'||e.key==='L'){const nt=document.documentElement.getAttribute('data-theme')==='paper'?null:'paper';if(nt)document.documentElement.setAttribute('data-theme','paper');else document.documentElement.removeAttribute('data-theme')}else if(e.key==='n'||e.key==='N'){notesOn=!notesOn;noteEl.classList.toggle('is-on',notesOn)}else if(e.key==='i'||e.key==='I'){toggleIndex()}});
+ let start=Number(location.hash.replace('#',''))-1;if(!Number.isFinite(start)||start<0)start=0;show(start,0);document.getElementById('deck').focus();
+})();
+</script></body></html>
